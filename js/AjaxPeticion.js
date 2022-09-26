@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    
-
     displayData(); //DESPLIEGA LA FUNCIÓN
 
     buscadorLaboratorioSoporte();
@@ -48,19 +46,9 @@ function agregar() {
     let estatusAdd = $('#estatusAdd').val();
     let desarrolladorAdd = $('#desarrolladorAdd').val();
 
-    // console.log('Asunto: ' + asuntoAdd);
-    // console.log('Laboratorio: ' + laboratorioAdd);
-    // console.log('Soporte: ' + soporteAdd);
-    // console.log('Descripcion: ' + descripcionAdd);
-    // console.log('fechaEntrega: ' + fechaEntregaEstimadaAdd);
-    // console.log('fechaCompletado: ' + fechaCompletadoAdd);
-    // console.log('nivel: ' + nivelAdd);
-    // console.log('estatus: ' + estatusAdd);
-    // console.log('desarrollador: ' + desarrolladorAdd);
-
     if (
-        asuntoAdd.length === '0' ||
-        descripcionAdd.length === '0' ||
+        asuntoAdd.length === 0 ||
+        descripcionAdd.length === 0 ||
         laboratorioAdd === '0' ||
         soporteAdd === '0' ||
         laboratorioAdd === null ||
@@ -117,6 +105,7 @@ function agregar() {
 
 }
 
+
 //OBTIENE LA INFORMACIÓN PARA COLOCARLA EN EL MODAL
 function getInfo(id) {
 
@@ -161,16 +150,13 @@ function actualizarGetInfo(id) {
         let peticion = JSON.parse(data);
 
         $('#asuntoUpdate').val(peticion.ASUNTO);
-        $('#laboratorioUpdate').val(peticion.NOMLAB);
         $('#fecha_llegadaUpdate').val(peticion.FECHA_LLEGADA);
         $('#fecha_entregaUpdate').val(peticion.FECHA_ENTREGA_ESTIMADA);
         $('#fecha_completadoUpdate').val(peticion.FECHA_COMPLETADO);
-        $('#soporteUpdate').val(peticion.NOMSOP);
-
-        // $('#desarrolladorUpdate').val(peticion.NOMDES);
-        // $('#nivelUpdate').val(peticion.NOMNIVEL);
-        // $('#estatusUpdate').val(peticion.NOMESTATUS);
         $('#descripcionUpdate').val(peticion.DESCRIPCION);
+
+       
+        
     });
 
     $('#modalEditar').modal("show");
@@ -189,20 +175,12 @@ function actualizar() {
     let estatusActualizar = $('#estatusUpdate').val();
     let descripcionActualizar = $('#descripcionUpdate').val();
 
-    console.log(idHidden);
-    console.log(asuntoActualizar);
-    console.log(laboratorioActualizar);
-    console.log(fechaEntregaActualizar);
-    console.log(desarrolladorActualizar);
-    console.log(nivelActualizar);
-    console.log(estatusActualizar);
-    console.log(descripcionActualizar);
-
     $.post("app/peticion.php", {
 
         actualizarDataSend: actualizarData,
         idHiddenSend: idHidden,
         asuntoActualizarSend: asuntoActualizar,
+        laboratorioActualizarSend: laboratorioActualizar,
         fechaEntregaActualizarSend: fechaEntregaActualizar,
         desarrolladorActualizarSend: desarrolladorActualizar,
         nivelActualizarSend: nivelActualizar,
@@ -249,7 +227,7 @@ function eliminar(id) {
             })
                 .then((willDelete) => {
                     if (willDelete) {
-                        swal("Petición eliminada!", {
+                        swal("Petición Eliminada", {
                             icon: "success",
 
                         });
@@ -266,7 +244,7 @@ function eliminar(id) {
     });
 }
 
-//BUSCADORES PARA SOPORTE Y LABORATORIOS
+//BUSCADORES PARA LOS SELECT2
 function buscadorLaboratorioSoporte() {
     let boleanoLaboratorio = true;
     $("#laboratorioAdd").select2({

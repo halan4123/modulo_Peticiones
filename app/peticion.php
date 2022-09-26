@@ -5,7 +5,6 @@ include 'connectionController.php';
 $conn = connect();
 
 //MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
-
 if (isset($_POST['displayDataSend'])) {
 
     $table = '
@@ -44,9 +43,16 @@ if (isset($_POST['displayDataSend'])) {
     INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
     INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
     INNER JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE"; //     CREAMOS LA CONSULTA
+    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE 
+    ORDER BY e.ESTATUS = 'Pendiente' DESC,
+    p.FECHA_LLEGADA DESC,
+    e.ESTATUS = 'Desarrollo' DESC,
+    e.ESTATUS = 'Completado' DESC,
+    e.ESTATUS = 'Rechazado' DESC";
 
     $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+
+    $CONT = 1; //SE ESTABLECE UN CONTADOR PARA COLOCARLO EN LA COLUMNA #
 
     while ($row = mysqli_fetch_assoc($result)) {
 
@@ -149,7 +155,7 @@ if (isset($_POST['displayDataSend'])) {
         //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD
         $table .= '
             <tr>
-                <td>' . $ID_PETICION . '</td>
+                <td>' . $CONT . '</td>
                 <td>' . $ID_ESTATUS . '</td>
                 <td>' . $ID_NIVEL . '</td>
                 <td>' . $ASUNTO . '</td>
@@ -165,15 +171,15 @@ if (isset($_POST['displayDataSend'])) {
     
                 <td>
                 <div class="re">
-                    <button class="btn btn-warning bwh" onclick="getInfo(' . $ID_PETICION . ')">
+                    <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
                     <span class="fa fa-eye"></span>
                     </button>
 
-                    <button class="btn btn-info bwh" onclick="actualizarGetInfo(' . $ID_PETICION . ')">
+                    <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ')">
                     <span class="fa fa-pencil"></span>
                     </button>
 
-                    <button class="btn btn-danger bwh" onclick="eliminar(' . $ID_PETICION . ')">
+                    <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
                     <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </div>
@@ -182,6 +188,8 @@ if (isset($_POST['displayDataSend'])) {
                 </td>
             </tr>
             ';
+
+        $CONT += 1;
     }
 
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
@@ -295,18 +303,31 @@ if (isset($_POST['actualizarDataSend'])) {
         $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     }
 
+    if ($ID_ESTATUS == 2) {
 
+        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
+        `ID_LABORATORIO` = '$ID_LABORATORIO',
+        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
+        `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
+        `ID_NIVEL` = '$ID_NIVEL',
+        `ID_ESTATUS` = '$ID_ESTATUS',
+        `DESCRIPCION` = '$DESCRIPCION',
+        `FECHA_COMPLETADO` = current_timestamp()
+        WHERE `ID_PETICION` = $ID_PETICION";
 
-    $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
-    `ID_LABORATORIO` = '$ID_LABORATORIO',
-    `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
-    `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
-    `ID_NIVEL` = '$ID_NIVEL',
-    `ID_ESTATUS` = '$ID_ESTATUS',
-    `DESCRIPCION` = '$DESCRIPCION'
-     WHERE `ID_PETICION` = $ID_PETICION";
+        $result = mysqli_query($conn, $sql);
+    } else {
+        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
+        `ID_LABORATORIO` = '$ID_LABORATORIO',
+        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
+        `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
+        `ID_NIVEL` = '$ID_NIVEL',
+        `ID_ESTATUS` = '$ID_ESTATUS',
+        `DESCRIPCION` = '$DESCRIPCION'
+        WHERE `ID_PETICION` = $ID_PETICION";
 
-    $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, $sql);
+    }
 }
 
 //GETINFO DE PETICIÓN

@@ -43,6 +43,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     <!--CDN DATATABLE-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
 
+    <!--CDN SELECT2-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
@@ -50,7 +51,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
 <body>
 
     <!--========================
-        MODAL AGREGAR
+    MODAL AGREGAR PETICION
     ========================-->
     <div id="modalAgregar" class="modal fade" role="dialog" data-backdrop="static">
         <div class="modal-dialog">
@@ -114,8 +115,8 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     </div>
 
     <!--========================
-        MODAL INFORMACIÓN
-        ========================-->
+    MODAL INFORMACIÓN PETICION
+    ========================-->
     <div id="modalVer" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -179,7 +180,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
 
                     <div class="form-group">
                         <label for="descripcionSee">Descripción:</label>
-                        <textarea class="form-control" rows="5" id="descripcionSee"  disabled></textarea>
+                        <textarea class="form-control" rows="5" id="descripcionSee" disabled></textarea>
                     </div>
 
                 </div>
@@ -193,9 +194,9 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     </div>
 
     <!--========================
-        MODAL EDITAR
-        ========================-->
-        <div id="modalEditar" class="modal fade" role="dialog">
+    MODAL EDITAR PETICION
+    ========================-->
+    <div id="modalEditar" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -227,7 +228,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
 
                     <div class="form-group">
                         <label for="fecha_entregaUpdate">Fecha de entrega:</label>
-                        <input type="datetime-local" class="form-control" id="fecha_entregaUpdate" >
+                        <input type="datetime-local" class="form-control" id="fecha_entregaUpdate">
                     </div>
 
                     <!-- <div class="form-group">
@@ -239,7 +240,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
                         <label for="soporteUpdate">Soporte:</label>
                         <input type="text" class="form-control" id="soporteUpdate" disabled>
                     </div> -->
-                    
+
                     <div class="form-group">
                         <label for="desarrolladorUpdate">Desarrollador:</label>
                         <select class="form-control" id="desarrolladorUpdate" style="width: 100%;">
@@ -273,7 +274,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
 
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizar()">Actualizar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizar()">Actualizar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     <input type="hidden" id="idHidden">
                 </div>
@@ -282,84 +283,233 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
         </div>
     </div>
 
+    <!--========================
+    MODAL AGREGAR DESARROLLADOR
+    ========================-->
+    <div id="modalAgregarDesarrollador" class="modal fade" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-color">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Desarrollador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="nombreDesarrolladorAdd">Nombre(s):</label>
+                        <input type="text" class="form-control" id="nombreDesarrolladorAdd" placeholder="Nombre(s)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoDesarrolladorAdd">Apellido(s):</label>
+                        <input type="text" class="form-control" id="apellidoDesarrolladorAdd" placeholder="Nombre(s)">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarDesarrollador()">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--========================
+    MODAL INFO DESARROLLADOR
+    ========================-->
+    <div id="modalInfoDesarrollador" class="modal fade" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-color">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Consultar Desarrollador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="idDesarrolladorSee">id:</label>
+                        <input type="text" class="form-control" id="idDesarrolladorSee" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombreDesarrolladorSee">Nombre(s):</label>
+                        <input type="text" class="form-control" id="nombreDesarrolladorSee" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoDesarrolladorSee">Apellido(s):</label>
+                        <input type="text" class="form-control" id="apellidoDesarrolladorSee" disabled>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarDesarrollador()">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="container">
 
-        <!--========================
-        TITULO
-        ========================-->
-        <div class="row">
+        <div class="container">
+            <h2>Módulo Peticiones</h2>
 
-            <div class="col-md-12 ">
-                <h3 style="font-weight: bold;">Peticiones Recibidas</h3>
-            </div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Peticiones</a></li>
+                <li><a data-toggle="tab" href="#menu1">Desarrolladores</a></li>
+                <li><a data-toggle="tab" href="#menu2">Soporte</a></li>
+                <li><a data-toggle="tab" href="#menu3">Laboratorio</a></li>
+            </ul>
 
-        </div>
+            <div class="tab-content">
 
-        <!--========================
-        ICONOS DE REFERENCIA
-        ========================-->
-        <div class="row">
+                <div id="home" class="tab-pane fade in active">
+                    <!-- <h3>Peticiones</h3> -->
 
-            <div class="col-md-12">
+                    <div>
+                        <!--========================
+                        TITULO
+                        ========================-->
+                        <!-- <div class="row">
 
-                <label class="referencia">
-                    <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>Completado
-                </label>
+                            <div class="col-md-12 ">
+                                <h3 style="font-weight: bold;">Peticiones Recibidas</h3>
+                            </div>
 
-                <label class="referencia">
-                    <i style="color: #2995B8;" class="fa fa-desktop" aria-hidden="true"></i>Desarrollo
-                </label>
+                        </div> -->
 
-                <label class="referencia">
-                    <i style="color: orange;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>Pendientes
-                </label>
+                        <!--========================
+                        BOTÓN AGREGAR PETICIÓN
+                        ========================-->
+                        <div class="row">
 
-                <label class="referencia">
-                    <i style="color: red;" class="fa fa-times-circle" aria-hidden="true"></i>Rechazado
-                </label>
+                            <div class="col-md-12">
 
-            </div>
-        </div>
+                                <div>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar" style="margin-bottom: 5px; margin-top: 5px;">
+                                        Agregar
+                                    </button>
+                                </div>
 
-        <!--========================
-        BOTÓN AGREGAR
-        ========================-->
-        <div class="row">
+                            </div>
 
-            <div class="col-md-12">
+                        </div>
 
-                <div>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar" style="margin-bottom: 5px;">
-                        Nueva Petición
-                    </button>
+                        <!--========================
+                        ICONOS DE REFERENCIA
+                        ========================-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <label class="referencia">
+                                    <i style="color: green;" class="fa fa-check-circle" aria-hidden="true"></i>Completado
+                                </label>
+
+                                <label class="referencia">
+                                    <i style="color: #2995B8;" class="fa fa-desktop" aria-hidden="true"></i>Desarrollo
+                                </label>
+
+                                <label class="referencia">
+                                    <i style="color: orange;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>Pendiente
+                                </label>
+
+                                <label class="referencia">
+                                    <i style="color: red;" class="fa fa-times-circle" aria-hidden="true"></i>Rechazado
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!--========================
+                        TABLA
+                        ========================-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <!-- AQUI SE GENERA LA TABLA -->
+                                <div id="displayDataTable">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div id="menu1" class="tab-pane fade">
+                    <!-- <h3>Desarrolladores</h3> -->
+
+                    <div>
+
+                        <!--========================
+                        BOTÓN AGREGAR DESARROLLADOR
+                        ========================-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarDesarrollador" style="margin-bottom: 5px; margin-top: 5px;">
+                                        Agregar
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--========================
+                        TABLA DESARROLLADORES
+                        ========================-->
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <!-- AQUI SE GENERA LA TABLA -->
+                                <div id="displayDataTableDesarrollador">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Menu 2</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+
+                <div id="menu3" class="tab-pane fade">
+                    <h3>Menu 3</h3>
+                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                 </div>
 
             </div>
-
         </div>
 
-        <!--========================
-        TABLA
-        ========================-->
-        <div class="row">
 
-            <div class="col-md-12">
 
-                <!-- AQUI SE GENERA LA TABLA -->
-                <div id="displayDataTable">
 
-                </div>
-
-            </div>
-        </div>
 
     </div>
 
 
     <!--CDN jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
 
     <!-- CDN BOOTSTRAP 3.4.1 Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -373,11 +523,13 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <!-- CDN SELECT2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>
+
+    <script src="js/AjaxDesarrollador.js"></script>
 
 
 
