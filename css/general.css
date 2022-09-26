@@ -1,0 +1,61 @@
+body {
+    font-size: 12px;
+}
+
+/*=================
+ESTILOS MODALES PARTE DE ARRIBA
+=================*/
+.modal-color {
+    background-color: #FF5757;
+    color: white;
+}
+
+/* =================
+ESTILOS Tabla
+================= */
+table th {
+    background-color: #FF5757;
+    color: white;
+}
+
+/* =================
+CONTENEDOR DATATABLE SCROLL X
+================= */
+#displayDataTable {
+    overflow: auto;
+}
+
+/*=================
+ESTILOS ICONOS SIMBOLOGIA
+=================*/
+.referencia {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    /* font-size: 1.25em; */
+    margin: 4px;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.referencia i {
+    margin-right: 4px;
+}
+
+/*=================
+ESTILOS FORMULARIO VER INFORMACIÓN
+=================*/
+textarea {
+    resize: none;
+}
+
+.re {
+    width: 100%;
+    display: flex;
+}
+
+.bwh {
+    width: 25%;
+    height: 25%;
+     margin: 3px;
+}
