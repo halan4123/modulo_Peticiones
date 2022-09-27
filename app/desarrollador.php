@@ -57,7 +57,7 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
             </tr>
             ';
 
-            $CONT +=1;
+        $CONT += 1;
     }
 
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
@@ -98,7 +98,7 @@ if (isset($_POST['eliminarDesarrolladorSend'])) {
 }
 
 //GET INFO DESARROLLADOR 
-if (isset($_POST['getInfoDesarrolladorSend'])) {
+if (isset($_POST['getInfoDesarrolladorSend']) || isset($_POST['getInfoUpdateDesarrolladorSend'])) {
 
     if (isset($_POST['idSend'])) {
 
@@ -116,6 +116,19 @@ if (isset($_POST['getInfoDesarrolladorSend'])) {
         }
 
         echo json_encode($response);
-
     }
+}
+
+//ACTUALIZAR DESARROLLADOR 
+if (isset($_POST['actualizarDesarrolladorSend'])) {
+
+    $ID_DESARROLLADOR = $_POST['idHiddenSend'];
+    $NOMBRE = $_POST['nombreActualizarSend'];
+    $APELLIDOS = $_POST['apellidoActualizarSend'];
+
+    $sql = "UPDATE `desarrollador` SET `NOMBRE` = '$NOMBRE',
+    `APELLIDOS` = '$APELLIDOS'
+    WHERE `ID_DESARROLLADOR` = $ID_DESARROLLADOR";
+
+    $result = mysqli_query($conn, $sql);
 }

@@ -38,7 +38,6 @@ function agregarDesarrollador() {
     let nombreDesarrolladorAdd = $('#nombreDesarrolladorAdd').val();
     let apellidoDesarrolladorAdd = $('#apellidoDesarrolladorAdd').val();
 
-    console.log(nombreDesarrolladorAdd.length);
 
     if (
         nombreDesarrolladorAdd.length === 0 || apellidoDesarrolladorAdd.length === 0
@@ -75,6 +74,7 @@ function agregarDesarrollador() {
                     button: "Cerrar",
                 });
 
+                limpiarInput();
                 displayDataDesarrollador();
 
             }
@@ -146,4 +146,60 @@ function getInfoDesarrollador(id) {
 
     $('#modalInfoDesarrollador').modal("show");
     
+}
+
+function actualizarGetInfoDesarrollador(id) {
+
+    let getInfoUpdateDesarrollador = true;
+
+    $.post("app/desarrollador.php", {
+        getInfoUpdateDesarrolladorSend: getInfoUpdateDesarrollador,
+        idSend: id
+    }, function (data, status) {
+
+        let desarrollador = JSON.parse(data);
+
+        $('#idHiddenDesarrollador').val(desarrollador.ID_DESARROLLADOR);
+        $('#nombreDesarrolladorUpdate').val(desarrollador.NOMBRE);
+        $('#apellidoDesarrolladorUpdate').val(desarrollador.APELLIDOS);
+    });
+
+    $('#modalEditarDesarrollador').modal("show");
+    
+}
+
+function actualizarDesarrollador() {
+    
+    let actualizarDesarrollador = true;
+
+    let idHidden = $('#idHiddenDesarrollador').val();
+    let nombreActualizar = $('#nombreDesarrolladorUpdate').val();
+    let apellidoActualizar = $('#apellidoDesarrolladorUpdate').val();
+
+    $.post("app/desarrollador.php", {
+
+        nombreActualizarSend: nombreActualizar,
+        idHiddenSend: idHidden,
+        apellidoActualizarSend: apellidoActualizar,
+        actualizarDesarrolladorSend: actualizarDesarrollador
+        
+    }, function (data, status) {
+
+        //SWEET ALERT
+        swal({
+            title: "Desarrollador Actualizado",
+            icon: "success",
+            button: "Cerrar",
+        });
+
+        displayDataDesarrollador();
+
+    });
+
+}
+
+
+function limpiarInput() {
+    $('#nombreDesarrolladorAdd').val('');
+    $('#apellidoDesarrolladorAdd').val('');
 }

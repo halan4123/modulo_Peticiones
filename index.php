@@ -348,7 +348,44 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarDesarrollador()">Agregar</button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--========================
+    MODAL ACTUALIZAR DESARROLLADOR
+    ========================-->
+    <div id="modalEditarDesarrollador" class="modal fade" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-color">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Consultar Desarrollador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="nombreDesarrolladorUpdate">Nombre(s):</label>
+                        <input type="text" class="form-control" id="nombreDesarrolladorUpdate" placeholder="Nombre(s)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoDesarrolladorUpdate">Apellido(s):</label>
+                        <input type="text" class="form-control" id="apellidoDesarrolladorUpdate" placeholder="Apellido(s)">
+                    </div>
+
+                </div>
+
+                <input type="hidden" id="idHiddenDesarrollador">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizarDesarrollador()">Actualizar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -365,7 +402,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
                 <li class="active"><a data-toggle="tab" href="#home">Peticiones</a></li>
                 <li><a data-toggle="tab" href="#menu1">Desarrolladores</a></li>
                 <li><a data-toggle="tab" href="#menu2">Soporte</a></li>
-                <li><a data-toggle="tab" href="#menu3">Laboratorio</a></li>
+
             </ul>
 
             <div class="tab-content">
@@ -493,10 +530,7 @@ $ID_ESTATUS = $result->fetch_array()[0] ?? '';
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 </div>
 
-                <div id="menu3" class="tab-pane fade">
-                    <h3>Menu 3</h3>
-                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                </div>
+           
 
             </div>
         </div>
