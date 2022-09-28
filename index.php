@@ -3,26 +3,9 @@ include 'app/connectionController.php';
 
 $conn = connect();
 
-//CONSULTA PARA OBTENER EL ID DEL NIVEL REQUERIDO QUE SEA EL POR DEFECTO
-$query = "SELECT ID_NIVEL FROM nivel WHERE NIVEL = 'Sin Definir'";
+include 'valoresPredeterminados.php';
 
-$result = $conn->query($query);  // or mysqli_query($con, $tourquery);
-
-$ID_NIVEL = $result->fetch_array()[0] ?? ''; //OR $tourresult = $result->fetch_array()['roomprice'] ?? '';
-
-//CONSULTA PARA OBTENER EL ID DEL DESARROLLADOR REQUERIDO QUE SEA EL POR DEFECTO
-// $query = "SELECT ID_DESARROLLADOR FROM desarrollador WHERE NOMBRE = 'Sin Definir'";
-
-// $result = $conn->query($query);
-
-// $ID_DESARROLLADOR = $result->fetch_array()[0] ?? '';
-
-//CONSULTA PARA OBTENER EL ID DEL ESTATUS REQUERIDO QUE SEA EL POR DEFECTO
-$query = "SELECT ID_ESTATUS FROM estatus WHERE ESTATUS = 'pendiente'";
-
-$result = $conn->query($query);
-
-$ID_ESTATUS = $result->fetch_array()[0] ?? '';
+include 'filtros.php';
 
 ?>
 <!DOCTYPE html>

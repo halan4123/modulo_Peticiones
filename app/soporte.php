@@ -77,3 +77,73 @@ if (isset($_POST['displayDataSoporteSend'])) {
     echo $table;
 
 }
+
+//AGREGAR SOPORTE
+if (isset($_POST['insertSoporteSend'])) {
+
+    extract($_POST); //NOS DEVUELVE UN ARREGLO
+
+    if (
+        isset($_POST['nombreSoporteAddSend']) &&
+        isset($_POST['apellidoSoporteAddSend']) &&
+        isset($_POST['numeroSoperteAddSend']) && 
+        isset($_POST['correoSoporteAddSend']) 
+    ) {
+        //CREAMOS LA CONSULTA
+        $sql = "INSERT INTO `soporte` 
+        (`NOMBRE`, `APELLIDOS`, `NUM_CELULAR`, `CORREO`) VALUES 
+        ('$nombreSoporteAddSend', '$apellidoSoporteAddSend', '$numeroSoperteAddSend', '$correoSoporteAddSend')";
+
+        //EJECUTAMOS LA CONSULTA
+        $result = mysqli_query($conn, $sql);
+    }
+}
+
+//DELETE SOPORTE
+if (isset($_POST['eliminarSoporteSend'])) {
+
+    $id = $_POST['deleteSend'];
+
+    $sql = "DELETE FROM `soporte` WHERE ID_SOPORTE = $id";
+    $result = mysqli_query($conn, $sql);
+}
+
+//GET INFO SOPORTE 
+if (isset($_POST['getInfoSoporteSend']) || isset($_POST['getInfoUpdateSoporteSend'])) {
+
+    if (isset($_POST['idSend'])) {
+
+        $id = $_POST['idSend'];
+
+        $sql = "SELECT * FROM `soporte` WHERE ID_SOPORTE = $id";
+
+        $result = mysqli_query($conn, $sql);
+
+        $response = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $response = $row;
+        }
+
+        echo json_encode($response);
+    }
+}
+
+//ACTUALIZAR SOPORTE
+if (isset($_POST['actualizarSoporteSend'])) {
+
+    $ID_SOPORTE = $_POST['idHiddenSend'];
+    $NOMBRE = $_POST['nombreActualizarSend'];
+    $APELLIDOS = $_POST['apellidoActualizarSend'];
+    $NUM_CELULAR = $_POST['numeroActualizarSend'];
+    $CORREO = $_POST['correoActualizarSend'];
+
+    $sql = "UPDATE `soporte` SET `NOMBRE` = '$NOMBRE',
+    `APELLIDOS` = '$APELLIDOS',
+    `NUM_CELULAR` = '$NUM_CELULAR',
+    `CORREO` = '$CORREO'
+    WHERE `ID_SOPORTE` = $ID_SOPORTE";
+
+    $result = mysqli_query($conn, $sql);
+}

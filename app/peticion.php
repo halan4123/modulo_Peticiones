@@ -4,6 +4,7 @@ include 'connectionController.php';
 
 $conn = connect();
 
+
 //MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
 if (isset($_POST['displayDataSend'])) {
 
@@ -33,10 +34,12 @@ if (isset($_POST['displayDataSend'])) {
 
     $sql = "SELECT p.*,
     l.nombre AS NOMLAB,
-    l.paquete AS PAQUETE, 
+    l.paquete AS PAQUETE,
+    n.ID_NIVEL AS N_ID, 
     n.nivel AS NOMNIVEL,
     n.icono AS NIVEL_ICONO,
     n.color_icono AS NIVEL_COLOR,
+    e.ID_ESTATUS AS E_ID,
     e.estatus AS NOMESTATUS,
     e.icono AS ESTATUS_ICONO,
     e.color_icono AS ESTATUS_COLOR, 
@@ -47,8 +50,46 @@ if (isset($_POST['displayDataSend'])) {
     INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
     INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
     LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE 
-    ORDER BY e.ESTATUS = 'Pendiente' DESC,
+    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE 1";
+
+    if (isset($_POST['filtroEstatusSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend'])) {
+
+        if (isset($_POST['filtroNivelSend'])) {
+
+            $nivel = $_POST['filtroNivelSend'];
+
+            if ($nivel !== 'todo') {
+
+                $sql .= " and n.ID_NIVEL = '$nivel'"; //DEPENDIENDO EL FILTRO CONCATENAMOS A LA CONSULTA ORIGINAL 
+
+            }
+        }
+    
+
+        if (isset($_POST['filtroEstatusSend'])) {
+
+            $statusRe = $_POST['filtroEstatusSend'];
+
+            if ($statusRe !== 'todo') {
+
+                $sql .= " and e.ID_ESTATUS = '$statusRe'"; //DEPENDIENDO EL FILTRO CONCATENAMOS A LA CONSULTA ORIGINAL
+
+            }
+        }
+
+        if (isset($_POST['filtroFechaInicioSend']) && isset($_POST['filtroFechaFinalSend'])) {
+            $fechaInicio = $_POST['filtroFechaInicioSend'];
+            $fechaFinal = $_POST['filtroFechaFinalSend'];
+            $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
+            $newDate_2 = date("Y-m-d", strtotime($fechaFinal));
+            if ($fechaInicio !== '' && $fechaFinal !== '') {
+                $sql .= " and FECHA_LLEGADA BETWEEN '$newDate_1' and '$newDate_2'";
+            }
+        }
+       
+    }
+
+    $sql .= " ORDER BY e.ESTATUS = 'Pendiente' DESC,
     p.FECHA_LLEGADA DESC,
     e.ESTATUS = 'Desarrollo' DESC,
     e.ESTATUS = 'Completado' DESC,
@@ -96,8 +137,10 @@ if (isset($_POST['displayDataSend'])) {
         }
 
         if ($FECHA_ENTREGA_ESTIMADA_COPY == '0000-00-00 00:00:00') {
+
             $tiempo = 'Sin Definir';
         } else {
+
             $fechaActual = date('y-m-d'); //SE OBTIENE, CREA LA FECHA ACTUAL
             $datetime1 = date_create($fechaActual); //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
             $datetime2 = date_create($FECHA_ENTREGA_ESTIMADA); //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
@@ -106,20 +149,26 @@ if (isset($_POST['displayDataSend'])) {
         }
 
         if ($FECHA_ENTREGA_ESTIMADA == '30-11--0001') {
+
             $FECHA_ENTREGA_ESTIMADA = 'Sin Definir';
         }
 
-        //DEPENDIENDO EL STATUS SE LE ASIGANARA UN ICONO
-        $ID_ESTATUS = '<span style="color:' . $ESTATUS_COLOR . ';" class="tam ' . $ESTATUS_ICONO . '" aria-hidden="true"></span>
-        <label hidden>' . $ID_ESTATUS . '</label>';
+        //El tiempo restante cambia a completado, deja de aparecer sin definir o +5 -8 dias
+        if ($ID_ESTATUS == 'Completado') {
+            $tiempo = 'Completado';
+        }
 
-        $ID_NIVEL = '<span style="color:' . $NIVEL_COLOR . ';" class="tam ' . $NIVEL_ICONO . '" aria-hidden="true"></span>
-        <label hidden>' . $ID_ESTATUS . '</label>';
-
-
+        //EL DESAROLLADOR PUEDE SER NULL POR EL LEFT JOIN
         if ($ID_DESARROLLADOR == NULL) {
             $ID_DESARROLLADOR = 'Sin Definir';
         }
+
+        //DEPENDIENDO EL STATUS Y DEL NIVEL DE LA DB SE LE ASIGANARA UN ICONO Y UN COLOR
+        $ID_ESTATUS = '<span style="color:' . $ESTATUS_COLOR . ';" class="tam ' . $ESTATUS_ICONO . '" aria-hidden="true"></span>
+         <label hidden>' . $ID_ESTATUS . '</label>';
+
+        $ID_NIVEL = '<span style="color:' . $NIVEL_COLOR . ';" class="tam ' . $NIVEL_ICONO . '" aria-hidden="true"></span>
+         <label hidden>' . $ID_ESTATUS . '</label>';
 
 
         //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD
@@ -270,8 +319,10 @@ if (isset($_POST['actualizarDataSend'])) {
         $ID_ESTATUS = $result->fetch_array()[0] ?? '';
     }
 
+    //EL ESTATUS 2 ES COMPLETADO
     if ($ID_ESTATUS == 2) {
 
+        //SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -284,6 +335,8 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $result = mysqli_query($conn, $sql);
     } else {
+
+        //SI NO CAMBIA A COMPLETADO SE HACE LA ACTUALIZACIÓN NORMAL
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -297,8 +350,8 @@ if (isset($_POST['actualizarDataSend'])) {
     }
 }
 
-//GETINFO DE PETICIÓN
-if (isset($_POST['getInfoDataSend'])) {
+//GETINFO DE PETICIÓN getInfoUpdatePeticionSend
+if (isset($_POST['getInfoDataSend']) || isset($_POST['getInfoUpdatePeticionSend'])) {
 
     if (isset($_POST['idSend'])) {
 
@@ -315,7 +368,7 @@ if (isset($_POST['getInfoDataSend'])) {
         INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
         INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
         INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
-        INNER JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+        LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
         INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE ID_PETICION = $id;";
 
         $result = mysqli_query($conn, $sql);

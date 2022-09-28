@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     displayData(); //DESPLIEGA LA FUNCIÓN
 
     buscadorLaboratorioSoporte();
@@ -11,11 +12,22 @@ function displayData() {
 
     let displayData = true;
 
+    let filtroEstatus = $('#filtroEstatus').val();
+    let filtroNivel = $('#filtroNivel').val();
+    let filtroFechaInicio = $('#filtroFechaInicio').val();
+    let filtroFechaFinal = $('#filtroFechaFinal').val();
+ 
+    console.log(filtroNivel);
+
     $.ajax({
         url: "app/peticion.php",
         type: "POST",
         data: {
             displayDataSend: displayData,
+            filtroEstatusSend: filtroEstatus,
+            filtroNivelSend: filtroNivel,
+            filtroFechaInicioSend: filtroFechaInicio,
+            filtroFechaFinalSend: filtroFechaFinal, 
         },
         success: function (data, status) {
             $('#displayDataTable').html(data);
@@ -44,7 +56,6 @@ function agregar() {
     let fechaCompletadoAdd = $('#fechaCompletadoAdd').val();
     let nivelAdd = $('#nivelAdd').val();
     let estatusAdd = $('#estatusAdd').val();
-    //let desarrolladorAdd = $('#desarrolladorAdd').val();
 
     if (
         asuntoAdd.length === 0 ||
@@ -90,7 +101,8 @@ function agregar() {
                     button: "Cerrar",
                 });
 
-                limpiarInput();
+                limpiarInputAgregar();
+
                 //SE MUESTRA NUEVAMENTE LA TABLA ACTUALIZADA
                 displayData();
 
@@ -104,11 +116,12 @@ function agregar() {
 
 }
 
-
 //OBTIENE LA INFORMACIÓN PARA COLOCARLA EN EL MODAL
 function getInfo(id) {
 
     let getInfoData = true;
+
+    let men = 'Sin Definir';
 
     $.post("app/peticion.php", {
         getInfoDataSend: getInfoData,
@@ -125,10 +138,19 @@ function getInfo(id) {
         $('#fecha_completadoSee').val(peticion.FECHA_COMPLETADO);
         $('#soporteSee').val(peticion.NOMSOP);
 
-        $('#desarrolladorSee').val(peticion.NOMDES);
+        if (peticion.NOMDES === null) {
+            $('#desarrolladorSee').val(men);
+        }else{
+            $('#desarrolladorSee').val(peticion.NOMDES);
+        }
+
+
+        //
         $('#nivelSee').val(peticion.NOMNIVEL);
         $('#estatusSee').val(peticion.NOMESTATUS);
         $('#descripcionSee').val(peticion.DESCRIPCION);
+
+
     });
 
     $('#modalVer').modal("show");
@@ -137,16 +159,28 @@ function getInfo(id) {
 
 function actualizarGetInfo(id) {
 
-    let getInfoData = true;
+    let getInfoUpdatePeticion = true;
 
     $('#idHidden').val(id);
 
     $.post("app/peticion.php", {
-        getInfoDataSend: getInfoData,
+        getInfoUpdatePeticionSend: getInfoUpdatePeticion,
         idSend: id
     }, function (data, status) {
 
+        
+
         let peticion = JSON.parse(data);
+
+        //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null
+
+        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>"+ peticion.NOMDES +"</option>";
+
+        let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>"+ peticion.NOMLAB +"</option>";
+
+        let nivelOption = "<option value='" + peticion.ID_NIVEL + "' selected='selected'>"+ peticion.NOMNIVEL +"</option>";
+
+        let estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>"+ peticion.NOMESTATUS +"</option>";
 
         $('#asuntoUpdate').val(peticion.ASUNTO);
         $('#fecha_llegadaUpdate').val(peticion.FECHA_LLEGADA);
@@ -154,14 +188,19 @@ function actualizarGetInfo(id) {
         $('#fecha_completadoUpdate').val(peticion.FECHA_COMPLETADO);
         $('#descripcionUpdate').val(peticion.DESCRIPCION);
 
+        //ASIGNACIONES DEL SELECT2
+        $('#desarrolladorUpdate').append(desarrolladorOption).trigger('change');
+        $('#laboratorioUpdate').append(laboratorioOption).trigger('change');
+        $('#nivelUpdate').append(nivelOption).trigger('change');
+        $('#estatusUpdate').append(estatusOption).trigger('change');
        
-        
+
     });
 
     $('#modalEditar').modal("show");
 }
 
-function actualizar() { 
+function actualizar() {
 
     let actualizarData = true;
 
@@ -185,7 +224,7 @@ function actualizar() {
         nivelActualizarSend: nivelActualizar,
         estatusActualizarSend: estatusActualizar,
         descripcionActualizarSend: descripcionActualizar
-        
+
 
     }, function (data, status) {
 
@@ -199,8 +238,8 @@ function actualizar() {
         displayData();
 
     });
-    
- }
+
+}
 
 //ELIMINA UNA PETICIÓN
 function eliminar(id) {
@@ -268,7 +307,7 @@ function buscadorLaboratorioSoporte() {
         }
     });
 
-    
+
     $("#laboratorioUpdate").select2({
         placeholder: "Selecciona",
         ajax: {
@@ -385,12 +424,10 @@ function buscadorLaboratorioSoporte() {
     });
 }
 
-//LIMPIAR INPUT
-function limpiarInput() {
-
+//LIMPIAR INPUT AGREGAR
+function limpiarInputAgregar() {
     $('#asuntoAdd').val('');
     $('#descripcionAdd').val('');
     $('#soporteAdd').val(null).trigger('change');
     $('#laboratorioAdd').val(null).trigger('change');
 }
-

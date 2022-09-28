@@ -79,3 +79,79 @@ textarea {
 
     margin: 3px;
 }
+
+/*=================
+ESTILOS FILTROS
+=================*/
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.flex-container>div {
+    width: 20%;
+    text-align: center;
+}
+
+.flex-container>div>input{
+    display: inline;
+    width: auto;
+    
+}
+
+.flex-container>div>select{
+    display: inline;
+    width: auto;
+    
+}
+
+.flex-container>div>button{
+    display: inline;
+    width: auto;
+    
+}
+
+/*=================
+MEDIA QUERY
+=================*/
+@media screen and (max-width: 1199px) {
+
+    .boton {
+        margin-bottom: 2px;
+    }
+
+    .flex-container {
+        flex-direction: column;
+        
+    }
+    
+    .flex-container>div {
+
+        width: 100%;
+        text-align: left;
+        margin: 5px 0px;
+    }
+    
+    .flex-container>div>input{
+        display: inline;
+        width: 100%;
+        
+    }
+    
+    .flex-container>div>select{
+        display: inline;
+        width: 100%;
+        
+    }
+    
+    .flex-container>div>button{
+        display: inline;
+        width: 100%;
+        
+    }
+    
+
+
+
+}
