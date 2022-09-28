@@ -3,6 +3,19 @@ body {
 }
 
 /*=================
+TAMAÑO ICONOS DE Bootstrap 
+=================*/
+/* .bi {} */
+
+.tam {
+    font-size: 2em;
+}
+
+.tam-i{
+    font-size: 1.5em;
+}
+
+/*=================
 ESTILOS MODALES PARTE DE ARRIBA
 =================*/
 .modal-color {
@@ -62,8 +75,7 @@ textarea {
     margin: 3px;
 }
 
-.accionesDesarrollador{
+.accionesDesarrollador {
 
     margin: 3px;
 }
-

@@ -44,7 +44,7 @@ function agregar() {
     let fechaCompletadoAdd = $('#fechaCompletadoAdd').val();
     let nivelAdd = $('#nivelAdd').val();
     let estatusAdd = $('#estatusAdd').val();
-    let desarrolladorAdd = $('#desarrolladorAdd').val();
+    //let desarrolladorAdd = $('#desarrolladorAdd').val();
 
     if (
         asuntoAdd.length === 0 ||
@@ -77,7 +77,6 @@ function agregar() {
                 fechaEntregaEstimadaSend: fechaEntregaEstimadaAdd,
                 fechaCompletadoSend: fechaCompletadoAdd,
                 soporteSend: soporteAdd,
-                desarrolladorSend: desarrolladorAdd,
                 nivelSend: nivelAdd,
                 estatusSend: estatusAdd,
                 descripcionSend: descripcionAdd,

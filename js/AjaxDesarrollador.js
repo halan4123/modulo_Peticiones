@@ -30,7 +30,6 @@ function displayDataDesarrollador() {
 
 }
 
-
 function agregarDesarrollador() {
 
     let insertDesarrollador = true;
@@ -197,7 +196,6 @@ function actualizarDesarrollador() {
     });
 
 }
-
 
 function limpiarInput() {
     $('#nombreDesarrolladorAdd').val('');

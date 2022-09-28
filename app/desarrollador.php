@@ -11,9 +11,9 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre(s)</th>     
-                <th>Apellido(s)</th>            
-                <th>Acciones</th>   
+                <th>NOMBRES(S)</th>     
+                <th>APELLIDO(S)</th>            
+                <th>ACCIONES</th>   
             </tr>
         </thead>
         <tbody>
@@ -40,15 +40,15 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
                 <td>
                 <div class="re">
                     <button class="btn btn-warning accionesDesarrollador " onclick="getInfoDesarrollador(' . $ID_DESARROLLADOR . ')">
-                    <span class="fa fa-eye"></span>
+                    <span class="bi bi-eye-fill"></span>
                     </button>
 
                     <button class="btn btn-info accionesDesarrollador" onclick="actualizarGetInfoDesarrollador(' . $ID_DESARROLLADOR . ')">
-                    <span class="fa fa-pencil"></span>
+                    <span class="bi bi-pencil-fill"></span>
                     </button>
 
                     <button class="btn btn-danger accionesDesarrollador" onclick="eliminarDesarrollador(' . $ID_DESARROLLADOR . ')">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="bi bi-trash-fill"></span>
                     </button>
                 </div>
                    
@@ -65,6 +65,7 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
                     </tbody>
                 </table>
                 ';
+                
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
 }

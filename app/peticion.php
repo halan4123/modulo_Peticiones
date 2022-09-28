@@ -34,15 +34,19 @@ if (isset($_POST['displayDataSend'])) {
     $sql = "SELECT p.*,
     l.nombre AS NOMLAB,
     l.paquete AS PAQUETE, 
-    n.nivel AS NOMNIVEL, 
-    e.estatus AS NOMESTATUS, 
+    n.nivel AS NOMNIVEL,
+    n.icono AS NIVEL_ICONO,
+    n.color_icono AS NIVEL_COLOR,
+    e.estatus AS NOMESTATUS,
+    e.icono AS ESTATUS_ICONO,
+    e.color_icono AS ESTATUS_COLOR, 
     d.nombre AS NOMDES,
     s.nombre AS NOMSOP 
     FROM peticion AS p 
     INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
     INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
     INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
-    INNER JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+    LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
     INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE 
     ORDER BY e.ESTATUS = 'Pendiente' DESC,
     p.FECHA_LLEGADA DESC,
@@ -66,13 +70,14 @@ if (isset($_POST['displayDataSend'])) {
         $FECHA_COMPLETADO = $row['FECHA_COMPLETADO'];
         $ID_DESARROLLADOR = $row['NOMDES'];
         $ID_SOPORTE = $row['NOMSOP'];
+
         $ID_NIVEL = $row['NOMNIVEL'];
+        $NIVEL_ICONO = $row['NIVEL_ICONO'];
+        $NIVEL_COLOR = $row['NIVEL_COLOR'];
+
         $ID_ESTATUS = $row['NOMESTATUS'];
-
-        $ID_NIVEL = preg_replace("/[[:space:]]/", "", trim($ID_NIVEL)); //Buscamos los espacios en blanco, los remplazamos por espacios nulos y limpiamos espacios al inicio y al final.
-        $ID_NIVEL = strtolower($ID_NIVEL); //Convertimos el string a minusculas para que entre a los if de iconos por nivel.
-
-        $ID_ESTATUS = strtolower($ID_ESTATUS);
+        $ESTATUS_ICONO = $row['ESTATUS_ICONO'];
+        $ESTATUS_COLOR = $row['ESTATUS_COLOR'];
 
         $FECHA_ENTREGA_ESTIMADA_COPY = $FECHA_ENTREGA_ESTIMADA;
         $FECHA_COMPLETADO_COPY = $FECHA_COMPLETADO;
@@ -85,8 +90,6 @@ if (isset($_POST['displayDataSend'])) {
         $FECHA_ENTREGA_ESTIMADA = date("d-m-Y", strtotime($FECHA_ENTREGA_ESTIMADA));
 
         date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
-
-
 
         if ($FECHA_COMPLETADO_COPY == '0000-00-00 00:00:00') {
             $FECHA_COMPLETADO = 'INCOMPLETA';
@@ -107,48 +110,15 @@ if (isset($_POST['displayDataSend'])) {
         }
 
         //DEPENDIENDO EL STATUS SE LE ASIGANARA UN ICONO
-        if ($ID_ESTATUS == 'completado') {
-            $ID_ESTATUS = '<span style="color: green;" class="fa fa-check-circle fa-2x" aria-hidden="true"></span>
-            <label hidden>' . $ID_ESTATUS . '</label>';
-        } else if ($ID_ESTATUS == 'rechazado') {
-            $ID_ESTATUS = '<span style="color: red;" class="fa fa-times-circle fa-2x" aria-hidden="true"></span>
-            <label hidden>' . $ID_ESTATUS . '</label>';
-        } else if ($ID_ESTATUS == 'pendiente') {
-            $ID_ESTATUS = '<span style="color: orange;" class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></span>
-            <label hidden>' . $ID_ESTATUS . '</label>';
-        } else if ($ID_ESTATUS == 'desarrollo') {
-            $ID_ESTATUS = '<span style="color: #2995B8;" class="fa fa-desktop fa-2x" aria-hidden="true"></span>
-            <label hidden>' . $ID_ESTATUS . '</label>';
-        }
+        $ID_ESTATUS = '<span style="color:' . $ESTATUS_COLOR . ';" class="tam ' . $ESTATUS_ICONO . '" aria-hidden="true"></span>
+        <label hidden>' . $ID_ESTATUS . '</label>';
 
-        //DEPENDIENDO EL NIVEL SE LE ASIGANARA UN ICONO
-        if ($ID_NIVEL == 'nivel1') {
-            $ID_NIVEL = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#4078B9" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z" />
-            </svg>
-            <label hidden>' . $ID_NIVEL . '</label>
-            <label hidden>nivel 1</label>';
-        } else if ($ID_NIVEL == 'nivel2') {
-            $ID_NIVEL = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7740B9" class="bi bi-2-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24c0-.691.493-1.306 1.336-1.306.756 0 1.313.492 1.313 1.236 0 .697-.469 1.23-.902 1.705l-2.971 3.293V12h5.344v-1.107H7.268v-.077l1.974-2.22.096-.107c.688-.763 1.287-1.428 1.287-2.43 0-1.266-1.031-2.215-2.613-2.215-1.758 0-2.637 1.19-2.637 2.402v.065h1.271v-.07Z" />
-            </svg>
-            <label hidden>' . $ID_NIVEL . '</label>';
-        } else if ($ID_NIVEL == 'nivel3') {
-            $ID_NIVEL = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#AE8A48" class="bi bi-3-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z" />
-            </svg>
-            <label hidden>' . $ID_NIVEL . '</label>';
-        } else if ($ID_NIVEL == 'nivel4') {
-            $ID_NIVEL = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#97989E" class="bi bi-4-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.519 5.057c-.886 1.418-1.772 2.838-2.542 4.265v1.12H8.85V12h1.26v-1.559h1.007V9.334H10.11V4.002H8.176c-.218.352-.438.703-.657 1.055ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218Z" />
-            </svg>
-            <label hidden>' . $ID_NIVEL . '</label>';
-        } else if ($ID_NIVEL == 'sindefinir') {
-            $ID_NIVEL = 'Sin Definir';
-            // '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-circle-fill" viewBox="0 0 16 16">
-            // <circle cx="8" cy="8" r="8"/>
-            // </svg>
-            '<label hidden>' . $ID_NIVEL . '</label>';
+        $ID_NIVEL = '<span style="color:' . $NIVEL_COLOR . ';" class="tam ' . $NIVEL_ICONO . '" aria-hidden="true"></span>
+        <label hidden>' . $ID_ESTATUS . '</label>';
+
+
+        if ($ID_DESARROLLADOR == NULL) {
+            $ID_DESARROLLADOR = 'Sin Definir';
         }
 
 
@@ -172,15 +142,15 @@ if (isset($_POST['displayDataSend'])) {
                 <td>
                 <div class="re">
                     <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
-                    <span class="fa fa-eye"></span>
+                    <span class="bi bi-eye-fill"></span>
                     </button>
 
                     <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ')">
-                    <span class="fa fa-pencil"></span>
+                    <span class="bi bi-pencil-fill"></span>
                     </button>
 
                     <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="bi bi-trash-fill"></span>
                     </button>
                 </div>
                    
@@ -212,7 +182,6 @@ if (isset($_POST['insertDataSend'])) {
         isset($_POST['fechaEntregaEstimadaSend']) &&
         isset($_POST['fechaCompletadoSend']) &&
         isset($_POST['soporteSend']) &&
-        isset($_POST['desarrolladorSend']) &&
         isset($_POST['nivelSend']) &&
         isset($_POST['estatusSend']) &&
         isset($_POST['descripcionSend'])
@@ -226,7 +195,6 @@ if (isset($_POST['insertDataSend'])) {
             `FECHA_ENTREGA_ESTIMADA`, 
             `FECHA_COMPLETADO`, 
             `ID_SOPORTE`, 
-            `ID_DESARROLLADOR`, 
             `ID_NIVEL`, 
             `ID_ESTATUS`, 
             `DESCRIPCION`) 
@@ -236,7 +204,6 @@ if (isset($_POST['insertDataSend'])) {
             '$fechaEntregaEstimadaSend', 
             '$fechaCompletadoSend',
             '$soporteSend', 
-            '$desarrolladorSend', 
             '$nivelSend', 
             '$estatusSend', 
             '$descripcionSend')";
