@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../PHPMailer/Exception.php';
+require '../PHPMailer/PHPMailer.php';
+require '../PHPMailer/SMTP.php';
+
 include 'connectionController.php';
 
 $conn = connect();
@@ -7,6 +14,8 @@ $conn = connect();
 
 //MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
 if (isset($_POST['displayDataSend'])) {
+
+    date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
 
     $table = '
     <table id="tabla_peticiones" class="display table table-responsive table-striped">
@@ -35,6 +44,7 @@ if (isset($_POST['displayDataSend'])) {
     $sql = "SELECT p.*,
     l.nombre AS NOMLAB,
     l.paquete AS PAQUETE,
+    l.ID_LABORATORIO AS L_ID,
     n.ID_NIVEL AS N_ID, 
     n.nivel AS NOMNIVEL,
     n.icono AS NIVEL_ICONO,
@@ -52,7 +62,9 @@ if (isset($_POST['displayDataSend'])) {
     LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
     INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE 1";
 
-    if (isset($_POST['filtroEstatusSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend'])) {
+
+
+    if (isset($_POST['filtroEstatusSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend']) || isset($_POST['filtroLaboratorioSend'])) {
 
         if (isset($_POST['filtroNivelSend'])) {
 
@@ -64,7 +76,7 @@ if (isset($_POST['displayDataSend'])) {
 
             }
         }
-    
+
 
         if (isset($_POST['filtroEstatusSend'])) {
 
@@ -78,15 +90,37 @@ if (isset($_POST['displayDataSend'])) {
         }
 
         if (isset($_POST['filtroFechaInicioSend']) && isset($_POST['filtroFechaFinalSend'])) {
+
             $fechaInicio = $_POST['filtroFechaInicioSend'];
             $fechaFinal = $_POST['filtroFechaFinalSend'];
             $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
             $newDate_2 = date("Y-m-d", strtotime($fechaFinal));
+            // echo("Holi");
+            // var_dump($newDate_1);
+
             if ($fechaInicio !== '' && $fechaFinal !== '') {
+
                 $sql .= " and FECHA_LLEGADA BETWEEN '$newDate_1' and '$newDate_2'";
+            } else {
+
+                $fechaInicio = date("Y-m-d");
+
+                $fechaFinal = date("Y-m-d", strtotime(date('Y-m-d') . "+ 1 days"));
+
+                $sql .= " and FECHA_LLEGADA BETWEEN '$fechaInicio' and '$fechaFinal'";
             }
         }
-       
+
+        if (isset($_POST['filtroLaboratorioSend'])) {
+
+            $lab_filtro = $_POST['filtroLaboratorioSend'];
+
+            if ($lab_filtro !== 'todo') {
+
+                $sql .= " and l.ID_LABORATORIO = '$lab_filtro'"; //DEPENDIENDO EL FILTRO CONCATENAMOS A LA CONSULTA ORIGINAL
+
+            }
+        }
     }
 
     $sql .= " ORDER BY e.ESTATUS = 'Pendiente' DESC,
@@ -186,10 +220,18 @@ if (isset($_POST['displayDataSend'])) {
                 <td>' . $tiempo . '</td>
                 <td>' . $ID_SOPORTE . '</td>
                 <td>' . $ID_DESARROLLADOR . '</td>
-
-    
                 <td>
-                <div class="re">
+                <div class="re">';
+        
+        
+
+        $table .=
+            '<a href="https://wa.me/526121989982" >
+                    <button class="btn btn-success accionesPeticion" disabled>
+                    <span class="bi bi-whatsapp"></span>
+                    </button>
+                    </a> 
+                    
                     <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
                     <span class="bi bi-eye-fill"></span>
                     </button>
@@ -207,6 +249,7 @@ if (isset($_POST['displayDataSend'])) {
                 </td>
             </tr>
             ';
+
 
         $CONT += 1;
     }
@@ -283,44 +326,19 @@ if (isset($_POST['actualizarDataSend'])) {
     $ID_ESTATUS = $_POST['estatusActualizarSend'];
     $DESCRIPCION = $_POST['descripcionActualizarSend'];
 
-    if ($ID_LABORATORIO == null) {
+    if (isset($ID_ESTATUS)) {
 
-        $query = "SELECT ID_LABORATORIO FROM peticion WHERE ID_PETICION = $ID_PETICION";
-
-        $result = $conn->query($query);
-
-        $ID_LABORATORIO = $result->fetch_array()[0] ?? '';
-    }
-
-    if ($ID_DESARROLLADOR == null) {
-
-        $query = "SELECT ID_DESARROLLADOR FROM peticion WHERE ID_PETICION = $ID_PETICION";
+        $query = "SELECT ESTATUS FROM estatus WHERE ID_ESTATUS = $ID_ESTATUS";
 
         $result = $conn->query($query);
 
-        $ID_DESARROLLADOR = $result->fetch_array()[0] ?? '';
-    }
+        $ID_ESTATUS_TEXT = $result->fetch_array()[0] ?? '';
 
-    if ($ID_NIVEL == null) {
-
-        $query = "SELECT ID_NIVEL FROM peticion WHERE ID_PETICION = $ID_PETICION";
-
-        $result = $conn->query($query);
-
-        $ID_NIVEL = $result->fetch_array()[0] ?? '';
-    }
-
-    if ($ID_ESTATUS == null) {
-
-        $query = "SELECT ID_ESTATUS FROM peticion WHERE ID_PETICION = $ID_PETICION";
-
-        $result = $conn->query($query);
-
-        $ID_ESTATUS = $result->fetch_array()[0] ?? '';
+        $ID_ESTATUS_TEXT = strtolower($ID_ESTATUS_TEXT);
     }
 
     //EL ESTATUS 2 ES COMPLETADO
-    if ($ID_ESTATUS == 2) {
+    if ($ID_ESTATUS_TEXT == 'completado') {
 
         //SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
@@ -334,9 +352,73 @@ if (isset($_POST['actualizarDataSend'])) {
         WHERE `ID_PETICION` = $ID_PETICION";
 
         $result = mysqli_query($conn, $sql);
-    } else {
+
+        $sql = "SELECT p.*, 
+        l.nombre AS NOMLAB, 
+        s.nombre AS NOMSOP, 
+        s.correo AS SOPORTE_CORREO 
+        FROM peticion AS p 
+        INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+        INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE 
+        WHERE ID_PETICION = $ID_PETICION";
+
+        $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+
+        $row = mysqli_fetch_assoc($result);
+
+        $CORREO_SOPORTE = $row['SOPORTE_CORREO'];
+        $NOMBRE_SOPORTE = $row['NOMSOP'];
+        $NOMBRE_LABORATORIO = $row['NOMLAB'];
+        $ASUNTO_CORREO = $row['ASUNTO'];
+
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                                       //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'halanshuu@gmail.com';                  //SMTP username
+            $mail->Password   = 'tiyvhcjpjebccofp';                     //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('halanshuu@gmail.com', 'Alan Hernandez');
+            $mail->addAddress("$CORREO_SOPORTE", "$NOMBRE_SOPORTE");       //Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                        //Set email format to HTML
+            $mail->Subject = "Ha finalizado la solicitud de desarrollo de " . $NOMBRE_LABORATORIO . "";
+            $mail->Body    = "La peticion con el asunto " . $ASUNTO_CORREO . " ha sido completada, por favor avisar al laboratorio.";
+            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            // echo 'El mensaje se envio correctamente';
+        } catch (Exception $e) {
+            // echo "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
+        }
+    } elseif ($ID_DESARROLLADOR == 'null') {
+
+
 
         //SI NO CAMBIA A COMPLETADO SE HACE LA ACTUALIZACIÓN NORMAL
+        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
+        `ID_LABORATORIO` = '$ID_LABORATORIO',
+        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
+        `ID_DESARROLLADOR` = NULL,
+        `ID_NIVEL` = '$ID_NIVEL',
+        `ID_ESTATUS` = '$ID_ESTATUS',
+        `DESCRIPCION` = '$DESCRIPCION'
+        WHERE `ID_PETICION` = $ID_PETICION";
+
+        $result = mysqli_query($conn, $sql);
+    } else {
+
+
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',

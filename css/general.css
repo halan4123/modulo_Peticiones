@@ -2,6 +2,8 @@ body {
     font-size: 12px;
 }
 
+
+
 /*=================
 TAMAÑO ICONOS DE Bootstrap 
 =================*/
@@ -67,6 +69,7 @@ textarea {
     width: 100%;
     display: flex;
     justify-content: right;
+    
 }
 
 .accionesPeticion {
@@ -85,13 +88,14 @@ ESTILOS FILTROS
 =================*/
 .flex-container {
     display: flex;
-    justify-content: space-between;
-    
+    justify-content: flex-end;
+   
 }
 
 .flex-container>div {
-    width: 20%;
+    width: auto;
     text-align: center;
+    margin: 0px 10px;
 }
 
 .flex-container>div>input{
@@ -107,6 +111,37 @@ ESTILOS FILTROS
 }
 
 .flex-container>div>button{
+    display: inline;
+    width: auto;
+    
+}
+
+.flex-container_2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+   
+}
+
+.flex-container_2>div {
+    width: auto;
+    text-align: center;
+    margin: 0px 10px;
+}
+
+.flex-container_2>div>input{
+    display: inline;
+    width: auto;
+    
+}
+
+.flex-container_2>div>select{
+    display: inline;
+    width: auto;
+    
+}
+
+.flex-container_2>div>button{
     display: inline;
     width: auto;
     

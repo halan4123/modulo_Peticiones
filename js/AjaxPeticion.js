@@ -16,8 +16,7 @@ function displayData() {
     let filtroNivel = $('#filtroNivel').val();
     let filtroFechaInicio = $('#filtroFechaInicio').val();
     let filtroFechaFinal = $('#filtroFechaFinal').val();
- 
-    console.log(filtroNivel);
+    let filtroLaboratorio = $('#filtroLaboratorio').val();
 
     $.ajax({
         url: "app/peticion.php",
@@ -27,7 +26,8 @@ function displayData() {
             filtroEstatusSend: filtroEstatus,
             filtroNivelSend: filtroNivel,
             filtroFechaInicioSend: filtroFechaInicio,
-            filtroFechaFinalSend: filtroFechaFinal, 
+            filtroFechaFinalSend: filtroFechaFinal,
+            filtroLaboratorioSend: filtroLaboratorio
         },
         success: function (data, status) {
             $('#displayDataTable').html(data);
@@ -35,6 +35,7 @@ function displayData() {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+
 
             });
         }
@@ -140,7 +141,7 @@ function getInfo(id) {
 
         if (peticion.NOMDES === null) {
             $('#desarrolladorSee').val(men);
-        }else{
+        } else {
             $('#desarrolladorSee').val(peticion.NOMDES);
         }
 
@@ -168,19 +169,19 @@ function actualizarGetInfo(id) {
         idSend: id
     }, function (data, status) {
 
-        
+
 
         let peticion = JSON.parse(data);
 
         //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null
 
-        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>"+ peticion.NOMDES +"</option>";
+        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + peticion.NOMDES + "</option>";
 
-        let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>"+ peticion.NOMLAB +"</option>";
+        let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>" + peticion.NOMLAB + "</option>";
 
-        let nivelOption = "<option value='" + peticion.ID_NIVEL + "' selected='selected'>"+ peticion.NOMNIVEL +"</option>";
+        let nivelOption = "<option value='" + peticion.ID_NIVEL + "' selected='selected'>" + peticion.NOMNIVEL + "</option>";
 
-        let estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>"+ peticion.NOMESTATUS +"</option>";
+        let estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>" + peticion.NOMESTATUS + "</option>";
 
         $('#asuntoUpdate').val(peticion.ASUNTO);
         $('#fecha_llegadaUpdate').val(peticion.FECHA_LLEGADA);
@@ -193,7 +194,7 @@ function actualizarGetInfo(id) {
         $('#laboratorioUpdate').append(laboratorioOption).trigger('change');
         $('#nivelUpdate').append(nivelOption).trigger('change');
         $('#estatusUpdate').append(estatusOption).trigger('change');
-       
+
 
     });
 
@@ -211,7 +212,20 @@ function actualizar() {
     let desarrolladorActualizar = $('#desarrolladorUpdate').val();
     let nivelActualizar = $('#nivelUpdate').val();
     let estatusActualizar = $('#estatusUpdate').val();
+    // let estatusNombre = $("#estatusUpdate").text();
     let descripcionActualizar = $('#descripcionUpdate').val();
+
+    console.log(desarrolladorActualizar);
+
+    console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
+
+    if (estatusActualizar == "2") {
+        swal("Enviando Correo...", {
+            buttons: false,
+            closeOnClickOutside: false
+        });
+    }
+
 
     $.post("app/peticion.php", {
 

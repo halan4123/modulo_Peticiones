@@ -7,11 +7,12 @@
 
         <div class="col-md-12">
 
-            <div>
-                <button type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#modalAgregarSoporte" style="margin-bottom: 5px; margin-top: 5px;">
-                    Agregar
-                </button>
+            <div class="well ">
+                <div>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarSoporte" style="margin-bottom: 5px; margin-top: 5px;">
+                        Agregar Soporte
+                    </button>
+                </div>
             </div>
 
         </div>

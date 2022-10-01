@@ -1,33 +1,5 @@
 <div>
     <!--========================
-    TITULO
-    ========================-->
-    <!-- <div class="row">
-
-        <div class="col-md-12 ">
-            <h3 style="font-weight: bold;">Peticiones Recibidas</h3>
-        </div>
-
-    </div> -->
-
-    <!--========================
-    BOTÓN AGREGAR PETICIÓN
-    ========================-->
-    <!-- <div class="row">
-
-        <div class="col-md-12">
-
-            <div>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar" style="margin-bottom: 5px; margin-top: 5px;">
-                    Agregar
-                </button>
-            </div>
-
-        </div>
-
-    </div> -->
-
-    <!--========================
     ICONOS DE REFERENCIA
     ========================-->
     <div class="row">
@@ -62,22 +34,52 @@
     ========================-->
     <div class="row">
         <div class="col-md-12">
+
             <div class="well ">
-                <div class="flex-container">
+
+                <div class="flex-container_2">
+
                     <div>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar" ">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
                             Agregar Petición
                         </button>
                     </div>
-                    <!-- onchange="displayData()" -->
+
                     <div>
-                        <label for=" filterFechaInicio">De:</label>
-                            <input type="date" class="form-control" id="filtroFechaInicio" > 
+
+                        <button type="button" class="btn btn-primary" onclick="window.location = 'excel.php?fechaInicio='+$('#filtroFechaInicio').val() + '&fechaFinal='+$('#filtroFechaFinal').val()">
+                            Generar Excel
+                        </button>
+
                     </div>
+
+                </div>
+
+
+
+
+                <div class=" flex-container">
+
+                    <!-- FILTRO DE LABORATORIO -->
                     <div>
-                        <label for="filterFechaFinal">A:</label>
-                        <input type="date" class="form-control" id="filtroFechaFinal" onchange="displayData()">
+                        <label for="filtroLaboratorio">Laboratorio:</label>
+                        <select class="form-control" id="filtroLaboratorio" onchange="displayData()">
+
+                            <option value="todo">Todo</option>
+
+                            <?php foreach ($laboratorios as $laboratorio) : ?>
+
+                                <option value="<?php echo $laboratorio['ID_LABORATORIO']; ?>"><?php echo $laboratorio['NOMBRE']; ?></option>
+
+
+                            <?php endforeach; ?>
+
+
+
+                        </select>
                     </div>
+
+                    <!-- FILTRO DE NIVEL -->
                     <div>
                         <label for="filtroNivel">Nivel:</label>
                         <select class="form-control" id="filtroNivel" onchange="displayData()">
@@ -95,8 +97,10 @@
 
                         </select>
                     </div>
+
+                    <!-- FILTRO DE ESTATUS -->
                     <div>
-                        <label for="filtroEstatus">Status:</label>
+                        <label for="filtroEstatus">Estatus:</label>
                         <select class="form-control" id="filtroEstatus" onchange="displayData()">
 
                             <option value="todo">Todo</option>
@@ -111,12 +115,26 @@
 
                         </select>
                     </div>
+
+                    <!-- FILTRO DE FECHA INICIO -->
+                    <div>
+                        <label for=" filterFechaInicio">De:</label>
+                        <input type="date" class="form-control" id="filtroFechaInicio" onchange="displayData()">
+                    </div>
+
+                    <!-- FILTRO DE FECHA FINAL -->
+                    <div>
+                        <label for="filterFechaFinal">A:</label>
+                        <input type="date" class="form-control" id="filtroFechaFinal" onchange="displayData()">
+                    </div>
+
+
                 </div>
 
             </div>
         </div>
-    </div>
 
+    </div>
 
     <!--========================
     TABLA
@@ -131,5 +149,7 @@
             </div>
 
         </div>
+
     </div>
+
 </div>

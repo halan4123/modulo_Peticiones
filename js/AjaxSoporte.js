@@ -61,7 +61,8 @@ function agregarSoporte() {
                 button: "Cerrar",
             });
 
-            // limpiarInput();
+            limpiarSoporte();
+
             displayDataSoporte();
 
         }
@@ -156,12 +157,12 @@ function actualizarGetInfoSoporte(id) {
     });
 
     $('#modalEditarSoporte').modal("show");
-    
+
 }
 
 
 function actualizarSoporte() {
-    
+
     let actualizarSoporte = true;
 
     let idHidden = $('#idHiddenSoporte').val();
@@ -178,7 +179,7 @@ function actualizarSoporte() {
         numeroActualizarSend: numeroActualizar,
         correoActualizarSend: correoActualizar,
         actualizarSoporteSend: actualizarSoporte
-        
+
     }, function (data, status) {
 
         //SWEET ALERT
@@ -191,5 +192,15 @@ function actualizarSoporte() {
         displayDataSoporte();
 
     });
+
+}
+
+function limpiarSoporte() {
+
+    $('#nombreSoporteAdd').val('');
+    $('#apellidoSoporteAdd').val('');
+    $('#numeroSoperteAdd').val('');
+    $('#correoSoporteAdd').val('');
+
 
 }

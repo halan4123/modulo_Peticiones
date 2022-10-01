@@ -29,7 +29,6 @@ include 'filtros.php';
     <!--CDN SELECT2-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
@@ -37,16 +36,16 @@ include 'filtros.php';
 
     <?php include 'modales.php'; ?>
 
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid">
             <h2>Módulo Peticiones</h2>
 
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Peticiones</a></li>
                 <li><a data-toggle="tab" href="#menu1">Desarrolladores</a></li>
                 <li><a data-toggle="tab" href="#menu2">Soporte</a></li>
-
+                <li><a data-toggle="tab" href="#menu3">Graficos</a></li>
             </ul>
 
             <div class="tab-content">
@@ -54,21 +53,27 @@ include 'filtros.php';
                 <div id="home" class="tab-pane fade in active">
                     <!-- <h3>Peticiones</h3> -->
 
-                    <?php include 'tablaPeticiones.php'; ?>
+                    <?php include 'tablas/tablaPeticiones.php'; ?>
 
                 </div>
 
                 <div id="menu1" class="tab-pane fade">
                     <!-- <h3>Desarrolladores</h3> -->
 
-                    <?php include 'tablaDesarrolladores.php'; ?>
+                    <?php include 'tablas/tablaDesarrolladores.php'; ?>
 
                 </div>
 
                 <div id="menu2" class="tab-pane fade">
                     <!-- <h3>Menu 2</h3> -->
 
-                    <?php include 'tablaSoportes.php'; ?>
+                    <?php include 'tablas/tablaSoportes.php'; ?>
+
+                </div>
+
+                <div id="menu3" class="tab-pane fade">
+
+                    <?php include 'tablas/tablaGraficos.php'; ?>
 
                 </div>
 
@@ -77,8 +82,8 @@ include 'filtros.php';
             </div>
         </div>
 
-        
-   
+
+
     </div>
 
 
