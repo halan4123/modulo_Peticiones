@@ -1,16 +1,73 @@
 $(document).ready(function () {
 
-
-    displayData(); //DESPLIEGA LA FUNCIÓN
+    displayDataPendientes();
 
     buscadorLaboratorioSoporte();
 
 });
 
+function displayDataDesarrollo() {
+
+    let displayData = true;
+    let displayDataDesarrollo = true;
+
+    $.ajax({
+        url: "app/peticion.php",
+        type: "POST",
+        data: {
+            displayDataSend: displayData,
+            displayDataDesarrolloSend: displayDataDesarrollo
+        },
+        success: function (data, status) {
+            $('#displayDataTableDesarrolloo').html(data);
+            $('#tabla_peticiones_desarrollo').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+
+
+            });
+        }
+
+    });
+
+
+
+}
+
+function displayDataPendientes() {
+
+    let displayData = true;
+    let displayDataPendiente = true;
+
+    $.ajax({
+        url: "app/peticion.php",
+        type: "POST",
+        data: {
+            displayDataSend: displayData,
+            displayDataPendienteSend: displayDataPendiente
+        },
+        success: function (data, status) {
+            $('#displayDataTablePendiente').html(data);
+            $('#tabla_peticiones_pendientes').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+
+
+            });
+        }
+
+    });
+
+
+}
+
 //MUESTRA LA TABLA
 function displayData() {
 
     let displayData = true;
+    let displayDataFull = true;
 
     let filtroEstatus = $('#filtroEstatus').val();
     let filtroNivel = $('#filtroNivel').val();
@@ -27,7 +84,8 @@ function displayData() {
             filtroNivelSend: filtroNivel,
             filtroFechaInicioSend: filtroFechaInicio,
             filtroFechaFinalSend: filtroFechaFinal,
-            filtroLaboratorioSend: filtroLaboratorio
+            filtroLaboratorioSend: filtroLaboratorio,
+            displayDataFullSend: displayDataFull,
         },
         success: function (data, status) {
             $('#displayDataTable').html(data);
@@ -106,6 +164,7 @@ function agregar() {
 
                 //SE MUESTRA NUEVAMENTE LA TABLA ACTUALIZADA
                 displayData();
+                displayDataPendientes();
 
             }
 
@@ -189,6 +248,11 @@ function actualizarGetInfo(id) {
         $('#fecha_completadoUpdate').val(peticion.FECHA_COMPLETADO);
         $('#descripcionUpdate').val(peticion.DESCRIPCION);
 
+
+        $('#numeroCelularSoporte').val(peticion.NUMERO_SOPORTE);
+        $('#soporte_Update').val(peticion.NOMSOP);
+        $('#desarrollador_nombre').val(peticion.NOMDES);
+
         //ASIGNACIONES DEL SELECT2
         $('#desarrolladorUpdate').append(desarrolladorOption).trigger('change');
         $('#laboratorioUpdate').append(laboratorioOption).trigger('change');
@@ -213,18 +277,24 @@ function actualizar() {
     let nivelActualizar = $('#nivelUpdate').val();
     let estatusActualizar = $('#estatusUpdate').val();
     // let estatusNombre = $("#estatusUpdate").text();
-    let descripcionActualizar = $('#descripcionUpdate').val();
+    let descripcionActualizar = $('#descripcionUpdate').val();//text
 
-    console.log(desarrolladorActualizar);
+    let numeroCelularSoporte = $('#numeroCelularSoporte').val();
 
-    console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
+    let fechaLlegada = $('#fecha_llegadaUpdate').val();
+    fechaLlegada = fechaLlegada.substring(0, 10);
 
-    if (estatusActualizar == "2") {
-        swal("Enviando Correo...", {
-            buttons: false,
-            closeOnClickOutside: false
-        });
-    }
+    let soporteNombre = $('#soporte_Update').val()
+
+    let fechaCompletado = $('#fecha_completadoUpdate').val()
+    fechaCompletado = fechaCompletado.substring(0, 10);
+
+   
+    let desarrollador_wp =  $('#desarrollador_nombre').val().trim();
+
+
+    //$('#laboratorioUpdate').text().trim()
+    // console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
 
 
     $.post("app/peticion.php", {
@@ -242,14 +312,56 @@ function actualizar() {
 
     }, function (data, status) {
 
-        //SWEET ALERT
-        swal({
-            title: "Petición Actualizada",
-            icon: "success",
-            button: "Cerrar",
-        });
+        if (estatusActualizar == "2") {
+            swal({
+                title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+                icon: "images/wp.png",
+                buttons: ["No, no enviar", "Si, si enviar"],
+                closeOnClickOutside: false,
+                allowOutsideClick: false
 
-        displayData();
+            })
+                .then((willSend) => {
+                    if (willSend) {
+
+                        swal({
+                            title: "Petición Actualizada y ventana emergente de whatsapp abierta",
+                            icon: "success",
+                            button: "Cerrar",
+                        });
+
+                        window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + $('#laboratorioUpdate').text().trim() + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
+
+                        displayData();
+                        displayDataPendientes();
+                        displayDataDesarrollo();
+
+                    } else {
+
+                        swal({
+                            title: "Petición Actualizada",
+                            icon: "success",
+                            button: "Cerrar",
+                        });
+
+                        displayData();
+                        displayDataPendientes();
+                        displayDataDesarrollo();
+
+                    }
+                });
+
+        } else {
+            swal({
+                title: "Petición Actualizada",
+                icon: "success",
+                button: "Cerrar",
+            });
+
+            displayData();
+            displayDataPendientes();
+            displayDataDesarrollo();
+        }
 
     });
 
@@ -260,40 +372,43 @@ function eliminar(id) {
 
     let eliminarData = true;
 
-    $.ajax({
+    swal({
+        title: "¿Estas seguro?",
+        text: "Una vez eliminado, no podras recuperar esta petición",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
 
-        url: "app/peticion.php",
-        type: "POST",
-        data: {
-            eliminarDataSend: eliminarData,
-            deleteSend: id
-        },
-        success: function (data, status) {
+                $.ajax({
 
-            swal({
-                title: "¿Estas seguro?",
-                text: "Una vez eliminado, no podras recuperar esta petición",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
+                    url: "app/peticion.php",
+                    type: "POST",
+                    data: {
+                        eliminarDataSend: eliminarData,
+                        deleteSend: id
+                    },
+                    success: function (data, status) {
+
                         swal("Petición Eliminada", {
                             icon: "success",
 
                         });
 
                         displayData();//MOSTRAMOS LA TABLA ACTUALIZADA
-
-                    } else {
-                        swal("La petición esta a salvo!");
+                        displayDataPendientes();
                     }
+
                 });
 
-        }
+            } else {
+                swal("La petición esta a salvo!");
+            }
+        });
 
-    });
+
 }
 
 //BUSCADORES PARA LOS SELECT2
@@ -445,3 +560,4 @@ function limpiarInputAgregar() {
     $('#soporteAdd').val(null).trigger('change');
     $('#laboratorioAdd').val(null).trigger('change');
 }
+

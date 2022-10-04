@@ -177,16 +177,6 @@
                      <input type="datetime-local" class="form-control" id="fecha_entregaUpdate">
                  </div>
 
-                 <!-- <div class="form-group">
-                        <label for="fecha_completadoUpdate">Fecha de completado:</label>
-                        <input type="text" class="form-control" id="fecha_completadoUpdate" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="soporteUpdate">Soporte:</label>
-                        <input type="text" class="form-control" id="soporteUpdate" disabled>
-                    </div> -->
-
                  <div class="form-group">
                      <label for="desarrolladorUpdate">Desarrollador:</label>
                      <select class="form-control" id="desarrolladorUpdate" style="width: 100%;">
@@ -208,11 +198,6 @@
                      </select>
                  </div>
 
-                 <!-- <div class="form-group">
-                        <label for="estatusUpdate">Estatus:</label>
-                        <input type="text" class="form-control" id="estatusUpdate">
-                    </div> -->
-
                  <div class="form-group">
                      <label for="descripcionUpdate">Descripción:</label>
                      <textarea class="form-control" rows="15" id="descripcionUpdate"></textarea>
@@ -223,6 +208,11 @@
                  <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizar()">Actualizar</button>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                  <input type="hidden" id="idHidden">
+                 <input type="hidden" id="numeroCelularSoporte">
+                 <input type="hidden" id="fecha_completadoUpdate">
+                 <input type="hidden" id="fecha_llegadaUpdate">
+                 <input type="hidden" id="soporte_Update">
+                 <input type="hidden" id="desarrollador_nombre">
              </div>
          </div>
 
@@ -432,10 +422,10 @@
      </div>
  </div>
 
-  <!--========================
+ <!--========================
     MODAL INFO SOPORTE
     ========================-->
-    <div id="modalEditarSoporte" class="modal fade" role="dialog" data-backdrop="static">
+ <div id="modalEditarSoporte" class="modal fade" role="dialog" data-backdrop="static">
      <div class="modal-dialog">
 
          <!-- Modal content-->
@@ -449,29 +439,29 @@
 
                  <div class="form-group">
                      <label for="nombreSoporteSee">Nombre(s):</label>
-                     <input type="text" class="form-control" id="nombreSoporteUpdate" placeholder="Nombre(s)" >
+                     <input type="text" class="form-control" id="nombreSoporteUpdate" placeholder="Nombre(s)">
                  </div>
 
                  <div class="form-group">
                      <label for="apellidoSoporteSee">Apellido(s):</label>
-                     <input type="text" class="form-control" id="apellidoSoporteUpdate" placeholder="Apellido(s)" >
+                     <input type="text" class="form-control" id="apellidoSoporteUpdate" placeholder="Apellido(s)">
                  </div>
 
                  <div class="form-group">
                      <label for="numeroSoperteSee">Numero de celular:</label>
-                     <input type="text" class="form-control" id="numeroSoperteUpdaate" placeholder="Numero de celular" >
+                     <input type="text" class="form-control" id="numeroSoperteUpdaate" placeholder="Numero de celular">
                  </div>
 
                  <div class="form-group">
                      <label for="correoSoporteSee">Correo:</label>
-                     <input type="text" class="form-control" id="correoSoporteUpdate" placeholder="Correo" >
+                     <input type="text" class="form-control" id="correoSoporteUpdate" placeholder="Correo">
                  </div>
 
                  <input type="hidden" id="idHiddenSoporte">
 
              </div>
              <div class="modal-footer">
-             <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizarSoporte()">Actualizar</button>
+                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="actualizarSoporte()">Actualizar</button>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
              </div>
          </div>

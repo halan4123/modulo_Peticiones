@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // displayData(); //DESPLIEGA LA FUNCIÓN
-    displayDataDesarrollador();
+    //displayDataDesarrollador();
 
 
 });
@@ -88,27 +88,28 @@ function agregarDesarrollador() {
 
 function eliminarDesarrollador(id) {
 
-    let eliminarDesarrollador = true;
+    swal({
+        title: "¿Estas seguro?",
+        text: "Una vez eliminado, no podras recuperar a este desarrollador",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
 
-    $.ajax({
+                let eliminarDesarrollador = true;
 
-        url: "app/desarrollador.php",
-        type: "POST",
-        data: {
-            eliminarDesarrolladorSend: eliminarDesarrollador,
-            deleteSend: id
-        },
-        success: function (data, status) {
+                $.ajax({
 
-            swal({
-                title: "¿Estas seguro?",
-                text: "Una vez eliminado, no podras recuperar a este desarrollador",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
+                    url: "app/desarrollador.php",
+                    type: "POST",
+                    data: {
+                        eliminarDesarrolladorSend: eliminarDesarrollador,
+                        deleteSend: id
+                    },
+                    success: function (data, status) {
+
                         swal("Desarrollador Eliminado", {
                             icon: "success",
 
@@ -116,15 +117,17 @@ function eliminarDesarrollador(id) {
 
                         displayDataDesarrollador();//MOSTRAMOS LA TABLA ACTUALIZADA
 
-                    } else {
-                        swal("El desarrollador esta a salvo");
                     }
+
                 });
 
-        }
+            } else {
+                swal("El desarrollador esta a salvo");
+            }
+        });
 
-    });
-    
+
+
 }
 
 function getInfoDesarrollador(id) {
@@ -144,7 +147,7 @@ function getInfoDesarrollador(id) {
     });
 
     $('#modalInfoDesarrollador').modal("show");
-    
+
 }
 
 function actualizarGetInfoDesarrollador(id) {
@@ -164,11 +167,11 @@ function actualizarGetInfoDesarrollador(id) {
     });
 
     $('#modalEditarDesarrollador').modal("show");
-    
+
 }
 
 function actualizarDesarrollador() {
-    
+
     let actualizarDesarrollador = true;
 
     let idHidden = $('#idHiddenDesarrollador').val();
@@ -181,7 +184,7 @@ function actualizarDesarrollador() {
         idHiddenSend: idHidden,
         apellidoActualizarSend: apellidoActualizar,
         actualizarDesarrolladorSend: actualizarDesarrollador
-        
+
     }, function (data, status) {
 
         //SWEET ALERT

@@ -11,7 +11,7 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
         <thead>
             <tr>
                 <th>#</th>
-                <th>NOMBRES(S)</th>     
+                <th>NOMBRE(S)</th>     
                 <th>APELLIDO(S)</th>            
                 <th>ACCIONES</th>   
             </tr>

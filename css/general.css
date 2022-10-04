@@ -2,13 +2,21 @@ body {
     font-size: 12px;
 }
 
+/*=================
+PRUEBAS
+=================*/
 
+canvas{
+    width: 150px;
+}
+
+.co{
+    width:500px;
+}
 
 /*=================
-TAMAÑO ICONOS DE Bootstrap 
+TAMAÑO ICONOS DE BOOTSTRAP 
 =================*/
-/* .bi {} */
-
 .tam {
     font-size: 2em;
 }
@@ -36,7 +44,7 @@ table th {
 /* =================
 CONTENEDOR DATATABLE SCROLL X
 ================= */
-#displayDataTable {
+#displayDataTable, #displayDataTablePendiente, #displayDataTableDesarrolloo{
     overflow: auto;
 }
 

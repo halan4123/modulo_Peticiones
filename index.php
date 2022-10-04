@@ -39,33 +39,31 @@ include 'filtros.php';
     <div class="container-fluid">
 
         <div class="container-fluid">
+
             <h2>Módulo Peticiones</h2>
 
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Peticiones</a></li>
-                <li><a data-toggle="tab" href="#menu1">Desarrolladores</a></li>
-                <li><a data-toggle="tab" href="#menu2">Soporte</a></li>
+                <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
+                <li><a onfocus="displayDataDesarrollador()" data-toggle="tab" href="#menu1">Desarrolladores</a></li>
+                <li><a onfocus="displayDataSoporte()" data-toggle="tab" href="#menu2">Soporte</a></li>
                 <li><a data-toggle="tab" href="#menu3">Graficos</a></li>
             </ul>
 
             <div class="tab-content">
 
                 <div id="home" class="tab-pane fade in active">
-                    <!-- <h3>Peticiones</h3> -->
 
                     <?php include 'tablas/tablaPeticiones.php'; ?>
 
                 </div>
 
                 <div id="menu1" class="tab-pane fade">
-                    <!-- <h3>Desarrolladores</h3> -->
 
                     <?php include 'tablas/tablaDesarrolladores.php'; ?>
 
                 </div>
 
                 <div id="menu2" class="tab-pane fade">
-                    <!-- <h3>Menu 2</h3> -->
 
                     <?php include 'tablas/tablaSoportes.php'; ?>
 
@@ -105,6 +103,9 @@ include 'filtros.php';
     <!-- CDN SELECT2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <!-- Importar chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>
 
@@ -112,7 +113,7 @@ include 'filtros.php';
 
     <script src="js/AjaxSoporte.js"></script>
 
-
+    <script src="js/AjaxGraficas.js"></script>
 
 </body>
 

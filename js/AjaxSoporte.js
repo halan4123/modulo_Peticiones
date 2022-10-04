@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    displayDataSoporte(); //DESPLIEGA LA FUNCIÓN
+    //displayDataSoporte(); //DESPLIEGA LA FUNCIÓN
 
 
 });
