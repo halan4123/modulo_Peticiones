@@ -6,6 +6,33 @@ $(document).ready(function () {
 
 });
 
+function displayDataCompletas() {
+
+    let displayData = true;
+    let displayDataCompleta = true;
+
+    $.ajax({
+        url: "app/peticion.php",
+        type: "POST",
+        data: {
+            displayDataSend: displayData,
+            displayDataCompletaSend: displayDataCompleta
+        },
+        success: function (data, status) {
+            $('#displayDataTableCompletadas').html(data);
+            $('#tabla_peticiones_coompletadas').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+
+
+            });
+        }
+
+    });
+
+}
+
 function displayDataDesarrollo() {
 
     let displayData = true;
@@ -269,6 +296,8 @@ function actualizar() {
 
     let actualizarData = true;
 
+    let enviado = true;
+
     let idHidden = $('#idHidden').val();
     let asuntoActualizar = $('#asuntoUpdate').val();
     let laboratorioActualizar = $('#laboratorioUpdate').val();
@@ -289,40 +318,41 @@ function actualizar() {
     let fechaCompletado = $('#fecha_completadoUpdate').val()
     fechaCompletado = fechaCompletado.substring(0, 10);
 
-   
-    let desarrollador_wp =  $('#desarrollador_nombre').val().trim();
+    let desarrollador_wp = $('#desarrollador_nombre').val().trim();
 
+    let laboratorio_wp = $('#laboratorioUpdate').text().trim();
 
     //$('#laboratorioUpdate').text().trim()
     // console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
 
+    if (estatusActualizar == "2") {
 
-    $.post("app/peticion.php", {
+        swal({
+            title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+            icon: "images/wp.png",
+            buttons: ["No, no enviar", "Si, si enviar"],
+            closeOnClickOutside: false,
+            allowOutsideClick: false
 
-        actualizarDataSend: actualizarData,
-        idHiddenSend: idHidden,
-        asuntoActualizarSend: asuntoActualizar,
-        laboratorioActualizarSend: laboratorioActualizar,
-        fechaEntregaActualizarSend: fechaEntregaActualizar,
-        desarrolladorActualizarSend: desarrolladorActualizar,
-        nivelActualizarSend: nivelActualizar,
-        estatusActualizarSend: estatusActualizar,
-        descripcionActualizarSend: descripcionActualizar
+        })
+            .then((willSend) => {
 
+                if (willSend) {
 
-    }, function (data, status) {
+                    $.post("app/peticion.php", {
 
-        if (estatusActualizar == "2") {
-            swal({
-                title: "¿Te gustaria enviar el mensaje de Whatsapp?",
-                icon: "images/wp.png",
-                buttons: ["No, no enviar", "Si, si enviar"],
-                closeOnClickOutside: false,
-                allowOutsideClick: false
+                        actualizarDataSend: actualizarData,
+                        idHiddenSend: idHidden,
+                        asuntoActualizarSend: asuntoActualizar,
+                        laboratorioActualizarSend: laboratorioActualizar,
+                        fechaEntregaActualizarSend: fechaEntregaActualizar,
+                        desarrolladorActualizarSend: desarrolladorActualizar,
+                        nivelActualizarSend: nivelActualizar,
+                        estatusActualizarSend: estatusActualizar,
+                        descripcionActualizarSend: descripcionActualizar,
+                        enviadoSend: enviado,
 
-            })
-                .then((willSend) => {
-                    if (willSend) {
+                    }, function (data, status) {
 
                         swal({
                             title: "Petición Actualizada y ventana emergente de whatsapp abierta",
@@ -330,13 +360,34 @@ function actualizar() {
                             button: "Cerrar",
                         });
 
-                        window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + $('#laboratorioUpdate').text().trim() + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
+                        window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
 
                         displayData();
                         displayDataPendientes();
                         displayDataDesarrollo();
+                        displayDataCompletas();
 
-                    } else {
+
+                    });
+
+                } else {
+
+                    enviado = false;
+
+                    $.post("app/peticion.php", {
+
+                        actualizarDataSend: actualizarData,
+                        idHiddenSend: idHidden,
+                        asuntoActualizarSend: asuntoActualizar,
+                        laboratorioActualizarSend: laboratorioActualizar,
+                        fechaEntregaActualizarSend: fechaEntregaActualizar,
+                        desarrolladorActualizarSend: desarrolladorActualizar,
+                        nivelActualizarSend: nivelActualizar,
+                        estatusActualizarSend: estatusActualizar,
+                        descripcionActualizarSend: descripcionActualizar,
+                        enviadoSend: enviado,
+
+                    }, function (data, status) {
 
                         swal({
                             title: "Petición Actualizada",
@@ -347,11 +398,36 @@ function actualizar() {
                         displayData();
                         displayDataPendientes();
                         displayDataDesarrollo();
+                        displayDataCompletas();
 
-                    }
-                });
 
-        } else {
+                    });
+
+
+                }
+            });
+
+
+
+    } else {
+
+        enviado = false;
+
+        $.post("app/peticion.php", {
+
+            actualizarDataSend: actualizarData,
+            idHiddenSend: idHidden,
+            asuntoActualizarSend: asuntoActualizar,
+            laboratorioActualizarSend: laboratorioActualizar,
+            fechaEntregaActualizarSend: fechaEntregaActualizar,
+            desarrolladorActualizarSend: desarrolladorActualizar,
+            nivelActualizarSend: nivelActualizar,
+            estatusActualizarSend: estatusActualizar,
+            descripcionActualizarSend: descripcionActualizar,
+            enviadoSend: enviado,
+
+        }, function (data, status) {
+
             swal({
                 title: "Petición Actualizada",
                 icon: "success",
@@ -361,9 +437,86 @@ function actualizar() {
             displayData();
             displayDataPendientes();
             displayDataDesarrollo();
-        }
+            displayDataCompletas();
 
-    });
+
+        });
+
+
+    }
+
+
+
+
+
+    //     actualizarDataSend: actualizarData,
+    //     idHiddenSend: idHidden,
+    //     asuntoActualizarSend: asuntoActualizar,
+    //     laboratorioActualizarSend: laboratorioActualizar,
+    //     fechaEntregaActualizarSend: fechaEntregaActualizar,
+    //     desarrolladorActualizarSend: desarrolladorActualizar,
+    //     nivelActualizarSend: nivelActualizar,
+    //     estatusActualizarSend: estatusActualizar,
+    //     descripcionActualizarSend: descripcionActualizar,
+    //     enviadoSend: enviado,
+
+    // }, function (data, status) {
+
+    //     if (estatusActualizar == "2") {
+    //         swal({
+    //             title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+    //             icon: "images/wp.png",
+    //             buttons: ["No, no enviar", "Si, si enviar"],
+    //             closeOnClickOutside: false,
+    //             allowOutsideClick: false
+
+    //         })
+    //             .then((willSend) => {
+
+    //                 if (willSend) {
+
+    //                     swal({
+    //                         title: "Petición Actualizada y ventana emergente de whatsapp abierta",
+    //                         icon: "success",
+    //                         button: "Cerrar",
+    //                     });
+
+    //                     window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
+
+    //                     displayData();
+    //                     displayDataPendientes();
+    //                     displayDataDesarrollo();
+    //                     displayDataCompletas();
+
+
+    //                 } else {
+
+    //                     swal({
+    //                         title: "Petición Actualizada",
+    //                         icon: "success",
+    //                         button: "Cerrar",
+    //                     });
+
+    //                     displayData();
+    //                     displayDataPendientes();
+    //                     displayDataDesarrollo();
+
+    //                 }
+    //             });
+
+    //     } else {
+    //         swal({
+    //             title: "Petición Actualizada",
+    //             icon: "success",
+    //             button: "Cerrar",
+    //         });
+
+    //         displayData();
+    //         displayDataPendientes();
+    //         displayDataDesarrollo();
+    //     }
+
+    // });
 
 }
 
@@ -399,6 +552,8 @@ function eliminar(id) {
 
                         displayData();//MOSTRAMOS LA TABLA ACTUALIZADA
                         displayDataPendientes();
+                        displayDataDesarrollo();
+                        displayDataCompletas();
                     }
 
                 });
@@ -559,5 +714,70 @@ function limpiarInputAgregar() {
     $('#descripcionAdd').val('');
     $('#soporteAdd').val(null).trigger('change');
     $('#laboratorioAdd').val(null).trigger('change');
+}
+
+//Al momento de presionar el boton de Wp en la sección de completadas sin enviar, se completa y se va
+//A la tabla de los filtros
+function wp(id, asunto, celular,laboratorio,fechaCompletado, desarrollador,fechaLlegada, soporte) {
+
+
+    let actualizarDesdeWp = true;
+
+    console.log(id);
+    console.log(asunto);
+
+    console.log(celular);
+    console.log(laboratorio);
+    console.log(fechaCompletado);
+    console.log(desarrollador);
+    console.log(fechaLlegada);
+    console.log(soporte);
+
+    swal({
+        title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+        icon: "images/wp.png",
+        buttons: ["No, no enviar", "Si, si enviar"],
+        closeOnClickOutside: false,
+        allowOutsideClick: false
+    })
+        .then((willSend) => {
+
+            if (willSend) {
+
+
+                $.post("app/peticion.php", {
+
+                    actualizarDesdeWpSend: actualizarDesdeWp,
+                    idSendWp: id,
+
+                }, function (data, status) {
+
+                    // displayData();
+                    // displayDataPendientes();
+                    // displayDataDesarrollo();
+                    displayDataCompletas();
+
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
+
+                });
+
+            } else {
+
+
+                swal({
+                    title: "La Petición No Fue Enviada",
+                    icon: "warning",
+                    button: "Cerrar",
+                });
+
+
+
+            }
+        });
+
+
+
+
+
 }
 

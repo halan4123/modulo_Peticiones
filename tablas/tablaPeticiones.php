@@ -125,18 +125,34 @@
         </div>
     </div>
 
-    <!-- PETICIONES EN DESARROLLO -->
+    <!-- PETICIONES EN COMPLETADAS SIN ENVIAR -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a onfocus="displayDataDesarrollo()" data-toggle="collapse" data-parent="#accordion" href="#peticionesCompletasCollapse">
+                <a onfocus="displayDataCompletas()" data-toggle="collapse" data-parent="#accordion" href="#peticionesCompletasCollapse">
                     Peticiones Completadas Sin Enviar</a>
             </h4>
         </div>
         <div id="peticionesCompletasCollapse" class="panel-collapse collapse">
             <div class="panel-body">
 
-                
+                <!--========================
+                TABLA
+                ========================-->
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <!-- AQUI SE GENERA LA TABLA -->
+                        <div id="displayDataTableCompletadas">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
 
             </div>
         </div>

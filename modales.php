@@ -126,7 +126,7 @@
 
                  <div class="form-group">
                      <label for="descripcionSee">Descripción:</label>
-                     <textarea class="form-control" rows="5" id="descripcionSee" disabled></textarea>
+                     <textarea class="form-control" rows="15" id="descripcionSee" disabled></textarea>
                  </div>
 
              </div>

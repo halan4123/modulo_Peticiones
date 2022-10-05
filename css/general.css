@@ -2,16 +2,20 @@ body {
     font-size: 12px;
 }
 
+.gt{
+    text-align: center;
+}
+
 /*=================
 PRUEBAS
 =================*/
 
-canvas{
+canvas {
     width: 150px;
 }
 
-.co{
-    width:500px;
+.co {
+    width: 500px;
 }
 
 /*=================
@@ -21,7 +25,7 @@ TAMAÑO ICONOS DE BOOTSTRAP
     font-size: 2em;
 }
 
-.tam-i{
+.tam-i {
     font-size: 1.5em;
 }
 
@@ -44,7 +48,10 @@ table th {
 /* =================
 CONTENEDOR DATATABLE SCROLL X
 ================= */
-#displayDataTable, #displayDataTablePendiente, #displayDataTableDesarrolloo{
+#displayDataTable,
+#displayDataTablePendiente,
+#displayDataTableDesarrolloo,
+#displayDataTableCompletadas {
     overflow: auto;
 }
 
@@ -77,7 +84,7 @@ textarea {
     width: 100%;
     display: flex;
     justify-content: right;
-    
+
 }
 
 .accionesPeticion {
@@ -97,7 +104,7 @@ ESTILOS FILTROS
 .flex-container {
     display: flex;
     justify-content: flex-end;
-   
+
 }
 
 .flex-container>div {
@@ -106,29 +113,29 @@ ESTILOS FILTROS
     margin: 0px 10px;
 }
 
-.flex-container>div>input{
+.flex-container>div>input {
     display: inline;
     width: auto;
-    
+
 }
 
-.flex-container>div>select{
+.flex-container>div>select {
     display: inline;
     width: auto;
-    
+
 }
 
-.flex-container>div>button{
+.flex-container>div>button {
     display: inline;
     width: auto;
-    
+
 }
 
 .flex-container_2 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-   
+
 }
 
 .flex-container_2>div {
@@ -137,22 +144,22 @@ ESTILOS FILTROS
     margin: 0px 10px;
 }
 
-.flex-container_2>div>input{
+.flex-container_2>div>input {
     display: inline;
     width: auto;
-    
+
 }
 
-.flex-container_2>div>select{
+.flex-container_2>div>select {
     display: inline;
     width: auto;
-    
+
 }
 
-.flex-container_2>div>button{
+.flex-container_2>div>button {
     display: inline;
     width: auto;
-    
+
 }
 
 /*=================
@@ -166,34 +173,34 @@ MEDIA QUERY
 
     .flex-container {
         flex-direction: column;
-        
+
     }
-    
+
     .flex-container>div {
 
         width: 100%;
         text-align: left;
         margin: 5px 0px;
     }
-    
-    .flex-container>div>input{
+
+    .flex-container>div>input {
         display: inline;
         width: 100%;
-        
+
     }
-    
-    .flex-container>div>select{
+
+    .flex-container>div>select {
         display: inline;
         width: 100%;
-        
+
     }
-    
-    .flex-container>div>button{
+
+    .flex-container>div>button {
         display: inline;
         width: 100%;
-        
+
     }
-    
+
 
 
 
