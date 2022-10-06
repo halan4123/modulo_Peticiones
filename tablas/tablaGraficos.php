@@ -1,57 +1,124 @@
 <div>
-    <!--========================
-    BOTÓN AGREGAR DESARROLLADOR
-    ========================-->
-    <div class="row">
+    <div class="panel-group" id="acordion_graficas">
 
-        <div class="col-md-12">
+        <!--=====================================================================================================================
+        ESTADISTICAS GENERALES 
+        ======================================================================================================================-->
 
-            <div class="well ">
-
-
+        <div class="panel panel-success">
+            <div class="panel-heading ">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasGenerales">Estadisticas Generales</a>
+                </h4>
             </div>
+            <div id="estadisticasGenerales" class="panel-collapse collapse in">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div class=" flex-container">
+
+
+                                    <button class="btn btn-success" onclick="pruebaGrafic()">Prueba</button>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-custom-5">Peticiones Aceptadas Por Desarrollador.</div>
+                                <div class="panel-body">
+                                    <div class="co">
+                                        <canvas id="peticionesAceptadasDesarrolladores"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-custom-5">Peticiones Registradas Por Soporte</div>
+                                <div class="panel-body">
+                                    <div class="co">
+                                        <canvas id="graficas"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
 
 
 
+
+                </div>
+            </div>
         </div>
 
-    </div>
+
+        <!--=====================================================================================================================
+        ESTADISTICAS DE LABORATORIO 
+        ======================================================================================================================-->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasLaboratorio">Estadisticas Laboratorios</a>
+                </h4>
+            </div>
+            <div id="estadisticasLaboratorio" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div class=" flex-container">
 
 
-    <div class="row">
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filterFechaInicio">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficos">
+                                    </div>
 
-        <div class="col-md-12 prt">
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filterFechaFinal">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficos">
+                                    </div>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home3">Home</a></li>
-                <li><a data-toggle="tab" href="#menu13">Menu 1</a></li>
-                <li><a data-toggle="tab" href="#menu23">Menu 2</a></li>
-                <li><a data-toggle="tab" href="#menu33">Menu 3</a></li>
-            </ul>
 
-            <div class="tab-content">
-                <div id="home3" class="tab-pane fade in active">
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div id="menu13" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div id="menu23" class="tab-pane fade">
-                    <h3>Menu 2</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div id="menu33" class="tab-pane fade">
-                    <h3>Menu 3</h3>
-                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
-
-
-
         </div>
-
-
     </div>
+
 </div>

@@ -1,9 +1,11 @@
 <div class="panel-group" id="accordion">
 
-    <!-- PETICIONES PENDIENTES -->
+    <!--=====================================================================================================================
+    PETICIONES PENDIENTES 
+    ======================================================================================================================-->
     <div class="panel panel-default">
 
-        <div class="panel-heading">
+        <div class="panel-heading panel-heading-custom-1">
             <h4 class="panel-title">
                 <a onfocus="displayDataPendientes()" data-toggle="collapse" data-parent="#accordion" href="#peticionesPendientesCollapse">
                     Pendientes</a>
@@ -93,9 +95,11 @@
 
     </div>
 
-    <!-- PETICIONES EN DESARROLLO -->
+    <!--=====================================================================================================================
+    PETICIONES EN DESARROLLO 
+    ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading panel-heading-custom-2">
             <h4 class="panel-title">
                 <a onfocus="displayDataDesarrollo()" data-toggle="collapse" data-parent="#accordion" href="#peticionesDesarrolloCollapse">
                     Peticiones En Desarrollo</a>
@@ -125,9 +129,11 @@
         </div>
     </div>
 
-    <!-- PETICIONES EN COMPLETADAS SIN ENVIAR -->
+    <!--=====================================================================================================================
+    PETICIONES COMPLETADAS SIN ENVIAR 
+    ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading panel-heading-custom-3">
             <h4 class="panel-title">
                 <a onfocus="displayDataCompletas()" data-toggle="collapse" data-parent="#accordion" href="#peticionesCompletasCollapse">
                     Peticiones Completadas Sin Enviar</a>
@@ -158,9 +164,11 @@
         </div>
     </div>
 
-    <!-- BUSCADOR DE PETICIONES -->
+    <!--=====================================================================================================================
+    BUSCADOR DE PENDIENTES - FILTROS - GENERADOR DE EXCEL
+    ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading panel-heading-custom-4">
             <h4 class="panel-title">
                 <a onfocus="displayData()" data-toggle="collapse" data-parent="#accordion" href="#buscadorPeticiones">
                     Buscador De Peticiones</a>

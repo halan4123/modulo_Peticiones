@@ -103,10 +103,8 @@ include 'filtros.php';
     <!-- CDN SELECT2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
-    <!-- Importar highcharts.js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-
+    <!-- Importar chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>
