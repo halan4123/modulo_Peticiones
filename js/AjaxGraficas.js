@@ -1,25 +1,41 @@
 
-function pruebaGrafic() {
 
-    let prueba = true;
+
+
+function graficarEstadisticasGenerales() {
+
+    let fechaInicio = $('#filtroFechaInicioGraficos').val();
+    let fechaFinal = $('#filtroFechaFinalGraficos').val();
+
+
+    let desarrolladorDatos = true;
 
     $.post("app/pruebaGraficas.php", {
 
-        pruebaSend: prueba,
+        desarrolladorDatosSend: desarrolladorDatos,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
 
     }, function (data, status) {
 
-        let prueba = JSON.parse(data);
-        //console.log(prueba);
+        let datos = JSON.parse(data);
 
-        const ctx = $('#peticionesAceptadasDesarrolladores');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
+        document.getElementById("peticionesAceptadasDesarrolladores").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "peticionesAceptadasDesarrolladores";
+        document.getElementById("contenedor-desarrollador").appendChild(canvas1);
+
+
+
+        const ctxDesarrollador = $('#peticionesAceptadasDesarrolladores');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
             data: {
-                labels: prueba.nombre,
+                labels: datos.nombre,
                 datasets: [{
                     label: 'Peticiones Por Desarrollador',
-                    data: prueba.datos,
+                    data: datos.datos,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -51,43 +67,67 @@ function pruebaGrafic() {
 
 
 
+
     });
 
-    // const ctx = $('#myChart');
-    // const myChart = new Chart(ctx, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //         datasets: [{
-    //             label: 'Peticiones Por Desarrollador',
-    //             data: [12, 19, 3, 5, 2, 3],
-    //             backgroundColor: [
-    //                 'rgba(255, 99, 132, 0.2)',
-    //                 'rgba(54, 162, 235, 0.2)',
-    //                 'rgba(255, 206, 86, 0.2)',
-    //                 'rgba(75, 192, 192, 0.2)',
-    //                 'rgba(153, 102, 255, 0.2)',
-    //                 'rgba(255, 159, 64, 0.2)'
-    //             ],
-    //             borderColor: [
-    //                 'rgba(255, 99, 132, 1)',
-    //                 'rgba(54, 162, 235, 1)',
-    //                 'rgba(255, 206, 86, 1)',
-    //                 'rgba(75, 192, 192, 1)',
-    //                 'rgba(153, 102, 255, 1)',
-    //                 'rgba(255, 159, 64, 1)'
-    //             ],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+    let soporteDatos = true;
+
+    $.post("app/pruebaGraficas.php", {
+
+        soporteDatosSend: soporteDatos,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+
+    }, function (data, status) {
+
+        let datosSoporte = JSON.parse(data);
+
+        document.getElementById("peticionesRegistradasSoporte").remove();
+
+        let canvas2 = document.createElement("canvas");
+        canvas2.id = "peticionesRegistradasSoporte";
+        document.getElementById("contenedor-soporte").appendChild(canvas2);
+
+        const ctxSoporte = $('#peticionesRegistradasSoporte');
+        const myChartSoporte = new Chart(ctxSoporte, {
+            type: 'pie',
+            data: {
+                labels: datosSoporte.nombre,
+                datasets: [{
+                    label: 'Peticiones Por Desarrollador',
+                    data: datosSoporte.datos,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+
+            }
+        });
+
+    });
+
+
 
 
 
@@ -100,46 +140,4 @@ function pruebaGrafic() {
 
 
 
-
-// (async () => {
-//     // Llamar a nuestra API. Puedes usar cualquier librería para la llamada, yo uso fetch, que viene nativamente en JS
-//     const respuestaRaw = await fetch("app/graficas.php");
-//     // Decodificar como JSON
-//     const respuesta = await respuestaRaw.json();
-//     // Ahora ya tenemos las etiquetas y datos dentro de "respuesta"
-//     // Obtener una referencia al elemento canvas del DOM
-//     const $grafica = document.querySelector("#graficas");
-//     const etiquetas = respuesta.etiquetas; // <- Aquí estamos pasando el valor traído usando AJAX
-//     // Podemos tener varios conjuntos de datos. Comencemos con uno
-//     const datosVentas2020 = {
-//         label: "Ventas por mes",
-//         // Pasar los datos igualmente desde PHP
-//         data: respuesta.datos, // <- Aquí estamos pasando el valor traído usando AJAX
-//         backgroundColor: [
-//             'rgb(255, 165, 0)',
-//             'rgb(0, 128, 0)',
-//             'rgb(255, 0, 0)',
-//             'rgb(41, 149, 184)'
-//         ],
-//     };
-//     new Chart($grafica, {
-//         type: 'pie', // Tipo de gráfica
-//         data: {
-//             labels: etiquetas,
-//             datasets: [
-//                 datosVentas2020,
-//                 // Aquí más datos...
-//             ]
-//         },
-//         options: {
-//             scales: {
-//                 yAxes: [{
-//                     ticks: {
-//                         beginAtZero: true
-//                     }
-//                 }],
-//             },
-//         }
-//     });
-// })();
 

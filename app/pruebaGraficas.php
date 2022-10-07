@@ -3,7 +3,16 @@ include 'connectionController.php';
 
 $conn = connect();
 
-if (isset($_POST['pruebaSend'])) {
+date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
+
+$MES_ACTUAL = date('m');
+$YEAR_ACTUAL = date('y');
+
+//==========================================================================================================================
+//GRAFICA DE PETCIONES ACEPTADAS POR DESARROLLADOR
+//==========================================================================================================================
+
+if (isset($_POST['desarrolladorDatosSend'])) {
 
 
     $sql = "SELECT `NOMBRE` FROM `desarrollador` WHERE 1 ORDER BY NOMBRE ASC";
@@ -12,6 +21,7 @@ if (isset($_POST['pruebaSend'])) {
 
     $NOMBRES_DESARROLLADORES = array();
 
+    //OBTENCIÓN DE LOS NOMBRES DE LOS DESARROLLADORES
     while ($row = mysqli_fetch_assoc($result)) {
 
         array_push($NOMBRES_DESARROLLADORES, $row['NOMBRE']);
@@ -23,27 +33,59 @@ if (isset($_POST['pruebaSend'])) {
 
     $DESARROLLOS = array();
 
-    while ($CONTADOR < $CANTIDAD) {
+    //OBTENCIÓN DE LOS DATOS DE CADA DESARROLLADOR
+    if ($_POST['fechaInicioSend'] != '' && $_POST['fechaFinalSend'] != '') {
 
-        $PERSONA = $NOMBRES_DESARROLLADORES[$CONTADOR];
+        $FECHA_INICIO = $_POST['fechaInicioSend'];
 
-        $query = "SELECT d.nombre AS NOMDES, COUNT(ID_PETICION) AS TOTAL FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-        WHERE d.nombre = '$PERSONA'";
+        $FECHA_FINAL = $_POST['fechaFinalSend'];
 
-        $result2 = $conn->query($query);
-    
-        $VALOR = $result2->fetch_array()['TOTAL'] ?? '';
-        
-        array_push($DESARROLLOS, intval($VALOR));
+        while ($CONTADOR < $CANTIDAD) {
 
-        $CONTADOR++;
+            $PERSONA = $NOMBRES_DESARROLLADORES[$CONTADOR];
+
+            // $query = "SELECT d.nombre AS NOMDES, COUNT(ID_PETICION) AS TOTAL 
+            // FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            // WHERE d.nombre = '$PERSONA'";
+
+            $query = "SELECT d.nombre AS NOMDES, COUNT(ID_PETICION) AS TOTAL 
+             FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+             WHERE d.nombre = '$PERSONA' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+            $result2 = $conn->query($query);
+
+            $VALOR = $result2->fetch_array()['TOTAL'] ?? 0;
+
+            array_push($DESARROLLOS, intval($VALOR));
+
+            $CONTADOR++;
+        }
+    } else {
+
+        while ($CONTADOR < $CANTIDAD) {
+
+            $PERSONA = $NOMBRES_DESARROLLADORES[$CONTADOR];
+
+            $query = "SELECT d.nombre AS NOMDES, COUNT(ID_PETICION) AS TOTAL 
+            FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            WHERE d.nombre = '$PERSONA' AND MONTH(FECHA_LLEGADA) = $MES_ACTUAL";
+
+            //  $query = "SELECT d.nombre AS NOMDES, COUNT(ID_PETICION) AS TOTAL 
+            //  FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            //  WHERE d.nombre = 'Christian' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+            $result2 = $conn->query($query);
+
+            $VALOR = $result2->fetch_array()['TOTAL'] ?? 0;
+
+            array_push($DESARROLLOS, intval($VALOR));
+
+            $CONTADOR++;
+        }
     }
 
-    // var_dump($DESARROLLOS);
 
-    // var_dump($NOMBRES_DESARROLLADORES);
 
-    $datosVentas = [30, 10, 15, 12];
 
     // Ahora las imprimimos como JSON para pasarlas a AJAX, pero las agrupamos
     $respuesta = [
@@ -52,6 +94,87 @@ if (isset($_POST['pruebaSend'])) {
     ];
 
     echo json_encode($respuesta);
+}
 
 
+//==========================================================================================================================
+//GRAFICA DE PETCIONES REGISTRADAS POR SOPORTE
+//==========================================================================================================================
+
+if (isset($_POST['soporteDatosSend'])) {
+
+    $sql = "SELECT `NOMBRE` FROM `soporte` WHERE 1 ORDER BY NOMBRE ASC";
+
+    $result = mysqli_query($conn, $sql);
+
+    $NOMBRES_SOPORTES = array();
+
+    while ($row = mysqli_fetch_assoc($result)) {
+
+        array_push($NOMBRES_SOPORTES, $row['NOMBRE']);
+    }
+
+    $CONTADOR = 0;
+
+    $CANTIDAD = count($NOMBRES_SOPORTES);
+
+    $VALOR_SOPORTE = array();
+
+    //OBTENCIÓN DE LOS DATOS DE CADA DESARROLLADOR
+    if ($_POST['fechaInicioSend'] != '' && $_POST['fechaFinalSend'] != '') {
+
+        $FECHA_INICIO = $_POST['fechaInicioSend'];
+
+        $FECHA_FINAL = $_POST['fechaFinalSend'];
+
+        while ($CONTADOR < $CANTIDAD) {
+
+            $PERSONA = $NOMBRES_SOPORTES[$CONTADOR];
+
+            $query = "SELECT s.nombre AS NOMSOP, COUNT(ID_PETICION) AS TOTAL 
+            FROM peticion AS p 
+            INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE s.nombre = '$PERSONA'
+            and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+            $result = $conn->query($query);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            array_push($VALOR_SOPORTE, intval($VALOR));
+
+            $CONTADOR++;
+        }
+    } else {
+
+        while ($CONTADOR < $CANTIDAD) {
+
+            $PERSONA = $NOMBRES_SOPORTES[$CONTADOR];
+
+            $query = "SELECT s.nombre AS NOMSOP, COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+            INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE s.nombre = '$PERSONA'";
+
+            $result = $conn->query($query);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            array_push($VALOR_SOPORTE, intval($VALOR));
+
+            $CONTADOR++;
+        }
+    }
+
+
+
+
+
+
+    //$datosVentas = [30, 10];
+
+    // Ahora las imprimimos como JSON para pasarlas a AJAX, pero las agrupamos
+    $respuesta = [
+        "nombre" => $NOMBRES_SOPORTES,
+        "datos" => $VALOR_SOPORTE,
+    ];
+
+    echo json_encode($respuesta);
 }

@@ -171,9 +171,10 @@ if (isset($_POST['displayDataSend'])) {
                 $fechaInicio = $_POST['filtroFechaInicioSend'];
                 $fechaFinal = $_POST['filtroFechaFinalSend'];
                 $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
-                $newDate_2 = date("Y-m-d", strtotime($fechaFinal));
-                // echo("Holi");
-                // var_dump($newDate_1);
+                $newDate_2 = date("Y-m-d", strtotime($fechaFinal . "+ 1 days"));
+
+
+                var_dump($newDate_2);
 
                 if ($fechaInicio !== '' && $fechaFinal !== '') {
 

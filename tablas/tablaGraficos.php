@@ -5,8 +5,8 @@
         ESTADISTICAS GENERALES 
         ======================================================================================================================-->
 
-        <div class="panel panel-success">
-            <div class="panel-heading ">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-custom-5">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasGenerales">Estadisticas Generales</a>
                 </h4>
@@ -22,7 +22,30 @@
                                 <div class=" flex-container">
 
 
-                                    <button class="btn btn-success" onclick="pruebaGrafic()">Prueba</button>
+                                    <!-- <button class="btn btn-success" onclick="pruebaGrafic()">Prueba</button> -->
+
+
+                                </div>
+
+                                <div class=" flex-container">
+
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filterFechaInicio">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficos" onchange="">
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filterFechaFinal">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficos" onchange="">
+                                    </div>
+
+                                    <div>
+
+                                        <button class="btn btn-success" onclick="graficarEstadisticasGenerales()"><i class="bi bi-search"></i></button>
+
+                                    </div>
 
 
                                 </div>
@@ -38,10 +61,12 @@
                         <div class="col-md-6">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5">Peticiones Aceptadas Por Desarrollador.</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Aceptadas Por Desarrollador</div>
                                 <div class="panel-body">
-                                    <div class="co">
+                                    <div class="ancho-canvas" id="contenedor-desarrollador">
+
                                         <canvas id="peticionesAceptadasDesarrolladores"></canvas>
+
                                     </div>
                                 </div>
 
@@ -53,10 +78,12 @@
                         <div class="col-md-6">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5">Peticiones Registradas Por Soporte</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Registradas Por Soporte</div>
                                 <div class="panel-body">
-                                    <div class="co">
-                                        <canvas id="graficas"></canvas>
+                                    <div class="ancho-canvas" id="contenedor-soporte">
+
+                                        <canvas id="peticionesRegistradasSoporte"></canvas>
+
                                     </div>
                                 </div>
 
@@ -78,8 +105,8 @@
         <!--=====================================================================================================================
         ESTADISTICAS DE LABORATORIO 
         ======================================================================================================================-->
-        <div class="panel panel-info">
-            <div class="panel-heading">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-custom-3">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasLaboratorio">Estadisticas Laboratorios</a>
                 </h4>
