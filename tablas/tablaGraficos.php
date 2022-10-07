@@ -47,6 +47,8 @@
 
                                     </div>
 
+                                    
+
 
                                 </div>
                             </div>
@@ -58,12 +60,12 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px;">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Aceptadas Por Desarrollador</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Aceptadas Por Desarrollador</div>
                                 <div class="panel-body">
-                                    <div class="ancho-canvas" id="contenedor-desarrollador">
+                                    <div class="" id="contenedor-desarrollador">
 
                                         <canvas id="peticionesAceptadasDesarrolladores"></canvas>
 
@@ -75,14 +77,30 @@
 
                         </div>
 
+                        <div class="col-md-6" style="margin-bottom: 10px;">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Registradas Por Soporte</div>
+                                <div class="panel-body">
+                                    <div class="" id="contenedor-soporte">
+
+                                        <canvas id="peticionesRegistradasSoporte"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                         <div class="col-md-6">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Registradas Por Soporte</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Anuales</div>
                                 <div class="panel-body">
-                                    <div class="ancho-canvas" id="contenedor-soporte">
+                                    <div class="" id="contenedor-anuales">
 
-                                        <canvas id="peticionesRegistradasSoporte"></canvas>
+                                        <canvas id="peticionesAnuales"></canvas>
 
                                     </div>
                                 </div>

@@ -10,9 +10,11 @@ canvas {
     width: auto;
 }
 
-.ancho-canvas {
+/* .ancho-canvas {
     width: auto;
-}
+} */
+
+
 
 /*=====================================================================================================================
 TAMAÑO ICONOS NIVEL, ESTATUS -> .tam / TAMAÑO ICONOS BOOTSTRAP SIMBOLOGIA -> .tam-i

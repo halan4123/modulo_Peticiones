@@ -295,7 +295,7 @@
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
                                     <label for=" filterFechaInicio">De:</label>
-                                    <input type="date" class="form-control" id="filtroFechaInicio" onchange="displayData()">
+                                    <input type="date" class="form-control" id="filtroFechaInicio" >
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->

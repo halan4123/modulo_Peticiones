@@ -7,7 +7,6 @@ function graficarEstadisticasGenerales() {
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
     let fechaFinal = $('#filtroFechaFinalGraficos').val();
 
-
     let desarrolladorDatos = true;
 
     $.post("app/pruebaGraficas.php", {
@@ -27,8 +26,8 @@ function graficarEstadisticasGenerales() {
         document.getElementById("contenedor-desarrollador").appendChild(canvas1);
 
 
-
-        const ctxDesarrollador = $('#peticionesAceptadasDesarrolladores');
+        const ctxDesarrollador = document.getElementById('peticionesAceptadasDesarrolladores').getContext('2d');
+        //const ctxDesarrollador = $('#peticionesAceptadasDesarrolladores');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
             data: {
@@ -88,7 +87,8 @@ function graficarEstadisticasGenerales() {
         canvas2.id = "peticionesRegistradasSoporte";
         document.getElementById("contenedor-soporte").appendChild(canvas2);
 
-        const ctxSoporte = $('#peticionesRegistradasSoporte');
+        const ctxSoporte = document.getElementById('peticionesRegistradasSoporte').getContext('2d');
+        //const ctxSoporte = $('#peticionesRegistradasSoporte');
         const myChartSoporte = new Chart(ctxSoporte, {
             type: 'pie',
             data: {
@@ -129,10 +129,33 @@ function graficarEstadisticasGenerales() {
 
 
 
+    document.getElementById("peticionesAnuales").remove();
+
+    let canvas3 = document.createElement("canvas");
+    canvas3.id = "peticionesAnuales";
+    document.getElementById("contenedor-anuales").appendChild(canvas3);
+
+    const ctx = document.getElementById('peticionesAnuales').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+            datasets: [{
+                label: 'No. Peticiones Mensuales',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45, 20, 41, 46, 70, 150],
+            }]
+
+        },
+        options: {
+
+        }
+    });
 
 
 
 }
+
 
 
 
