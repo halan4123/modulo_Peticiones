@@ -63,7 +63,7 @@
                         <div class="col-md-6" style="margin-bottom: 10px;">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Aceptadas Por Desarrollador</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Por Desarrollador</div>
                                 <div class="panel-body">
                                     <div class="" id="contenedor-desarrollador">
 
@@ -74,13 +74,12 @@
 
                             </div>
 
-
                         </div>
 
                         <div class="col-md-6" style="margin-bottom: 10px;">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Registradas Por Soporte</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Por Soporte</div>
                                 <div class="panel-body">
                                     <div class="" id="contenedor-soporte">
 
@@ -96,11 +95,27 @@
                         <div class="col-md-6">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Anuales</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Por Mes</div>
                                 <div class="panel-body">
                                     <div class="" id="contenedor-anuales">
 
                                         <canvas id="peticionesAnuales"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Completadas Por Mes</div>
+                                <div class="panel-body">
+                                    <div class="" id="contenedor-completadas-mes">
+
+                                        <canvas id="peticionesCompletadasMes"></canvas>
 
                                     </div>
                                 </div>

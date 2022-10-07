@@ -1,15 +1,17 @@
 
 
-
-
 function graficarEstadisticasGenerales() {
 
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
     let fechaFinal = $('#filtroFechaFinalGraficos').val();
 
     let desarrolladorDatos = true;
+    let soporteDatos = true;
+    let anualDatos = true;
+    let anualDatosCompletadas = true;
 
-    $.post("app/pruebaGraficas.php", {
+    //GRAFICA DE PETICIONES POR DESARROLLADOR
+    $.post("app/graficas.php", {
 
         desarrolladorDatosSend: desarrolladorDatos,
         fechaInicioSend: fechaInicio,
@@ -63,15 +65,10 @@ function graficarEstadisticasGenerales() {
             }
         });
 
-
-
-
-
     });
 
-    let soporteDatos = true;
-
-    $.post("app/pruebaGraficas.php", {
+    //GRAFICA DE PETICIONES POR SOPORTE
+    $.post("app/graficas.php", {
 
         soporteDatosSend: soporteDatos,
         fechaInicioSend: fechaInicio,
@@ -127,30 +124,88 @@ function graficarEstadisticasGenerales() {
 
     });
 
+    //GRAFICA DE PETICIONES ANUALES
+    $.post("app/graficas.php", {
+
+        anualDatosSend: anualDatos,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+
+    }, function (data, status) {
+
+        let datosAnual = JSON.parse(data);
 
 
-    document.getElementById("peticionesAnuales").remove();
+        document.getElementById("peticionesAnuales").remove();
 
-    let canvas3 = document.createElement("canvas");
-    canvas3.id = "peticionesAnuales";
-    document.getElementById("contenedor-anuales").appendChild(canvas3);
+        let canvas3 = document.createElement("canvas");
+        canvas3.id = "peticionesAnuales";
+        document.getElementById("contenedor-anuales").appendChild(canvas3);
 
-    const ctx = document.getElementById('peticionesAnuales').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
-            datasets: [{
-                label: 'No. Peticiones Mensuales',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45, 20, 41, 46, 70, 150],
-            }]
+        const ctx = document.getElementById('peticionesAnuales').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                datasets: [{
+                    label: 'Peticiones Por Mes',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: datosAnual.datos,
+                }]
 
-        },
-        options: {
+            },
+            options: {
 
-        }
+            }
+        });
+
     });
+
+    //GRAFICA DE PETICIONES COMPLETADAS POR MES
+    $.post("app/graficas.php", {
+
+        anualDatosCompletadasSend: anualDatosCompletadas,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+
+    }, function (data, status) {
+
+        let datosAnualCompletadas = JSON.parse(data);
+
+        document.getElementById("peticionesCompletadasMes").remove();
+
+        let canvas3 = document.createElement("canvas");
+        canvas3.id = "peticionesCompletadasMes";
+        document.getElementById("contenedor-completadas-mes").appendChild(canvas3);
+
+        const ctx = document.getElementById('peticionesCompletadasMes').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                datasets: [{
+                    label: 'Peticiones Completadas Por Mes',
+                    borderColor: 'rgb(46, 46, 83)',
+                    data: datosAnualCompletadas.datos,
+                }]
+
+            },
+            options: {
+
+            }
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+
 
 
 
