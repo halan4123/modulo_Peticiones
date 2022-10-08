@@ -1,5 +1,3 @@
-
-
 function graficarEstadisticasGenerales() {
 
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
@@ -7,8 +5,6 @@ function graficarEstadisticasGenerales() {
 
     let desarrolladorDatos = true;
     let soporteDatos = true;
-    let anualDatos = true;
-    let anualDatosCompletadas = true;
 
     //GRAFICA DE PETICIONES POR DESARROLLADOR
     $.post("app/graficas.php", {
@@ -61,7 +57,9 @@ function graficarEstadisticasGenerales() {
                     y: {
                         beginAtZero: true
                     }
-                }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
             }
         });
 
@@ -117,10 +115,91 @@ function graficarEstadisticasGenerales() {
                     y: {
                         beginAtZero: true
                     }
-                }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+
+}
+
+function pre() {
+ console.log('prueba');   
+}
+
+function graficarAnualmente() {
+
+    let year = $('#filtroAnualGrafica_3').val();
+
+    // year = parseInt(year);
+
+    let anualMix = true;
+    let anualDatos = true;
+    let anualDatosCompletadas = true;
+    let anualDatosRechazadas = true;
+
+
+    //GRAFICA DE PETICIONES MIX
+    $.post("app/graficas.php", {
+
+        anualMixSend: anualMix,
+        yearSend: year,
+
+    }, function (data, status) {
+
+        let datosAnualMix = JSON.parse(data);
+
+        document.getElementById("peticionesMix").remove();
+
+        let canvasMix = document.createElement("canvas");
+        canvasMix.id = "peticionesMix";
+        document.getElementById("contenedorMix").appendChild(canvasMix);
+
+        const ctx = document.getElementById('peticionesMix').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                datasets: [{
+                    label: 'Registradas',
+                    data: datosAnualMix.datosRegistrados,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+                {
+                    label: 'Completadas',
+                    data: datosAnualMix.datosCompletados,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+                {
+                    label: 'Rechazadas',
+                    data: datosAnualMix.datosRechazados,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart'
+                    }
+
+                },
+                responsive: true,
+                maintainAspectRatio: false,
 
             }
         });
+
 
     });
 
@@ -128,13 +207,11 @@ function graficarEstadisticasGenerales() {
     $.post("app/graficas.php", {
 
         anualDatosSend: anualDatos,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
+        yearSend: year,
 
     }, function (data, status) {
 
         let datosAnual = JSON.parse(data);
-
 
         document.getElementById("peticionesAnuales").remove();
 
@@ -144,20 +221,63 @@ function graficarEstadisticasGenerales() {
 
         const ctx = document.getElementById('peticionesAnuales').getContext('2d');
         const myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                 datasets: [{
                     label: 'Peticiones Por Mes',
-                    borderColor: 'rgb(255, 99, 132)',
                     data: datosAnual.datos,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
+                        'rgba(214, 137, 16, 0.2)',
+                        'rgba(23, 165, 137, 0.2)',
+                        'rgba(46, 64, 83, 0.2)',
+                        'rgba(166, 172, 175, 0.2)',
+                        'rgba(169, 50, 38, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)',
+                        'rgb(214, 137, 16)',
+                        'rgb(23, 165, 137)',
+                        'rgb(46, 64, 83)',
+                        'rgb(166, 172, 175)',
+                        'rgb(169, 50, 38)'
+
+                    ],
+                    borderWidth: 1
+
+
                 }]
 
             },
             options: {
-
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.yLabel;
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
             }
         });
+
 
     });
 
@@ -165,8 +285,7 @@ function graficarEstadisticasGenerales() {
     $.post("app/graficas.php", {
 
         anualDatosCompletadasSend: anualDatosCompletadas,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
+        yearSend: year,
 
     }, function (data, status) {
 
@@ -180,20 +299,144 @@ function graficarEstadisticasGenerales() {
 
         const ctx = document.getElementById('peticionesCompletadasMes').getContext('2d');
         const myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                 datasets: [{
                     label: 'Peticiones Completadas Por Mes',
-                    borderColor: 'rgb(46, 46, 83)',
                     data: datosAnualCompletadas.datos,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
+                        'rgba(214, 137, 16, 0.2)',
+                        'rgba(23, 165, 137, 0.2)',
+                        'rgba(46, 64, 83, 0.2)',
+                        'rgba(166, 172, 175, 0.2)',
+                        'rgba(169, 50, 38, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)',
+                        'rgb(214, 137, 16)',
+                        'rgb(23, 165, 137)',
+                        'rgb(46, 64, 83)',
+                        'rgb(166, 172, 175)',
+                        'rgb(169, 50, 38)'
+
+                    ],
+                    borderWidth: 1
+
+
                 }]
 
             },
             options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.yLabel;
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
 
             }
         });
+
+
+
+    });
+
+    //GRAFICA DE PETICIONES RECHAZADAS POR MES
+    $.post("app/graficas.php", {
+
+        anualDatosRechazadasSend: anualDatosRechazadas,
+        yearSend: year,
+
+    }, function (data, status) {
+
+        let datosAnualRechazadas = JSON.parse(data);
+
+        document.getElementById("peticionesRechazadasMes").remove();
+
+        let canvasRechazadas = document.createElement("canvas");
+        canvasRechazadas.id = "peticionesRechazadasMes";
+        document.getElementById("contenedor-rechazadas-mes").appendChild(canvasRechazadas);
+
+        const ctx = document.getElementById('peticionesRechazadasMes').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                datasets: [{
+                    label: 'Peticiones Rechazadas Por Mes',
+                    data: datosAnualRechazadas.datos,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
+                        'rgba(214, 137, 16, 0.2)',
+                        'rgba(23, 165, 137, 0.2)',
+                        'rgba(46, 64, 83, 0.2)',
+                        'rgba(166, 172, 175, 0.2)',
+                        'rgba(169, 50, 38, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)',
+                        'rgb(214, 137, 16)',
+                        'rgb(23, 165, 137)',
+                        'rgb(46, 64, 83)',
+                        'rgb(166, 172, 175)',
+                        'rgb(169, 50, 38)'
+
+                    ],
+                    borderWidth: 1
+
+
+                }]
+
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.yLabel;
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+
+            }
+        });
+
 
 
     });
@@ -203,19 +446,68 @@ function graficarEstadisticasGenerales() {
 
 
 
-
-
-
-
-
-
 }
 
 
+// document.getElementById("peticionesAnuales").remove();
+
+//         let canvas3 = document.createElement("canvas");
+//         canvas3.id = "peticionesAnuales";
+//         document.getElementById("contenedor-anuales").appendChild(canvas3);
+
+//         const ctx = document.getElementById('peticionesAnuales').getContext('2d');
+//         const myChart = new Chart(ctx, {
+//             type: 'line',
+//             data: {
+//                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+//                 datasets: [{
+//                     label: 'Peticiones Por Mes',
+//                     borderColor: 'rgb(255, 99, 132)',
+//                     data: datosAnual.datos,
+//                 }]
+
+//             },
+//             options: {
+
+//             }
+//         });
 
 
+// const myChart = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+//         datasets: [{
+//             label: 'Registradas',
+//             data: [4, 3, 4, 9, 8, 4, 6, 3, 2, 8, 1, 5],
+//             borderColor: 'rgba(54, 162, 235, 1)',
+//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
+//         },
+//         {
+//             label: 'Completadas',
+//             data: [7, 4, 4, 1, 8, 4, 6, 3, 9, 8, 1, 4],
+//             borderColor: 'rgba(255, 159, 64, 1)',
+//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
+//         },
+//         {
+//             label: 'Rechazadas',
+//             data: [9, 2, 4, 7, 8, 9, 4, 2, 1, 9, 2, 3],
+//             borderColor: 'rgba(255, 99, 132, 1)',
+//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
+//         }]
+//     },
+//     options: {
+//         responsive: true,
+//         plugins: {
+//             legend: {
+//                 position: 'top',
+//             },
+//             title: {
+//                 display: true,
+//                 text: 'Chart.js Line Chart'
+//             }
 
+//         },
 
-
-
-
+//     }
+// });

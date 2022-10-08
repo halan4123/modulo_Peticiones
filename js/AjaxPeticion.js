@@ -259,7 +259,7 @@ function actualizarGetInfo(id) {
 
         let peticion = JSON.parse(data);
 
-        //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null
+        //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null //'Sin Definir'
 
         let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + peticion.NOMDES + "</option>";
 

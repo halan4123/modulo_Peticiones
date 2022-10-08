@@ -171,25 +171,50 @@ if (isset($_POST['soporteDatosSend'])) {
 
 if (isset($_POST['anualDatosSend'])) {
 
+    $yearGot = $_POST['yearSend']; //string
+
     $MES_POR_DEFECTO = 1;
 
     $VALOR_MENSUAL = array();
 
-    while ($MES_POR_DEFECTO <= 12) {
+    if ($yearGot != '') {
+        while ($MES_POR_DEFECTO <= 12) {
 
-        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
-        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+                AND YEAR(FECHA_LLEGADA) = $yearGot";
 
-        $result = mysqli_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
 
-        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
 
-        $VALOR = intval($VALOR);
+            $VALOR = intval($VALOR);
 
-        array_push($VALOR_MENSUAL, $VALOR);
+            array_push($VALOR_MENSUAL, $VALOR);
 
-        $MES_POR_DEFECTO++;
+            $MES_POR_DEFECTO++;
+        }
+    } else {
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+                AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
     }
+
+
+
+
+
 
     $respuesta = [
         "datos" => $VALOR_MENSUAL,
@@ -204,33 +229,271 @@ if (isset($_POST['anualDatosSend'])) {
 
 if (isset($_POST['anualDatosCompletadasSend'])) {
 
+    $yearGot = $_POST['yearSend'];
+
     $MES_POR_DEFECTO = 1;
 
     $VALOR_MENSUAL_COMPLETADAS = array();
 
-    while ($MES_POR_DEFECTO <= 12) {
+    if ($yearGot != '') {
+        while ($MES_POR_DEFECTO <= 12) {
 
-        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
-        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-        WHERE e.estatus = 'Completado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
-        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Completado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $yearGot";
 
-        $result = mysqli_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
 
-        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
 
-        $VALOR = intval($VALOR);
+            $VALOR = intval($VALOR);
 
-        array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
+            array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
 
-        $MES_POR_DEFECTO++;
+            $MES_POR_DEFECTO++;
+        }
+    } else {
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Completado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
     }
+
+
 
     $respuesta = [
         "datos" => $VALOR_MENSUAL_COMPLETADAS,
     ];
 
     echo json_encode($respuesta);
+}
 
-    
+//==========================================================================================================================
+//GRAFICA DE PETCIONES ANUALES RECHAZADAS POR MES
+//==========================================================================================================================
+
+if (isset($_POST['anualDatosRechazadasSend'])) {
+
+    $yearGot = $_POST['yearSend'];
+
+    $MES_POR_DEFECTO = 1;
+
+    $VALOR_MENSUAL_RECHAZADAS = array();
+
+    if ($yearGot != '') {
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Rechazado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_RECHAZADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+    } else {
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Rechazado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_RECHAZADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+    }
+
+
+
+    $respuesta = [
+        "datos" => $VALOR_MENSUAL_RECHAZADAS,
+    ];
+
+    echo json_encode($respuesta);
+}
+
+//==========================================================================================================================
+//GRAFICA DE PETCIONES ANUALES MIX / RECIBIDAS / COMPLETADAS / RECHAZADAS
+//==========================================================================================================================
+
+if (isset($_POST['anualMixSend'])) {
+
+    $yearGot = $_POST['yearSend'];
+
+    if ($yearGot != '') {
+        //DATOS REGISTRADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+
+        //DATOS COMPLETADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL_COMPLETADAS = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE e.estatus = 'Completado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+        //DATOS RECHAZADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL_RECHAZADAS = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE e.estatus = 'Rechazado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_RECHAZADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+    } else {
+        //DATOS REGISTRADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+
+        //DATOS COMPLETADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL_COMPLETADAS = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE e.estatus = 'Completado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+        //DATOS RECHAZADOS
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL_RECHAZADAS = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE e.estatus = 'Rechazado' AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL_RECHAZADAS, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+    }
+
+
+
+    $respuesta = [
+        "datosRegistrados" => $VALOR_MENSUAL,
+        "datosCompletados" => $VALOR_MENSUAL_COMPLETADAS,
+        "datosRechazados" => $VALOR_MENSUAL_RECHAZADAS,
+    ];
+
+    echo json_encode($respuesta);
 }

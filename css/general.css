@@ -6,6 +6,14 @@ body {
 PRUEBAS CANVAS GRAFICAS
 =====================================================================================================================*/
 
+.dimensiones {
+    height: 200px;
+}
+
+.separacion {
+    margin-bottom: 10px;
+}
+
 canvas {
     width: auto;
 }
@@ -160,12 +168,12 @@ ESTILOS COLLAPSE
 =====================================================================================================================*/
 
 .panel-default>.panel-heading-custom-1 {
-    background: #F4D03F;
+    background: #D4AC0D;
     color: #fff;
 }
 
 .panel-default>.panel-heading-custom-2 {
-    background: #5DADE2;
+    background: #2471A3;
     color: #fff;
 }
 
@@ -175,7 +183,7 @@ ESTILOS COLLAPSE
 }
 
 .panel-default>.panel-heading-custom-4 {
-    background: #99A3A4;
+    background: #707B7C;
     color: #fff;
 }
 
