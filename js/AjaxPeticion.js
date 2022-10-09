@@ -261,7 +261,7 @@ function actualizarGetInfo(id) {
 
         //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null //'Sin Definir'
 
-        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + peticion.NOMDES + "</option>";
+        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + 'Sin Definir' + "</option>";
 
         let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>" + peticion.NOMLAB + "</option>";
 
@@ -571,6 +571,7 @@ function buscadorLaboratorioSoporte() {
     let boleanoLaboratorio = true;
     $("#laboratorioAdd").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
@@ -594,6 +595,7 @@ function buscadorLaboratorioSoporte() {
 
     $("#laboratorioUpdate").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
@@ -617,6 +619,7 @@ function buscadorLaboratorioSoporte() {
     let boleanoDesarrollador = true;
     $("#desarrolladorUpdate").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
@@ -640,6 +643,7 @@ function buscadorLaboratorioSoporte() {
     let boleanoSoporte = true;
     $("#soporteAdd").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
@@ -664,6 +668,7 @@ function buscadorLaboratorioSoporte() {
     $("#nivelUpdate").select2({
 
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
@@ -687,6 +692,7 @@ function buscadorLaboratorioSoporte() {
     let boleanoEstatus = true;
     $("#estatusUpdate").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",

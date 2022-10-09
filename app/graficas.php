@@ -426,7 +426,7 @@ if (isset($_POST['anualMixSend'])) {
         while ($MES_POR_DEFECTO <= 12) {
 
             $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion WHERE MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
-        AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
+            AND YEAR(FECHA_LLEGADA) = $YEAR_ACTUAL";
 
             $result = mysqli_query($conn, $sql);
 
@@ -493,6 +493,92 @@ if (isset($_POST['anualMixSend'])) {
         "datosRegistrados" => $VALOR_MENSUAL,
         "datosCompletados" => $VALOR_MENSUAL_COMPLETADAS,
         "datosRechazados" => $VALOR_MENSUAL_RECHAZADAS,
+    ];
+
+    echo json_encode($respuesta);
+}
+
+//==========================================================================================================================
+//GRAFICA DE PETCIONES POR LABORATORIO ANUALES RECIBIDAS POR MES
+//==========================================================================================================================
+
+if (isset($_POST['laboratorioDatosSend'])) {
+
+    $LAB = $_POST['laboratorioSend'];
+    $yearGot = $_POST['yearSend'];
+
+    $MES_POR_DEFECTO = 1;
+
+    $VALOR_LAB_RECIBIDAS = array();
+
+    //LAB PETICIONES RECIBIDAS
+    while ($MES_POR_DEFECTO <= 12) {
+
+        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+        WHERE l.ID_LABORATORIO = $LAB AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+        $result = mysqli_query($conn, $sql);
+
+        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+        $VALOR = intval($VALOR);
+
+        array_push($VALOR_LAB_RECIBIDAS, $VALOR);
+
+        $MES_POR_DEFECTO++;
+    }
+
+    $MES_POR_DEFECTO = 1;
+
+    $VALOR_LAB_COMPLETADAS = array();
+
+    //LAB PETICIONES COMPLETADAS
+    while ($MES_POR_DEFECTO <= 12) {
+
+        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+        WHERE e.estatus = 'Completado' AND l.ID_LABORATORIO = $LAB 
+        AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+        $result = mysqli_query($conn, $sql);
+
+        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+        $VALOR = intval($VALOR);
+
+        array_push($VALOR_LAB_COMPLETADAS, $VALOR);
+
+        $MES_POR_DEFECTO++;
+    }
+
+    $MES_POR_DEFECTO = 1;
+
+    $VALOR_LAB_RECHAZADAS = array();
+
+    //LAB PETICIONES RECHAZADAS
+    while ($MES_POR_DEFECTO <= 12) {
+
+        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+        WHERE e.estatus = 'Rechazado' AND l.ID_LABORATORIO = $LAB 
+        AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+        $result = mysqli_query($conn, $sql);
+
+        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+        $VALOR = intval($VALOR);
+
+        array_push($VALOR_LAB_RECHAZADAS, $VALOR);
+
+        $MES_POR_DEFECTO++;
+    }
+
+
+    $respuesta = [
+        "datos" => $VALOR_LAB_RECIBIDAS,
+        "datosCompletados" => $VALOR_LAB_COMPLETADAS,
+        "datosRechazados" => $VALOR_LAB_RECHAZADAS
     ];
 
     echo json_encode($respuesta);

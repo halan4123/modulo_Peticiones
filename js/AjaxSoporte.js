@@ -77,25 +77,26 @@ function eliminarSoporte(id) {
 
     let eliminarSoporte = true;
 
-    $.ajax({
+    swal({
+        title: "¿Estas seguro?",
+        text: "Una vez eliminado, no podras recuperar a este soporte",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
 
-        url: "app/soporte.php",
-        type: "POST",
-        data: {
-            eliminarSoporteSend: eliminarSoporte,
-            deleteSend: id
-        },
-        success: function (data, status) {
+                $.ajax({
 
-            swal({
-                title: "¿Estas seguro?",
-                text: "Una vez eliminado, no podras recuperar a este soporte",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
+                    url: "app/soporte.php",
+                    type: "POST",
+                    data: {
+                        eliminarSoporteSend: eliminarSoporte,
+                        deleteSend: id
+                    },
+                    success: function (data, status) {
+
                         swal("Soporte Eliminado", {
                             icon: "success",
 
@@ -103,14 +104,19 @@ function eliminarSoporte(id) {
 
                         displayDataSoporte();//MOSTRAMOS LA TABLA ACTUALIZADA
 
-                    } else {
-                        swal("El Soporte esta a salvo");
+
                     }
+
                 });
 
-        }
 
-    });
+
+            } else {
+                swal("El Soporte esta a salvo");
+            }
+        });
+
+
 
 }
 

@@ -1,3 +1,9 @@
+$(document).ready(function () {
+
+    buscadorLabGraficas();
+});
+
+
 function graficarEstadisticasGenerales() {
 
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
@@ -126,15 +132,9 @@ function graficarEstadisticasGenerales() {
 
 }
 
-function pre() {
- console.log('prueba');   
-}
-
 function graficarAnualmente() {
 
     let year = $('#filtroAnualGrafica_3').val();
-
-    // year = parseInt(year);
 
     let anualMix = true;
     let anualDatos = true;
@@ -164,7 +164,7 @@ function graficarAnualmente() {
             data: {
                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                 datasets: [{
-                    label: 'Registradas',
+                    label: 'Recibidas',
                     data: datosAnualMix.datosRegistrados,
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -442,72 +442,126 @@ function graficarAnualmente() {
     });
 
 
-
-
-
-
 }
 
+function graficarEstadisticasLaboratorios() {
 
-// document.getElementById("peticionesAnuales").remove();
+    let laboratorioDatos = true;
+    let laboratorio = $('#filtroLaboratorioGrafica').val();
+    let year = $('#filtroAnualGraficaLab').val();
+    // let fechaInicio = $('#filtroFechaInicioGraficosLab').val();
+    // let fechaFinal = $('#filtroFechaFinalGraficosLab').val();
 
-//         let canvas3 = document.createElement("canvas");
-//         canvas3.id = "peticionesAnuales";
-//         document.getElementById("contenedor-anuales").appendChild(canvas3);
+    
 
-//         const ctx = document.getElementById('peticionesAnuales').getContext('2d');
-//         const myChart = new Chart(ctx, {
-//             type: 'line',
-//             data: {
-//                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
-//                 datasets: [{
-//                     label: 'Peticiones Por Mes',
-//                     borderColor: 'rgb(255, 99, 132)',
-//                     data: datosAnual.datos,
-//                 }]
+    if (laboratorio == null || year == '') {
 
-//             },
-//             options: {
+        swal({
+            title: "Completa todos los filtros de busqueda ",
+            icon: "error",
+            button: "Cerrar",
+        })
+        
+    }else{
 
-//             }
-//         });
+        
+    
+        //GRAFICA DE LABORATORIOS
+        $.post("app/graficas.php", {
+    
+            laboratorioDatosSend: laboratorioDatos,
+            laboratorioSend: laboratorio,
+            yearSend: year,
+            
+           
+    
+        }, function (data, status) {
+    
+            let datosLab = JSON.parse(data);
+    
+            document.getElementById("peticionesPorLaboratorio").remove();
+    
+            let canvasMix = document.createElement("canvas");
+            canvasMix.id = "peticionesPorLaboratorio";
+            document.getElementById("contenedorLabGrafica").appendChild(canvasMix);
+        
+            const ctx = document.getElementById('peticionesPorLaboratorio').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                    datasets: [{
+                        label: 'Recibidas',
+                        data: datosLab.datos,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                    {
+                        label: 'Completadas',
+                        data: datosLab.datosCompletados,
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                    {
+                        label: 'Rechazadas',
+                        data: datosLab.datosRechazados,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Chart.js Line Chart'
+                        }
+        
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+        
+                }
+            });
+    
+    
+        });
+    
+        
+    }
 
+    
+}
 
-// const myChart = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
-//         datasets: [{
-//             label: 'Registradas',
-//             data: [4, 3, 4, 9, 8, 4, 6, 3, 2, 8, 1, 5],
-//             borderColor: 'rgba(54, 162, 235, 1)',
-//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
-//         },
-//         {
-//             label: 'Completadas',
-//             data: [7, 4, 4, 1, 8, 4, 6, 3, 9, 8, 1, 4],
-//             borderColor: 'rgba(255, 159, 64, 1)',
-//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
-//         },
-//         {
-//             label: 'Rechazadas',
-//             data: [9, 2, 4, 7, 8, 9, 4, 2, 1, 9, 2, 3],
-//             borderColor: 'rgba(255, 99, 132, 1)',
-//             backgroundColor: 'rgba(255, 255, 255, 0.1)',
-//         }]
-//     },
-//     options: {
-//         responsive: true,
-//         plugins: {
-//             legend: {
-//                 position: 'top',
-//             },
-//             title: {
-//                 display: true,
-//                 text: 'Chart.js Line Chart'
-//             }
+//BUSCADOR SELECT2
+function buscadorLabGraficas() {
 
-//         },
+    let boleanoLaboratorio = true;
+    $("#filtroLaboratorioGrafica").select2({
+        placeholder: "Selecciona Laboratorio",
+        theme: "bootstrap",
 
-//     }
-// });
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarLaboratorio: params.term,// search term
+                    boleanoLaboratorioSend: boleanoLaboratorio
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+}
+
