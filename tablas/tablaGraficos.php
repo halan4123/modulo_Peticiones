@@ -75,7 +75,7 @@
                                     <div class="dimensiones" id="contenedor-desarrollador">
 
                                         <canvas id="peticionesAceptadasDesarrolladores"></canvas>
-
+                                        <!-- <button onclick="dowlo()">Descar</button> -->
                                     </div>
                                 </div>
 
@@ -257,10 +257,10 @@
 
                                 <div class=" flex-container">
 
-                                    
+
 
                                     <div>
-                                      
+
                                         <select class="form-control" id="filtroLaboratorioGrafica" style="width: 100%;">
 
                                             <!-- <option value='0'>Seleccionar</option> -->
@@ -271,7 +271,7 @@
                                     <!-- FILTRO DE AÑO -->
                                     <div class="form-group">
 
-                                        <select class="form-control" id="filtroAnualGraficaLab" >
+                                        <select class="form-control" id="filtroAnualGraficaLab">
 
                                             <option selected value="">Selecciona el año</option>
                                             <?php $year = 2099;
@@ -338,6 +338,63 @@
             </div>
         </div>
 
+
+        <!--=====================================================================================================================
+        ESTADISTICAS DE DESARROLLADOR 
+        ======================================================================================================================-->
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-custom-2">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasDesarrollador">Estadisticas Desarrolladores</a>
+                </h4>
+            </div>
+            <div id="estadisticasDesarrollador" class="panel-collapse collapse ">
+                <div class="panel-body">
+
+                    <!--=================================================
+                    FILTROS GRAFICA 1 Y 2
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div class=" flex-container">
+
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filtroFechaInicioGraficosDesarrollador">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosDesarrollador" onchange="">
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filtroFechaFinalGraficosDesarrollador">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosDesarrollador" onchange="">
+                                    </div>
+
+                                    <div>
+
+                                        <button class="btn btn-success" onclick="graficarEstadisticasDesarollador()"><i class="bi bi-search"></i></button>
+                                        <!-- <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button> -->
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
 
     </div>
 

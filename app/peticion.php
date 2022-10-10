@@ -141,7 +141,7 @@ if (isset($_POST['displayDataSend'])) {
     //FILTROS
     if (isset($_POST['displayDataFullSend'])) {
 
-        if (isset($_POST['filtroEstatusSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend']) || isset($_POST['filtroLaboratorioSend'])) {
+        if (isset($_POST['filtroEstatusSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend'])) {
 
             if (isset($_POST['filtroNivelSend'])) {
 
@@ -173,9 +173,6 @@ if (isset($_POST['displayDataSend'])) {
                 $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
                 $newDate_2 = date("Y-m-d", strtotime($fechaFinal . "+ 1 days"));
 
-
-                var_dump($newDate_2);
-
                 if ($fechaInicio !== '' && $fechaFinal !== '') {
 
                     $sql .= " and FECHA_LLEGADA BETWEEN '$newDate_1' and '$newDate_2'";
@@ -189,29 +186,23 @@ if (isset($_POST['displayDataSend'])) {
                 }
             }
 
-            if (isset($_POST['filtroLaboratorioSend'])) {
-
-                $lab_filtro = $_POST['filtroLaboratorioSend'];
-
-                if ($lab_filtro !== 'todo') {
-
-                    $sql .= " and l.ID_LABORATORIO = '$lab_filtro'"; //DEPENDIENDO EL FILTRO CONCATENAMOS A LA CONSULTA ORIGINAL
-
-                }
-            }
+            
         }
+
     } elseif (isset($_POST['displayDataPendienteSend'])) {
 
 
         $sql .= " and e.ESTATUS = 'Pendiente'";
+
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
 
-        $sql .= " and e.ESTATUS = 'Desarrollo'";
+        $sql .= " and e.ESTATUS = 'Desarrollo' and ENVIADO = 0";
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
-
-        $sql .= " and e.ESTATUS = 'Completado' and ENVIADO = 0";
+        //WHERE 1 and ENVIADO = 0 AND ( e.ESTATUS = 'Completado' OR e.ESTATUS = 'Rechazado')
+        //and e.ESTATUS = 'Completado' and ENVIADO = 0
+        $sql .= " and ENVIADO = 0 AND ( e.ESTATUS = 'Completado' OR e.ESTATUS = 'Rechazado')";
     }
 
 
@@ -337,13 +328,12 @@ if (isset($_POST['displayDataSend'])) {
             $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $FECHA_COMPLETADO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
             <span class="bi bi-whatsapp"></span>
             </button>';
+        }elseif ($ID_ESTATUS_COPY == 'Rechazado') {
+            $table .= '<button onclick="wpRechazado(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
+            <span class="bi bi-whatsapp"></span>
+            </button>';
         }
-        // else {
-        //     $table .= '
-        //     <button class="btn btn-success accionesPeticion" disabled>
-        //     <span class="bi bi-whatsapp"></span>
-        //     </button>';
-        // }
+        
 
         $table .=
             '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
@@ -444,7 +434,7 @@ if (isset($_POST['actualizarDataSend'])) {
 
     $WP = $_POST['wpSend'];
 
-    var_dump($WP);
+    // var_dump($WP);
 
 
     if (isset($ID_ESTATUS)) {
@@ -514,18 +504,6 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $result = mysqli_query($conn, $sql);
     }
-
-
-    //ACTUALIZAR PETICION A ENVIADO
-    // if (isset($_POST['enviadoSend'])) {
-
-    //     echo 'Si estoy entrando';
-
-    //     $sql = "UPDATE `peticion` SET `ENVIADO` = 1 WHERE `ID_PETICION` = $ID_PETICION";
-
-    //     $result = mysqli_query($conn, $sql);
-
-    // }
 }
 
 //ACTUALIZAR DESDE EL BOTON DE WP

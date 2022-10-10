@@ -592,6 +592,9 @@ function buscadorLaboratorioSoporte() {
         }
     });
 
+    
+
+    
 
     $("#laboratorioUpdate").select2({
         placeholder: "Selecciona",
@@ -724,20 +727,20 @@ function limpiarInputAgregar() {
 
 //Al momento de presionar el boton de Wp en la sección de completadas sin enviar, se completa y se va
 //A la tabla de los filtros
-function wp(id, asunto, celular,laboratorio,fechaCompletado, desarrollador,fechaLlegada, soporte) {
+function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fechaLlegada, soporte) {
 
 
     let actualizarDesdeWp = true;
 
-    console.log(id);
-    console.log(asunto);
+    // console.log(id);
+    // console.log(asunto);
 
-    console.log(celular);
-    console.log(laboratorio);
-    console.log(fechaCompletado);
-    console.log(desarrollador);
-    console.log(fechaLlegada);
-    console.log(soporte);
+    // console.log(celular);
+    // console.log(laboratorio);
+    // console.log(fechaCompletado);
+    // console.log(desarrollador);
+    // console.log(fechaLlegada);
+    // console.log(soporte);
 
     swal({
         title: "¿Te gustaria enviar el mensaje de Whatsapp?",
@@ -787,3 +790,76 @@ function wp(id, asunto, celular,laboratorio,fechaCompletado, desarrollador,fecha
 
 }
 
+function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
+
+
+    let actualizarDesdeWp = true;
+
+    // console.log(id);
+    // console.log(asunto);
+
+    // console.log(celular);
+    // console.log(laboratorio);
+
+    // console.log(desarrollador);
+    // console.log(fechaLlegada);
+    // console.log(soporte);
+
+
+    swal({
+        title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+        icon: "images/wp.png",
+        buttons: ["No, no enviar", "Si, si enviar"],
+        closeOnClickOutside: false,
+        allowOutsideClick: false
+    })
+        .then((willSend) => {
+
+            if (willSend) {
+
+
+                $.post("app/peticion.php", {
+
+                    actualizarDesdeWpSend: actualizarDesdeWp,
+                    idSendWp: id,
+
+                }, function (data, status) {
+
+                    // displayData();
+                    // displayDataPendientes();
+                    // displayDataDesarrollo();
+                    displayDataCompletas();
+
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada');
+
+                });
+
+            } else {
+
+
+                swal({
+                    title: "La Petición No Fue Enviada",
+                    icon: "warning",
+                    button: "Cerrar",
+                });
+
+
+
+            }
+        });
+
+
+
+
+}
+
+function limpiarFiltros(){
+   
+    $('#filtroNivel').prop('selectedIndex',0);
+    $('#filtroEstatus').prop('selectedIndex',0); 
+    $('#filtroFechaInicio').val('');
+    $('#filtroFechaFinal').val('');
+    
+    displayData();
+
+}

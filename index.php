@@ -34,6 +34,8 @@ include 'filtros.php';
 
     <!--CDN ICONOS BOOTSTRAP-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+      
 </head>
 
 <body>
@@ -48,9 +50,10 @@ include 'filtros.php';
 
             <ul class="nav nav-tabs">
                 <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
+                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente()" data-toggle="tab" href="#menu3">Graficos</a></li>
                 <li><a onfocus="displayDataDesarrollador()" data-toggle="tab" href="#menu1">Desarrolladores</a></li>
                 <li><a onfocus="displayDataSoporte()" data-toggle="tab" href="#menu2">Soporte</a></li>
-                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente()" data-toggle="tab" href="#menu3">Graficos</a></li>
+
             </ul>
 
             <div class="tab-content">
@@ -58,6 +61,12 @@ include 'filtros.php';
                 <div id="home" class="tab-pane fade in active">
 
                     <?php include 'tablas/tablaPeticiones.php'; ?>
+
+                </div>
+
+                <div id="menu3" class="tab-pane fade ">
+
+                    <?php include 'tablas/tablaGraficos.php'; ?>
 
                 </div>
 
@@ -72,13 +81,6 @@ include 'filtros.php';
                     <?php include 'tablas/tablaSoportes.php'; ?>
 
                 </div>
-
-                <div id="menu3" class="tab-pane fade ">
-
-                    <?php include 'tablas/tablaGraficos.php'; ?>
-
-                </div>
-
 
 
             </div>
@@ -109,6 +111,9 @@ include 'filtros.php';
 
     <!-- Importar chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+     <!-- Muestra Numeros Graficas -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script> -->
 
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>

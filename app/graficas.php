@@ -583,3 +583,5 @@ if (isset($_POST['laboratorioDatosSend'])) {
 
     echo json_encode($respuesta);
 }
+
+

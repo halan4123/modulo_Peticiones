@@ -75,6 +75,7 @@ if (empty($fechaInicio) || empty($fechaFinal)) {
             <th>FECHA DE COMPLETADO</th>
             <th>SOPORTE</th>
             <th>DESARROLLADOR</th>
+            <th>ENVIADO</th>
         </tr>
         <?php $res = mysqli_query($conn, $peticiones);
         while ($row = mysqli_fetch_assoc($res)) { ?>
@@ -90,6 +91,7 @@ if (empty($fechaInicio) || empty($fechaFinal)) {
                 <td><?php echo $row["FECHA_COMPLETADO"]; ?></td>
                 <td><?php echo $row["NOMSOP"]; ?></td>
                 <td><?php echo $row["NOMDES"]; ?></td>
+                <td><?php echo $row["ENVIADO"]; ?></td>
             </tr>
 
 

@@ -133,10 +133,10 @@
     PETICIONES COMPLETADAS SIN ENVIAR 
     ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading panel-heading-custom-3">
+        <div class="panel-heading panel-heading-custom-6">
             <h4 class="panel-title">
                 <a onfocus="displayDataCompletas()" data-toggle="collapse" data-parent="#accordion" href="#peticionesCompletasCollapse">
-                    Peticiones Completadas Sin Enviar</a>
+                    Peticiones Sin Enviar</a>
             </h4>
         </div>
         <div id="peticionesCompletasCollapse" class="panel-collapse collapse">
@@ -168,7 +168,7 @@
     BUSCADOR DE PENDIENTES - FILTROS - GENERADOR DE EXCEL
     ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading panel-heading-custom-4">
+        <div class="panel-heading panel-heading-custom-3">
             <h4 class="panel-title">
                 <a onfocus="displayData()" data-toggle="collapse" data-parent="#accordion" href="#buscadorPeticiones">
                     Buscador De Peticiones</a>
@@ -218,11 +218,11 @@
 
                             <div class="flex-container_2">
 
-                                <div>
+                                <!-- <div>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
                                         Agregar Petición
                                     </button>
-                                </div>
+                                </div> -->
 
                                 <div>
 
@@ -232,28 +232,19 @@
 
                                 </div>
 
+                                <div>
+
+                                    <button type="button" class="btn btn-success" onclick="limpiarFiltros()">
+                                        Limpiar
+                                    </button>
+
+                                </div>
+
                             </div>
 
                             <div class=" flex-container">
 
-                                <!-- FILTRO DE LABORATORIO -->
-                                <div>
-                                    <label for="filtroLaboratorio">Laboratorio:</label>
-                                    <select class="form-control" id="filtroLaboratorio" onchange="displayData()">
-
-                                        <option value="todo">Todo</option>
-
-                                        <?php foreach ($laboratorios as $laboratorio) : ?>
-
-                                            <option value="<?php echo $laboratorio['ID_LABORATORIO']; ?>"><?php echo $laboratorio['NOMBRE']; ?></option>
-
-
-                                        <?php endforeach; ?>
-
-
-
-                                    </select>
-                                </div>
+                                
 
                                 <!-- FILTRO DE NIVEL -->
                                 <div>
@@ -295,7 +286,7 @@
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
                                     <label for=" filterFechaInicio">De:</label>
-                                    <input type="date" class="form-control" id="filtroFechaInicio" >
+                                    <input type="date" class="form-control" id="filtroFechaInicio" onchange="displayData()">
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->

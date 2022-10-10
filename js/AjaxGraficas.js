@@ -124,7 +124,8 @@ function graficarEstadisticasGenerales() {
                 },
                 responsive: true,
                 maintainAspectRatio: false,
-            }
+            },
+
         });
 
     });
@@ -452,7 +453,7 @@ function graficarEstadisticasLaboratorios() {
     // let fechaInicio = $('#filtroFechaInicioGraficosLab').val();
     // let fechaFinal = $('#filtroFechaFinalGraficosLab').val();
 
-    
+
 
     if (laboratorio == null || year == '') {
 
@@ -461,30 +462,30 @@ function graficarEstadisticasLaboratorios() {
             icon: "error",
             button: "Cerrar",
         })
-        
-    }else{
 
-        
-    
+    } else {
+
+
+
         //GRAFICA DE LABORATORIOS
         $.post("app/graficas.php", {
-    
+
             laboratorioDatosSend: laboratorioDatos,
             laboratorioSend: laboratorio,
             yearSend: year,
-            
-           
-    
+
+
+
         }, function (data, status) {
-    
+
             let datosLab = JSON.parse(data);
-    
+
             document.getElementById("peticionesPorLaboratorio").remove();
-    
+
             let canvasMix = document.createElement("canvas");
             canvasMix.id = "peticionesPorLaboratorio";
             document.getElementById("contenedorLabGrafica").appendChild(canvasMix);
-        
+
             const ctx = document.getElementById('peticionesPorLaboratorio').getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'line',
@@ -519,21 +520,21 @@ function graficarEstadisticasLaboratorios() {
                             display: true,
                             text: 'Chart.js Line Chart'
                         }
-        
+
                     },
                     responsive: true,
                     maintainAspectRatio: false,
-        
+
                 }
             });
-    
-    
+
+
         });
-    
-        
+
+
     }
 
-    
+
 }
 
 //BUSCADOR SELECT2
