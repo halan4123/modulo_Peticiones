@@ -134,7 +134,7 @@ ESTILOS FILTROS DE BUSQUEDA
 
 .flex-container_2 {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 10px;
 
 }

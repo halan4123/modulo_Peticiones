@@ -40,11 +40,9 @@
                                         <input type="date" class="form-control" id="filtroFechaFinalGraficos" onchange="">
                                     </div>
 
+                                    <!-- BOTON DE BUSCAR -->
                                     <div>
-
                                         <button class="btn btn-success" onclick="graficarEstadisticasGenerales()"><i class="bi bi-search"></i></button>
-                                        <!-- <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button> -->
-
                                     </div>
 
 
@@ -102,8 +100,6 @@
 
                         </div>
 
-
-
                     </div>
 
                     <!--=================================================
@@ -115,9 +111,6 @@
                             <div class="well ">
 
                                 <div class="flex-container">
-
-
-
 
                                     <!-- FILTRO DE AÑO -->
                                     <div class="form-group">

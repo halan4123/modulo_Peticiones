@@ -3,6 +3,7 @@ include 'connectionController.php';
 
 $conn = connect();
 
+//BUSCA LA INFORMACION DE LABORATORIOS
 if (isset($_POST['boleanoLaboratorioSend'])) {
 
     if (!isset($_POST['buscarLaboratorio'])) {
@@ -23,6 +24,7 @@ if (isset($_POST['boleanoLaboratorioSend'])) {
     echo json_encode($data);
 }
 
+//BUSCA LA INFORMACION DEL SOPORTE
 if (isset($_POST['boleanoSoporteSend'])) {
 
     if (!isset($_POST['buscarSoporte'])) {
@@ -43,6 +45,7 @@ if (isset($_POST['boleanoSoporteSend'])) {
     echo json_encode($data);
 }
 
+//BUSCA LA INFORMACION DEL DESARROLLADOR
 if (isset($_POST['boleanoDesarrolladorSend'])) {
 
     if (!isset($_POST['buscarDesarrollador'])) {
@@ -63,6 +66,7 @@ if (isset($_POST['boleanoDesarrolladorSend'])) {
     echo json_encode($data);
 }
 
+//BUSCA LA INFORMACION DEL NIVEL
 if (isset($_POST['boleanoNivelSend'])) {
 
     if (!isset($_POST['buscarNivel'])) {
@@ -83,6 +87,7 @@ if (isset($_POST['boleanoNivelSend'])) {
     echo json_encode($data);
 }
 
+//BUSCA LA INFORMACION DEL ESTATUS
 if (isset($_POST['boleanoEstatusSend'])) {
 
     if (!isset($_POST['buscarEstatus'])) {

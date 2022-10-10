@@ -226,17 +226,24 @@
 
                                 <div>
 
-                                    <button type="button" class="btn btn-primary" onclick="window.location = 'excel.php?fechaInicio='+$('#filtroFechaInicio').val() + '&fechaFinal='+$('#filtroFechaFinal').val()">
-                                        Generar Excel
+                                    <button type="button" class="btn btn-success" onclick="window.location = 'excel.php?fechaInicio='+$('#filtroFechaInicio').val() + '&fechaFinal='+$('#filtroFechaFinal').val()">
+                                    <i class="bi bi-filetype-xls"></i>
                                     </button>
 
                                 </div>
 
                                 <div>
 
-                                    <button type="button" class="btn btn-success" onclick="limpiarFiltros()">
-                                        Limpiar
+                                    <button type="button" class="btn btn-danger" onclick="limpiarFiltros()">
+                                    <i class="bi bi-arrow-clockwise"></i>
                                     </button>
+
+                                </div>
+
+                                <div>
+
+                                    <button class="btn btn-primary" onclick="displayData()"><i class="bi bi-search"></i></button>
+                                    <!-- <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button> -->
 
                                 </div>
 
@@ -244,41 +251,54 @@
 
                             <div class=" flex-container">
 
-                                
+                                <!-- FILTRO DE LABORATORIO -->
+                                <div class="form-group">
 
-                                <!-- FILTRO DE NIVEL -->
-                                <div>
-                                    <label for="filtroNivel">Nivel:</label>
-                                    <select class="form-control" id="filtroNivel" onchange="displayData()">
+                                    <select class="form-control" id="filtroLaboratorioPeti" style="width: 100%;" onchange="">
 
-                                        <option value="todo">Todo</option>
-
-                                        <?php foreach ($niveles as $nivel) : ?>
-
-                                            <option value="<?php echo $nivel['ID_NIVEL']; ?>"><?php echo $nivel['NIVEL']; ?></option>
-
-
-                                        <?php endforeach; ?>
-
-
+                                        <!-- <option value='0'>Seleccionar</option> -->
 
                                     </select>
                                 </div>
 
+
+                                <!-- FILTRO DE NIVEL -->
+                                <div class="form-group">
+
+                                    <select class="form-control" id="filtroNivel" style="width: 100%;" onchange="">
+
+                                        <!-- <option value='0'>Seleccionar</option> -->
+
+                                    </select>
+                                </div>
+
+                                <!-- FILTRO DE SOPORTE -->
+                                <div class="form-group">
+
+                                    <select class="form-control" id="filtroSoportePeti" style="width: 100%;" onchange="">
+
+                                        <!-- <option value='0'>Seleccionar</option> -->
+
+                                    </select>
+                                </div>
+
+                                <!-- FILTRO DE DESARROLLADOR -->
+                                <div class="form-group">
+
+                                    <select class="form-control" id="filtroDesarrolladorPeti" style="width: 100%;" onchange="">
+
+                                        <!-- <option value='0'>Seleccionar</option> -->
+
+                                    </select>
+                                </div>
+
+
                                 <!-- FILTRO DE ESTATUS -->
-                                <div>
-                                    <label for="filtroEstatus">Estatus:</label>
-                                    <select class="form-control" id="filtroEstatus" onchange="displayData()">
+                                <div class="form-group">
 
-                                        <option value="todo">Todo</option>
+                                    <select class="form-control" id="filtroEstatus" style="width: 100%;" onchange="">
 
-                                        <?php foreach ($soportes as $soporte) : ?>
-
-                                            <option value="<?php echo $soporte['ID_ESTATUS']; ?>"><?php echo $soporte['ESTATUS']; ?></option>
-
-
-                                        <?php endforeach; ?>
-
+                                        <!-- <option value='0'>Seleccionar</option> -->
 
                                     </select>
                                 </div>
@@ -286,13 +306,13 @@
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
                                     <label for=" filterFechaInicio">De:</label>
-                                    <input type="date" class="form-control" id="filtroFechaInicio" onchange="displayData()">
+                                    <input type="date" class="form-control" id="filtroFechaInicio" onchange="">
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->
                                 <div>
                                     <label for="filterFechaFinal">A:</label>
-                                    <input type="date" class="form-control" id="filtroFechaFinal" onchange="displayData()">
+                                    <input type="date" class="form-control" id="filtroFechaFinal" onchange="">
                                 </div>
 
 

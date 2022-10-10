@@ -113,7 +113,7 @@ include 'filtros.php';
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
      <!-- Muestra Numeros Graficas -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>

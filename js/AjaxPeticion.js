@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 });
 
+//MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS
 function displayDataCompletas() {
 
     let displayData = true;
@@ -33,6 +34,7 @@ function displayDataCompletas() {
 
 }
 
+//MUESTRA LA TABLA CON PETICIONES EN DESARROLLO Y QUE NO HAN SIDO ENVIADAS
 function displayDataDesarrollo() {
 
     let displayData = true;
@@ -62,6 +64,7 @@ function displayDataDesarrollo() {
 
 }
 
+//MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS
 function displayDataPendientes() {
 
     let displayData = true;
@@ -90,7 +93,7 @@ function displayDataPendientes() {
 
 }
 
-//MUESTRA LA TABLA
+//MUESTRA LA TABLA COMPLETA
 function displayData() {
 
     let displayData = true;
@@ -99,19 +102,25 @@ function displayData() {
     let filtroEstatus = $('#filtroEstatus').val();
     let filtroNivel = $('#filtroNivel').val();
     let filtroFechaInicio = $('#filtroFechaInicio').val();
+    let filtroSoporte = $('#filtroSoportePeti').val();
+    let filtroDesarrollador= $('#filtroDesarrolladorPeti').val();
     let filtroFechaFinal = $('#filtroFechaFinal').val();
-    let filtroLaboratorio = $('#filtroLaboratorio').val();
+    let filtroLaboratorio = $('#filtroLaboratorioPeti').val();
+
+    
 
     $.ajax({
         url: "app/peticion.php",
         type: "POST",
         data: {
             displayDataSend: displayData,
-            filtroEstatusSend: filtroEstatus,
-            filtroNivelSend: filtroNivel,
             filtroFechaInicioSend: filtroFechaInicio,
             filtroFechaFinalSend: filtroFechaFinal,
             filtroLaboratorioSend: filtroLaboratorio,
+            filtroNivelSend: filtroNivel,
+            filtroEstatusSend: filtroEstatus,
+            filtroSoporteSend: filtroSoporte,
+            filtroDesarrolladorSend: filtroDesarrollador,
             displayDataFullSend: displayDataFull,
         },
         success: function (data, status) {
@@ -244,6 +253,7 @@ function getInfo(id) {
 
 }
 
+//NOS MUESTRA LA INFORMACIÓN DEL MODAL ACTUALIZAR
 function actualizarGetInfo(id) {
 
     let getInfoUpdatePeticion = true;
@@ -292,6 +302,7 @@ function actualizarGetInfo(id) {
     $('#modalEditar').modal("show");
 }
 
+//ACTUALIZA LA PETICION
 function actualizar() {
 
     let actualizarData = true;
@@ -592,12 +603,31 @@ function buscadorLaboratorioSoporte() {
         }
     });
 
-    
-
-    
-
     $("#laboratorioUpdate").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarLaboratorio: params.term,// search term
+                    boleanoLaboratorioSend: boleanoLaboratorio
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#filtroLaboratorioPeti").select2({
+        placeholder: "Laboratorio",
         theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
@@ -643,9 +673,55 @@ function buscadorLaboratorioSoporte() {
         }
     });
 
+    $("#filtroDesarrolladorPeti").select2({
+        placeholder: "Desarrollador",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarDesarrollador: params.term,// search term
+                    boleanoDesarrolladorSend: boleanoDesarrollador
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
     let boleanoSoporte = true;
     $("#soporteAdd").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarSoporte: params.term, // search term
+                    boleanoSoporteSend: boleanoSoporte
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#filtroSoportePeti").select2({
+        placeholder: "Soporte",
         theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
@@ -692,9 +768,59 @@ function buscadorLaboratorioSoporte() {
         }
     });
 
+
+    $("#filtroNivel").select2({
+
+        placeholder: "Nivel",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarNivel: params.term, // search term
+                    boleanoNivelSend: boleanoNivel
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+
     let boleanoEstatus = true;
     $("#estatusUpdate").select2({
         placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarEstatus: params.term, // search term
+                    boleanoEstatusSend: boleanoEstatus
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+
+    $("#filtroEstatus").select2({
+        placeholder: "Estatus",
         theme: "bootstrap",
         ajax: {
             url: "app/autoCompleteLab.php",
@@ -725,8 +851,7 @@ function limpiarInputAgregar() {
     $('#laboratorioAdd').val(null).trigger('change');
 }
 
-//Al momento de presionar el boton de Wp en la sección de completadas sin enviar, se completa y se va
-//A la tabla de los filtros
+//Al momento de presionar el boton de Wp en la sección de completadas sin enviar, se completa.
 function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fechaLlegada, soporte) {
 
 
@@ -795,16 +920,6 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
     let actualizarDesdeWp = true;
 
-    // console.log(id);
-    // console.log(asunto);
-
-    // console.log(celular);
-    // console.log(laboratorio);
-
-    // console.log(desarrollador);
-    // console.log(fechaLlegada);
-    // console.log(soporte);
-
 
     swal({
         title: "¿Te gustaria enviar el mensaje de Whatsapp?",
@@ -825,12 +940,9 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
                 }, function (data, status) {
 
-                    // displayData();
-                    // displayDataPendientes();
-                    // displayDataDesarrollo();
                     displayDataCompletas();
 
-                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada');
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20fecha%20de%20llegada%20*' + fechaLlegada + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada.');
 
                 });
 
@@ -853,13 +965,16 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
 }
 
-function limpiarFiltros(){
-   
-    $('#filtroNivel').prop('selectedIndex',0);
-    $('#filtroEstatus').prop('selectedIndex',0); 
+//LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES
+function limpiarFiltros() {
+
+    $('#filtroNivel').val(null).trigger('change');
+    $('#filtroLaboratorioPeti').val(null).trigger('change');
+    $('#filtroSoportePeti').val(null).trigger('change');
+    $('#filtroDesarrolladorPeti').val(null).trigger('change');
     $('#filtroFechaInicio').val('');
     $('#filtroFechaFinal').val('');
-    
+
     displayData();
 
 }
