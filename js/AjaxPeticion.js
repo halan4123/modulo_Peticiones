@@ -213,7 +213,7 @@ function agregar() {
 
 }
 
-//OBTIENE LA INFORMACIÓN PARA COLOCARLA EN EL MODAL
+//OBTIENE LA INFORMACIÓN PARA COLOCARLA EN EL MODAL DE VER
 function getInfo(id) {
 
     let getInfoData = true;

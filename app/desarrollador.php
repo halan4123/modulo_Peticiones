@@ -3,7 +3,9 @@ include 'connectionController.php';
 
 $conn = connect();
 
-//MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
+//MUESTRA DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
 if (isset($_POST['displayDataDesarrolladorSend'])) {
 
     $table = '
@@ -21,7 +23,7 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
 
     $sql = "SELECT * FROM `desarrollador` WHERE 1";
 
-    $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+    $result = mysqli_query($conn, $sql); 
 
     $CONT = 1;
 
@@ -70,7 +72,9 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
     echo $table;
 }
 
+//==========================================================================================================================
 //AGREGAR DESARROLLADOR
+//==========================================================================================================================
 if (isset($_POST['insertDesarrolladorSend'])) {
 
     extract($_POST); //NOS DEVUELVE UN ARREGLO
@@ -89,7 +93,9 @@ if (isset($_POST['insertDesarrolladorSend'])) {
     }
 }
 
+//==========================================================================================================================
 //ELIMINAR DESARROLLADOR 
+//==========================================================================================================================
 if (isset($_POST['eliminarDesarrolladorSend'])) {
 
     $id = $_POST['deleteSend'];
@@ -98,7 +104,9 @@ if (isset($_POST['eliminarDesarrolladorSend'])) {
     $result = mysqli_query($conn, $sql);
 }
 
-//GET INFO DESARROLLADOR 
+//==========================================================================================================================
+//OBTIENE LA INFORMACION DEL DESARROLLADOR
+//==========================================================================================================================
 if (isset($_POST['getInfoDesarrolladorSend']) || isset($_POST['getInfoUpdateDesarrolladorSend'])) {
 
     if (isset($_POST['idSend'])) {
@@ -120,7 +128,9 @@ if (isset($_POST['getInfoDesarrolladorSend']) || isset($_POST['getInfoUpdateDesa
     }
 }
 
+//==========================================================================================================================
 //ACTUALIZAR DESARROLLADOR 
+//==========================================================================================================================
 if (isset($_POST['actualizarDesarrolladorSend'])) {
 
     $ID_DESARROLLADOR = $_POST['idHiddenSend'];

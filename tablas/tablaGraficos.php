@@ -232,7 +232,7 @@
         <div class="panel panel-default">
             <div class="panel-heading panel-heading-custom-3">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasLaboratorio">Estadisticas Laboratorios</a>
+                    <a onfocus="buscadorLabGraficas()" data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasLaboratorio">Estadisticas Laboratorios</a>
                 </h4>
             </div>
             <div id="estadisticasLaboratorio" class="panel-collapse collapse ">

@@ -4,8 +4,8 @@ include 'app/connectionController.php';
 
 $conn = connect();
 
+//SE OBTIENE LA FECHA DE INICIO Y FECHA FINAL POR GET DESDE LA PESTAÑA DE BUSCADOR DE PETICIONES
 $fechaInicio = $_GET['fechaInicio'];
-
 $fechaFinal = $_GET['fechaFinal'];
 
 if (empty($fechaInicio) || empty($fechaFinal)) {

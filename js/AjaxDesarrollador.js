@@ -1,11 +1,8 @@
-$(document).ready(function () {
+/**
+* SE CARGA CON UN ONFOCUS, ESTA COLOCADO EN LA PESTAÑA DE DESARROLLADORES
+*/
 
-    // displayData(); //DESPLIEGA LA FUNCIÓN
-    //displayDataDesarrollador();
-
-
-});
-
+//MUESTRA LA TABLA DE LA PESTAÑA DE BUSCADOR DE DESARROLLADORES
 function displayDataDesarrollador() {
 
     let displayDataDesarrollador = true;
@@ -30,6 +27,7 @@ function displayDataDesarrollador() {
 
 }
 
+//AGREGA DESARROLLADOR
 function agregarDesarrollador() {
 
     let insertDesarrollador = true;
@@ -86,6 +84,7 @@ function agregarDesarrollador() {
 
 }
 
+//ELIMINA DESARROLLADOR
 function eliminarDesarrollador(id) {
 
     swal({
@@ -130,6 +129,7 @@ function eliminarDesarrollador(id) {
 
 }
 
+//OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE VER
 function getInfoDesarrollador(id) {
 
     let getInfoDesarrollador = true;
@@ -150,6 +150,7 @@ function getInfoDesarrollador(id) {
 
 }
 
+//OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfoDesarrollador(id) {
 
     let getInfoUpdateDesarrollador = true;
@@ -170,6 +171,7 @@ function actualizarGetInfoDesarrollador(id) {
 
 }
 
+//ACTUALIZA DESARROLLADOR
 function actualizarDesarrollador() {
 
     let actualizarDesarrollador = true;
@@ -200,6 +202,7 @@ function actualizarDesarrollador() {
 
 }
 
+//LIMPIA LOS INPUT DE AGREGAR DESARROLLADOR
 function limpiarInput() {
     $('#nombreDesarrolladorAdd').val('');
     $('#apellidoDesarrolladorAdd').val('');

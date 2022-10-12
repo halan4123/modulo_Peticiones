@@ -1,10 +1,8 @@
-$(document).ready(function () {
+/**
+* SE CARGA CON UN ONFOCUS, ESTA COLOCADO EN LA PESTAÑA DE SOPORTE
+*/
 
-    //displayDataSoporte(); //DESPLIEGA LA FUNCIÓN
-
-
-});
-
+//MUESTRA LA TABLA DE LA PESTAÑA DE BUSCADOR DE SOPORTE
 function displayDataSoporte() {
 
 
@@ -31,6 +29,7 @@ function displayDataSoporte() {
 
 }
 
+//AGREGA SOPORTE
 function agregarSoporte() {
 
     let insertSoporte = true;
@@ -73,6 +72,7 @@ function agregarSoporte() {
 
 }
 
+//ELIMINA SOPORTE
 function eliminarSoporte(id) {
 
     let eliminarSoporte = true;
@@ -120,6 +120,7 @@ function eliminarSoporte(id) {
 
 }
 
+//OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE VER
 function getInfoSoporte(id) {
 
     let getInfoSoporte = true;
@@ -144,6 +145,7 @@ function getInfoSoporte(id) {
 
 }
 
+//OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfoSoporte(id) {
 
     let getInfoUpdateSoporte = true;
@@ -166,7 +168,7 @@ function actualizarGetInfoSoporte(id) {
 
 }
 
-
+//ACTUALIZA SOPORTE
 function actualizarSoporte() {
 
     let actualizarSoporte = true;
@@ -201,6 +203,7 @@ function actualizarSoporte() {
 
 }
 
+//LIMPIA INPUT DE AGREGAR SOPORTE
 function limpiarSoporte() {
 
     $('#nombreSoporteAdd').val('');

@@ -1,9 +1,9 @@
-$(document).ready(function () {
+/**
+* SE CARGA LA FUNCION DE BUSCADORLAB GRAFICAS
+* DESDEN UN ONFOCUS EN LA PESTAÑA DE ESTADISTICAS DE LABORATORIOS
+*/
 
-    buscadorLabGraficas();
-});
-
-
+//CANVAS DE GRAFICAS EN LA PESTAÑA DE ESTADISTICAS GENERALES
 function graficarEstadisticasGenerales() {
 
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
@@ -27,8 +27,8 @@ function graficarEstadisticasGenerales() {
 
         let canvas1 = document.createElement("canvas");
         canvas1.id = "peticionesAceptadasDesarrolladores";
-        document.getElementById("contenedor-desarrollador").appendChild(canvas1); 
-        
+        document.getElementById("contenedor-desarrollador").appendChild(canvas1);
+
 
         const ctxDesarrollador = document.getElementById('peticionesAceptadasDesarrolladores').getContext('2d');
         //const ctxDesarrollador = $('#peticionesAceptadasDesarrolladores');
@@ -133,6 +133,7 @@ function graficarEstadisticasGenerales() {
 
 }
 
+//CANVAS DE GRAFICA ANUALES EN LA PESTAÑA DE ESTADISTICAS GENERALES
 function graficarAnualmente() {
 
     let year = $('#filtroAnualGrafica_3').val();
@@ -445,6 +446,7 @@ function graficarAnualmente() {
 
 }
 
+//CANVAS DE GRAFICAS EN LA PESTAÑA DE ESTADISTICAS LABORATORIO
 function graficarEstadisticasLaboratorios() {
 
     let laboratorioDatos = true;
@@ -537,7 +539,7 @@ function graficarEstadisticasLaboratorios() {
 
 }
 
-//BUSCADOR SELECT2
+//BUSCADOR SELECT2 PARA LAS GRAFICAS
 function buscadorLabGraficas() {
 
     let boleanoLaboratorio = true;

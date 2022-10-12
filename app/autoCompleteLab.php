@@ -3,12 +3,14 @@ include 'connectionController.php';
 
 $conn = connect();
 
+//==========================================================================================================================
 //BUSCA LA INFORMACION DE LABORATORIOS
+//==========================================================================================================================
 if (isset($_POST['boleanoLaboratorioSend'])) {
 
     if (!isset($_POST['buscarLaboratorio'])) {
 
-        $fetchData = mysqli_query($conn,"SELECT * FROM laboratorio ORDER BY NOMBRE");
+        $fetchData = mysqli_query($conn, "SELECT * FROM laboratorio ORDER BY NOMBRE");
     } else {
         $search = $_POST['buscarLaboratorio'];
 
@@ -24,12 +26,14 @@ if (isset($_POST['boleanoLaboratorioSend'])) {
     echo json_encode($data);
 }
 
+//==========================================================================================================================
 //BUSCA LA INFORMACION DEL SOPORTE
+//==========================================================================================================================
 if (isset($_POST['boleanoSoporteSend'])) {
 
     if (!isset($_POST['buscarSoporte'])) {
 
-        $fetchData = mysqli_query($conn,"SELECT * FROM soporte ORDER BY NOMBRE");
+        $fetchData = mysqli_query($conn, "SELECT * FROM soporte ORDER BY NOMBRE");
     } else {
         $search = $_POST['buscarSoporte'];
 
@@ -45,12 +49,14 @@ if (isset($_POST['boleanoSoporteSend'])) {
     echo json_encode($data);
 }
 
+//==========================================================================================================================
 //BUSCA LA INFORMACION DEL DESARROLLADOR
+//==========================================================================================================================
 if (isset($_POST['boleanoDesarrolladorSend'])) {
 
     if (!isset($_POST['buscarDesarrollador'])) {
 
-        $fetchData = mysqli_query($conn,"SELECT * FROM desarrollador ORDER BY NOMBRE");
+        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador ORDER BY NOMBRE");
     } else {
         $search = $_POST['buscarDesarrollador'];
 
@@ -66,12 +72,15 @@ if (isset($_POST['boleanoDesarrolladorSend'])) {
     echo json_encode($data);
 }
 
+
+//==========================================================================================================================
 //BUSCA LA INFORMACION DEL NIVEL
+//==========================================================================================================================
 if (isset($_POST['boleanoNivelSend'])) {
 
     if (!isset($_POST['buscarNivel'])) {
 
-        $fetchData = mysqli_query($conn,"SELECT * FROM nivel ORDER BY NIVEL");
+        $fetchData = mysqli_query($conn, "SELECT * FROM nivel ORDER BY NIVEL");
     } else {
         $search = $_POST['buscarNivel'];
 
@@ -87,12 +96,14 @@ if (isset($_POST['boleanoNivelSend'])) {
     echo json_encode($data);
 }
 
+//==========================================================================================================================
 //BUSCA LA INFORMACION DEL ESTATUS
+//==========================================================================================================================
 if (isset($_POST['boleanoEstatusSend'])) {
 
     if (!isset($_POST['buscarEstatus'])) {
 
-        $fetchData = mysqli_query($conn,"SELECT * FROM estatus ORDER BY ESTATUS");
+        $fetchData = mysqli_query($conn, "SELECT * FROM estatus ORDER BY ESTATUS");
     } else {
         $search = $_POST['buscarEstatus'];
 
@@ -107,5 +118,3 @@ if (isset($_POST['boleanoEstatusSend'])) {
     }
     echo json_encode($data);
 }
-
-

@@ -4,7 +4,9 @@ include 'connectionController.php';
 
 $conn = connect();
 
-//MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
+//MUESTRA DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
 if (isset($_POST['displayDataSoporteSend'])) {
 
     $table = '
@@ -78,7 +80,9 @@ if (isset($_POST['displayDataSoporteSend'])) {
 
 }
 
+//==========================================================================================================================
 //AGREGAR SOPORTE
+//==========================================================================================================================
 if (isset($_POST['insertSoporteSend'])) {
 
     extract($_POST); //NOS DEVUELVE UN ARREGLO
@@ -99,7 +103,10 @@ if (isset($_POST['insertSoporteSend'])) {
     }
 }
 
-//DELETE SOPORTE
+
+//==========================================================================================================================
+//ELIMINA SOPORTE
+//==========================================================================================================================
 if (isset($_POST['eliminarSoporteSend'])) {
 
     $id = $_POST['deleteSend'];
@@ -108,7 +115,9 @@ if (isset($_POST['eliminarSoporteSend'])) {
     $result = mysqli_query($conn, $sql);
 }
 
-//GET INFO SOPORTE 
+//==========================================================================================================================
+//OBTIENE LA INFORMACION DEL SOPORTE
+//==========================================================================================================================
 if (isset($_POST['getInfoSoporteSend']) || isset($_POST['getInfoUpdateSoporteSend'])) {
 
     if (isset($_POST['idSend'])) {
@@ -130,7 +139,9 @@ if (isset($_POST['getInfoSoporteSend']) || isset($_POST['getInfoUpdateSoporteSen
     }
 }
 
+//==========================================================================================================================
 //ACTUALIZAR SOPORTE
+//==========================================================================================================================
 if (isset($_POST['actualizarSoporteSend'])) {
 
     $ID_SOPORTE = $_POST['idHiddenSend'];

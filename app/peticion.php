@@ -11,12 +11,14 @@ include 'connectionController.php';
 
 $conn = connect();
 
-
-//MUESTREO DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
+//MUESTRA DE LA TABLA Y VALIDACIONES DE LA MISMA
+//==========================================================================================================================
 if (isset($_POST['displayDataSend'])) {
 
     date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
 
+    //SE ESCOJE LA TABLA DEPENDIENDO EL ESTADO DE ENVIO
     if (isset($_POST['displayDataFullSend'])) {
 
         $table = '
@@ -114,7 +116,7 @@ if (isset($_POST['displayDataSend'])) {
             ';
     }
 
-
+    //CONSULTA SQL
     $sql = "SELECT p.*,
     l.nombre AS NOMLAB,
     l.paquete AS PAQUETE,
@@ -138,7 +140,7 @@ if (isset($_POST['displayDataSend'])) {
     INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE 1";
 
 
-    //FILTROS
+    //FILTROS & CONCATENACION A CONSULTA SQL
     if (isset($_POST['displayDataFullSend'])) {
 
         if (isset($_POST['filtroLaboratorioSend']) || isset($_POST['filtroDesarrolladorSend']) || isset($_POST['filtroSoporteSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroEstatusSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend'])) {
@@ -150,8 +152,7 @@ if (isset($_POST['displayDataSend'])) {
 
                 if ($DESA !== "") {
 
-                    $sql .= " and d.ID_DESARROLLADOR = '$DESA'"; 
-
+                    $sql .= " and d.ID_DESARROLLADOR = '$DESA'";
                 }
             }
 
@@ -164,11 +165,10 @@ if (isset($_POST['displayDataSend'])) {
 
                 if ($nivel !== "") {
 
-                    $sql .= " and n.ID_NIVEL = '$nivel'"; 
-
+                    $sql .= " and n.ID_NIVEL = '$nivel'";
                 }
             }
-            
+
             //FILTRO LABORATORIO
             if (isset($_POST['filtroEstatusSend'])) {
 
@@ -176,8 +176,7 @@ if (isset($_POST['displayDataSend'])) {
 
                 if ($statusRe !== "") {
 
-                    $sql .= " and e.ID_ESTATUS = '$statusRe'"; 
-
+                    $sql .= " and e.ID_ESTATUS = '$statusRe'";
                 }
             }
 
@@ -188,8 +187,7 @@ if (isset($_POST['displayDataSend'])) {
 
                 if ($soporte !== "") {
 
-                    $sql .= " and s.ID_SOPORTE = '$soporte'"; 
-
+                    $sql .= " and s.ID_SOPORTE = '$soporte'";
                 }
             }
 
@@ -229,21 +227,22 @@ if (isset($_POST['displayDataSend'])) {
         $sql .= " and ENVIADO = 0 AND ( e.ESTATUS = 'Completado' OR e.ESTATUS = 'Rechazado')";
     }
 
-
-
+    //ORDENAMIENTO QUE SEGUIRAN TODAS LAS TABLAS
     $sql .= " ORDER BY e.ESTATUS = 'Pendiente' DESC,
     p.FECHA_LLEGADA DESC,
     e.ESTATUS = 'Desarrollo' DESC,
     e.ESTATUS = 'Completado' DESC,
     e.ESTATUS = 'Rechazado' DESC";
 
-    $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+    //EJECUTAMOS LA CONSULTA
+    $result = mysqli_query($conn, $sql);
 
-    $CONT = 1; //SE ESTABLECE UN CONTADOR PARA COLOCARLO EN LA COLUMNA #
+    //SE ESTABLECE UN CONTADOR PARA COLOCARLO EN LA COLUMNA #
+    $CONT = 1;
 
+    //POR CADA CICLO OBTENEMOS LOS DATOS DE LA BD Y LOS GUARDAMOS EN VARIABLES 
     while ($row = mysqli_fetch_assoc($result)) {
 
-        //POR CADA CICLO OBTENEMOS LOS DATOS DE LA BD Y LOS GUARDAMOS EN VARIABLES 
         $ID_PETICION = $row['ID_PETICION'];
         $ASUNTO = $row['ASUNTO'];
         $ID_LABORATORIO = $row['NOMLAB'];
@@ -264,53 +263,57 @@ if (isset($_POST['displayDataSend'])) {
         $ESTATUS_COLOR = $row['ESTATUS_COLOR'];
         $ID_ESTATUS_COPY = $ID_ESTATUS;
 
-
-
         $FECHA_ENTREGA_ESTIMADA_COPY = $FECHA_ENTREGA_ESTIMADA;
         $FECHA_COMPLETADO_COPY = $FECHA_COMPLETADO;
 
-        $FECHA_LLEGADA = substr($FECHA_LLEGADA, 0, -9); //CORTAMOS LA FECHA DE LLEGADA PARA MOSTRAR SOLO LA FECHA Y NO LA HORA
+        //CORTAMOS FECHAS PARA MOSTRAR SOLO LA FECHA Y NO LA HORA
+        $FECHA_LLEGADA = substr($FECHA_LLEGADA, 0, -9);
         $FECHA_ENTREGA_ESTIMADA = substr($FECHA_ENTREGA_ESTIMADA, 0, -9);
         $FECHA_COMPLETADO = substr($FECHA_COMPLETADO, 0, -9);
 
         $FECHA_LLEGADA = date("d-m-Y", strtotime($FECHA_LLEGADA));
         $FECHA_ENTREGA_ESTIMADA = date("d-m-Y", strtotime($FECHA_ENTREGA_ESTIMADA));
 
-        date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
+        //ESTABLECEMOS ZONA HORARIA
+        date_default_timezone_set('America/Chihuahua');
 
+        //ASIGNACION DE LABEL -> INCOMPLETA
         if ($FECHA_COMPLETADO_COPY == '0000-00-00 00:00:00') {
             $FECHA_COMPLETADO = '<span class="label label-danger">Incompleta</span>';
         }
 
+        //ASIGNACION DE LABEL -> SIN DEFINIR / TIEMPO RESTANTE -> +3 DIAS
         if ($FECHA_ENTREGA_ESTIMADA_COPY == '0000-00-00 00:00:00') {
-
             $tiempo = '<span class="label label-warning">Sin Definir</span>';
         } else {
-
-            $fechaActual = date('y-m-d'); //SE OBTIENE, CREA LA FECHA ACTUAL
-            $datetime1 = date_create($fechaActual); //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
-            $datetime2 = date_create($FECHA_ENTREGA_ESTIMADA); //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
-            $interval = date_diff($datetime1, $datetime2); //OBTENEMOS LA DIFERENCIA
+            //SE OBTIENE, CREA LA FECHA ACTUAL
+            $fechaActual = date('y-m-d');
+            //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
+            $datetime1 = date_create($fechaActual);
+            //CONVERTIMOS A DATECREATE PARA PODER USAR DATE DIFF
+            $datetime2 = date_create($FECHA_ENTREGA_ESTIMADA);
+            //OBTENEMOS LA DIFERENCIA
+            $interval = date_diff($datetime1, $datetime2);
+            //ASIGNAMOS EL FORMATO
             $tiempo = $interval->format('%R%a días');
         }
 
+        //ASIGNACION DE LABEL -> SIN DEFINIR
         if ($FECHA_ENTREGA_ESTIMADA == '30-11--0001') {
-
             $FECHA_ENTREGA_ESTIMADA = '<span class="label label-warning">Sin Definir</span>';
         }
 
-        //El tiempo restante cambia a completado, deja de aparecer sin definir o +5 -8 dias
+        //EL TIEMPO RESTANTE CAMBIA A COMPLETEADO, DEJA DE APARECER SIN DEFINIR O +5 -8 DIAS POR -> LABEL -> COMPLETADO
         if ($ID_ESTATUS == 'Completado') {
             $tiempo = '<span class="label label-success">Completado</span>
             ';
         }
 
         //EL DESAROLLADOR PUEDE SER NULL POR EL LEFT JOIN
+        //LABEL -> SIN DEFINIR
         if ($ID_DESARROLLADOR == NULL) {
             $ID_DESARROLLADOR = 'Sin Definir';
         }
-
-        //'<span class="label label-warning">Sin Definir</span>'
 
         //DEPENDIENDO EL STATUS Y DEL NIVEL DE LA DB SE LE ASIGANARA UN ICONO Y UN COLOR
         $ID_ESTATUS = '<span style="color:' . $ESTATUS_COLOR . ';" class="tam ' . $ESTATUS_ICONO . '" aria-hidden="true"></span>
@@ -347,7 +350,7 @@ if (isset($_POST['displayDataSend'])) {
         }
 
 
-        //."'" . $ID_PETICION ."'" .
+        //BOTONES DE WHATSAPP 
         if ($ID_ESTATUS_COPY == 'Completado') {
             $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $FECHA_COMPLETADO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
             <span class="bi bi-whatsapp"></span>
@@ -358,7 +361,7 @@ if (isset($_POST['displayDataSend'])) {
             </button>';
         }
 
-
+        //BOTONES DE ACCIONES
         $table .=
             '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
                     <span class="bi bi-eye-fill"></span>
@@ -378,7 +381,7 @@ if (isset($_POST['displayDataSend'])) {
             </tr>
             ';
 
-
+        //CONTADOR QUE HACE REFERENCIA AL # EN LA TABLA
         $CONT += 1;
     }
 
@@ -391,7 +394,9 @@ if (isset($_POST['displayDataSend'])) {
     echo $table;
 }
 
-//INSERT DE PETICIÓN
+//==========================================================================================================================
+//AGREGA PETICION
+//==========================================================================================================================
 if (isset($_POST['insertDataSend'])) {
 
     extract($_POST); //NOS DEVUELVE UN ARREGLO
@@ -433,7 +438,9 @@ if (isset($_POST['insertDataSend'])) {
     }
 }
 
-//DELETE DE PETICIÓN
+//==========================================================================================================================
+//ELIMINA PETICION
+//==========================================================================================================================
 if (isset($_POST['eliminarDataSend'])) {
 
     $id = $_POST['deleteSend'];
@@ -442,7 +449,9 @@ if (isset($_POST['eliminarDataSend'])) {
     $result = mysqli_query($conn, $sql);
 }
 
-//ACTUALIZAR DE PETICIÓN
+//==========================================================================================================================
+//ACTUALIZA PETICION
+//==========================================================================================================================
 if (isset($_POST['actualizarDataSend'])) {
 
     $ID_PETICION = $_POST['idHiddenSend'];
@@ -453,14 +462,10 @@ if (isset($_POST['actualizarDataSend'])) {
     $ID_NIVEL = $_POST['nivelActualizarSend'];
     $ID_ESTATUS = $_POST['estatusActualizarSend'];
     $DESCRIPCION = $_POST['descripcionActualizarSend'];
-
     $ENVIADO = $_POST['enviadoSend'];
-
     $WP = $_POST['wpSend'];
 
-    // var_dump($WP);
-
-
+    //SI NO HAY NADA EN EL ESTATUS, SE OBTENDRA EL ESTATUS QUE HAY POR DEFECTO 
     if (isset($ID_ESTATUS)) {
 
         $query = "SELECT ESTATUS FROM estatus WHERE ID_ESTATUS = $ID_ESTATUS";
@@ -472,10 +477,15 @@ if (isset($_POST['actualizarDataSend'])) {
         $ID_ESTATUS_TEXT = strtolower($ID_ESTATUS_TEXT);
     }
 
-    //EL ESTATUS 2 ES COMPLETADO
+
+    //ACTUALIZA DEPENDE EL CASO
     if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
 
-        //SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
+        /**
+         * SI EL ESTATUS ES COMPLETADO, 2 ES LA REFERENCIA EN LA BASE DE DATOS
+         * SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
+         */
+
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -489,6 +499,10 @@ if (isset($_POST['actualizarDataSend'])) {
         $result = mysqli_query($conn, $sql);
     } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
 
+        /**
+         * ACTUALIZA LOS DATOS NORMALMENTE, REAFIRMANDO EL ENVIADO COMO TRUE -> 1
+         */
+
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -496,14 +510,16 @@ if (isset($_POST['actualizarDataSend'])) {
         `ID_NIVEL` = '$ID_NIVEL',
         `ID_ESTATUS` = '$ID_ESTATUS',
         `DESCRIPCION` = '$DESCRIPCION',
-        `FECHA_COMPLETADO` = current_timestamp(),
         `ENVIADO` = 1
         WHERE `ID_PETICION` = $ID_PETICION";
 
         $result = mysqli_query($conn, $sql);
     } elseif ($ID_DESARROLLADOR == 'null') {
 
-        //SI NO CAMBIA A COMPLETADO SE HACE LA ACTUALIZACIÓN NORMAL
+        /**
+         * SI LA PETICION NO ESTA COMPLETADA, HACE UNA ACTUALIZACION NORMAL
+         * SE PREGUNTA SI EL DESARROLLADOR ESTA VACIO
+         */
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -516,7 +532,9 @@ if (isset($_POST['actualizarDataSend'])) {
         $result = mysqli_query($conn, $sql);
     } else {
 
-
+        /**
+         * ACTUALIZACION NORMAL
+         */
         $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
         `ID_LABORATORIO` = '$ID_LABORATORIO',
         `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
@@ -530,8 +548,9 @@ if (isset($_POST['actualizarDataSend'])) {
     }
 }
 
-//ACTUALIZAR DESDE EL BOTON DE WP
-//SOLO ACTUALIZA EL ENVIO
+//==========================================================================================================================
+//ACTUALIZAR DESDE EL BOTON DE WP, SOLO ACTUALIZA EL CAMPO ENVIO
+//==========================================================================================================================
 if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $ID = $_POST['idSendWp'];
@@ -541,9 +560,9 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
     $result = mysqli_query($conn, $sql);
 }
 
-
-
-//GETINFO DE PETICIÓN getInfoUpdatePeticionSend
+//==========================================================================================================================
+//OBTIENE LA INFORMACION DE LA PETICION
+//==========================================================================================================================
 if (isset($_POST['getInfoDataSend']) || isset($_POST['getInfoUpdatePeticionSend'])) {
 
     if (isset($_POST['idSend'])) {
