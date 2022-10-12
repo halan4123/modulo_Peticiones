@@ -5,6 +5,10 @@ $(document).ready(function () {
 
     //POSTERIORMENTE CARGAN TODOS LOS BUSCADORES DE SELECT2
     buscadoresSelect2();
+
+    $('[data-toggle="popover"]').popover({
+        html: true, 
+    });   
 });
 
 //MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PETICIONES POR ENVIAR
@@ -337,7 +341,6 @@ function actualizar() {
 
     let laboratorio_wp = $('#laboratorioUpdate').text().trim();
 
-    //$('#laboratorioUpdate').text().trim()
     // console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
 
     if (estatusActualizar == "2") {
@@ -381,7 +384,6 @@ function actualizar() {
                         displayDataPendientes();
                         displayDataDesarrollo();
                         displayDataCompletas();
-
 
                     });
 
@@ -459,79 +461,6 @@ function actualizar() {
 
 
     }
-
-
-
-
-
-    //     actualizarDataSend: actualizarData,
-    //     idHiddenSend: idHidden,
-    //     asuntoActualizarSend: asuntoActualizar,
-    //     laboratorioActualizarSend: laboratorioActualizar,
-    //     fechaEntregaActualizarSend: fechaEntregaActualizar,
-    //     desarrolladorActualizarSend: desarrolladorActualizar,
-    //     nivelActualizarSend: nivelActualizar,
-    //     estatusActualizarSend: estatusActualizar,
-    //     descripcionActualizarSend: descripcionActualizar,
-    //     enviadoSend: enviado,
-
-    // }, function (data, status) {
-
-    //     if (estatusActualizar == "2") {
-    //         swal({
-    //             title: "¿Te gustaria enviar el mensaje de Whatsapp?",
-    //             icon: "images/wp.png",
-    //             buttons: ["No, no enviar", "Si, si enviar"],
-    //             closeOnClickOutside: false,
-    //             allowOutsideClick: false
-
-    //         })
-    //             .then((willSend) => {
-
-    //                 if (willSend) {
-
-    //                     swal({
-    //                         title: "Petición Actualizada y ventana emergente de whatsapp abierta",
-    //                         icon: "success",
-    //                         button: "Cerrar",
-    //                     });
-
-    //                     window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
-
-    //                     displayData();
-    //                     displayDataPendientes();
-    //                     displayDataDesarrollo();
-    //                     displayDataCompletas();
-
-
-    //                 } else {
-
-    //                     swal({
-    //                         title: "Petición Actualizada",
-    //                         icon: "success",
-    //                         button: "Cerrar",
-    //                     });
-
-    //                     displayData();
-    //                     displayDataPendientes();
-    //                     displayDataDesarrollo();
-
-    //                 }
-    //             });
-
-    //     } else {
-    //         swal({
-    //             title: "Petición Actualizada",
-    //             icon: "success",
-    //             button: "Cerrar",
-    //         });
-
-    //         displayData();
-    //         displayDataPendientes();
-    //         displayDataDesarrollo();
-    //     }
-
-    // });
 
 }
 
@@ -973,13 +902,23 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 //LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES EN LA PESTAÑA DE BUSCADOR DE PETICIONES
 function limpiarFiltros() {
 
+    let date_1 = moment().subtract(1, 'd');
+    let date_2 = moment().add(1, "d");
+
     $('#filtroNivel').val(null).trigger('change');
     $('#filtroLaboratorioPeti').val(null).trigger('change');
+    $('#filtroEstatus').val(null).trigger('change');
     $('#filtroSoportePeti').val(null).trigger('change');
     $('#filtroDesarrolladorPeti').val(null).trigger('change');
-    $('#filtroFechaInicio').val('');
-    $('#filtroFechaFinal').val('');
+    $('#filtroFechaInicio').val(date_1.format("yyyy-MM-DD"));
+    //document.getElementById("filtroFechaInicio").value = date.format("yyyy-MM-DD");
+    $('#filtroFechaFinal').val(date_2.format("yyyy-MM-DD"));
 
-    displayData();
+
+
+
+
+
 
 }
+

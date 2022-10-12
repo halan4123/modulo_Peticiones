@@ -234,7 +234,7 @@
 
                                 <div>
 
-                                    <button type="button" class="btn btn-danger" onclick="limpiarFiltros()">
+                                    <button type="button" class="btn btn-warning" onclick="limpiarFiltros()">
                                     <i class="bi bi-arrow-clockwise"></i>
                                     </button>
 
@@ -242,8 +242,8 @@
 
                                 <div>
 
-                                    <button class="btn btn-primary" onclick="displayData()"><i class="bi bi-search"></i></button>
-                                    <!-- <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button> -->
+                                    <button class="btn btn-info" onclick="displayData()"><i class="bi bi-search"></i></button>
+                                    
 
                                 </div>
 
@@ -256,7 +256,7 @@
 
                                     <select class="form-control" id="filtroLaboratorioPeti" style="width: 100%;" onchange="">
 
-                                        <!-- <option value='0'>Seleccionar</option> -->
+                                        
 
                                     </select>
                                 </div>
@@ -267,7 +267,7 @@
 
                                     <select class="form-control" id="filtroNivel" style="width: 100%;" onchange="">
 
-                                        <!-- <option value='0'>Seleccionar</option> -->
+                                      
 
                                     </select>
                                 </div>
@@ -277,7 +277,7 @@
 
                                     <select class="form-control" id="filtroSoportePeti" style="width: 100%;" onchange="">
 
-                                        <!-- <option value='0'>Seleccionar</option> -->
+                                       
 
                                     </select>
                                 </div>
@@ -287,7 +287,7 @@
 
                                     <select class="form-control" id="filtroDesarrolladorPeti" style="width: 100%;" onchange="">
 
-                                        <!-- <option value='0'>Seleccionar</option> -->
+                                       
 
                                     </select>
                                 </div>
@@ -298,21 +298,26 @@
 
                                     <select class="form-control" id="filtroEstatus" style="width: 100%;" onchange="">
 
-                                        <!-- <option value='0'>Seleccionar</option> -->
+                        
 
                                     </select>
                                 </div>
 
+                                <?php
+                                    date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
+                                    $fecha_hoy = date("Y-m-d");
+                                ?>
+
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
                                     <label for=" filterFechaInicio">De:</label>
-                                    <input type="date" class="form-control" id="filtroFechaInicio" onchange="">
+                                    <input type="date" class="form-control" id="filtroFechaInicio" value="<?php echo date("Y-m-d",strtotime($fecha_hoy."- 1 days"));  ?>" onchange="">
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->
                                 <div>
                                     <label for="filterFechaFinal">A:</label>
-                                    <input type="date" class="form-control" id="filtroFechaFinal" onchange="">
+                                    <input type="date" class="form-control" id="filtroFechaFinal" value="<?php echo date("Y-m-d",strtotime($fecha_hoy."+ 1 days"));  ?>" onchange="">
                                 </div>
 
 

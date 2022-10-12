@@ -162,15 +162,8 @@ MODAL EDITAR PETICION
                     <label for="laboratorioUpdate">Laboratorio:</label>
                     <select class="form-control" id="laboratorioUpdate" style="width: 100%;">
 
-                        <!-- <option value='0'>Seleccionar</option> -->
-
                     </select>
                 </div>
-
-                <!-- <div class="form-group">
-                        <label for="fecha_llegadaUpdate">Fecha de solicitud:</label>
-                        <input type="text" class="form-control" id="fecha_llegadaUpdate" disabled>
-                    </div> -->
 
                 <div class="form-group">
                     <label for="fecha_entregaUpdate">Fecha de entrega:</label>
@@ -184,8 +177,23 @@ MODAL EDITAR PETICION
                     </select>
                 </div>
 
+
                 <div class="form-group">
-                    <label for="nivelUpdate">Nivel:</label>
+                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="
+                    <b>Nivel 1: </b> 1 día. <br> 
+                    Modificaciones sencillas y modificaciones de Urgencia. <br>
+                    <br>
+                    <b>Nivel 2: </b> 1 - 3 días. <br> 
+                    Modificaciones medianamente sencillas que ya se han hecho en otros sistemas. <br>
+                    <br>
+                    <b>Nivel 3: </b> 3 - 7 días. <br> 
+                    Modificaciones nuevas o nuevos desarrollos que no son tan difíciles de implementar. <br>
+                    <br>
+                    <b>Nivel 4: </b> Dias hasta semanas. <br> 
+                    Nuevos desarrollos o nuevos módulos. <br>
+                    <br>" title="Duración en base al nivel">Nivel: <span class="bi bi-question-circle-fill"></span></label>
+
+                    <!-- <label for="nivelUpdate">Nivel: <span class="bi bi-question-circle-fill"></span></label> -->
                     <select class="form-control" id="nivelUpdate" style="width: 100%;">
 
                     </select>
@@ -213,6 +221,7 @@ MODAL EDITAR PETICION
                 <input type="hidden" id="fecha_llegadaUpdate">
                 <input type="hidden" id="soporte_Update">
                 <input type="hidden" id="desarrollador_nombre">
+                <input type="hidden" id="caso_display">
             </div>
         </div>
 
