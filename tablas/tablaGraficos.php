@@ -73,7 +73,7 @@
                                     <div class="dimensiones" id="contenedor-desarrollador">
 
                                         <canvas id="peticionesAceptadasDesarrolladores"></canvas>
-                                        <!-- <button onclick="dowlo()">Descar</button> -->
+                                        
                                     </div>
                                 </div>
 

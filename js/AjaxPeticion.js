@@ -1,12 +1,13 @@
 $(document).ready(function () {
 
+    //POR DEFECTO CUANDO EL DOCUMENTO CARGA LA PESTAÑA DE PENDIENTES
     displayDataPendientes();
 
-    buscadorLaboratorioSoporte();
-
+    //POSTERIORMENTE CARGAN TODOS LOS BUSCADORES DE SELECT2
+    buscadoresSelect2();
 });
 
-//MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS
+//MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PETICIONES POR ENVIAR
 function displayDataCompletas() {
 
     let displayData = true;
@@ -34,7 +35,7 @@ function displayDataCompletas() {
 
 }
 
-//MUESTRA LA TABLA CON PETICIONES EN DESARROLLO Y QUE NO HAN SIDO ENVIADAS
+//MUESTRA LA TABLA CON PETICIONES EN DESARROLLO Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE EN DESARROLLO
 function displayDataDesarrollo() {
 
     let displayData = true;
@@ -64,7 +65,7 @@ function displayDataDesarrollo() {
 
 }
 
-//MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS
+//MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PENDIENTES
 function displayDataPendientes() {
 
     let displayData = true;
@@ -93,7 +94,7 @@ function displayDataPendientes() {
 
 }
 
-//MUESTRA LA TABLA COMPLETA
+//MUESTRA LA TABLA DE LA PESTAÑA DE BUSCADOR DE PETICIONES
 function displayData() {
 
     let displayData = true;
@@ -103,11 +104,11 @@ function displayData() {
     let filtroNivel = $('#filtroNivel').val();
     let filtroFechaInicio = $('#filtroFechaInicio').val();
     let filtroSoporte = $('#filtroSoportePeti').val();
-    let filtroDesarrollador= $('#filtroDesarrolladorPeti').val();
+    let filtroDesarrollador = $('#filtroDesarrolladorPeti').val();
     let filtroFechaFinal = $('#filtroFechaFinal').val();
     let filtroLaboratorio = $('#filtroLaboratorioPeti').val();
 
-    
+
 
     $.ajax({
         url: "app/peticion.php",
@@ -138,7 +139,7 @@ function displayData() {
 
 }
 
-//AGREGA UNA PETICIÓN
+//AGREGA LA PETICIÓN
 function agregar() {
 
     let insertData = true;
@@ -253,7 +254,7 @@ function getInfo(id) {
 
 }
 
-//NOS MUESTRA LA INFORMACIÓN DEL MODAL ACTUALIZAR
+//COLOCA LA INFORMACIÓN CORRESPONDINTE EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfo(id) {
 
     let getInfoUpdatePeticion = true;
@@ -265,13 +266,15 @@ function actualizarGetInfo(id) {
         idSend: id
     }, function (data, status) {
 
-
-
         let peticion = JSON.parse(data);
 
-        //console.log(peticion.ID_DESARROLLADOR + ' ' + peticion.NOMDES); 0 & null //'Sin Definir'
-
-        let desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + 'Sin Definir' + "</option>";
+        //VALIDACIONES PARA EL SELECT2 PARA QUE EL INPUT OBTENGA EL VALOR AL MOMENTO DE DAR CLICK EN ACTUALIZAR
+        let desarrolladorOption;
+        if (JSON.stringify(peticion.NOMDES) === JSON.stringify(null)) {
+            desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + 'Sin Definir' + "</option>";
+        } else {
+            desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + peticion.NOMDES + "</option>";
+        }
 
         let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>" + peticion.NOMLAB + "</option>";
 
@@ -279,22 +282,23 @@ function actualizarGetInfo(id) {
 
         let estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>" + peticion.NOMESTATUS + "</option>";
 
+        //ASIGNACIONES POR DEFECTO O CON EL VALOR QUE TENGAN DEL SELECT2
+        $('#desarrolladorUpdate').append(desarrolladorOption).trigger('change');
+        $('#laboratorioUpdate').append(laboratorioOption).trigger('change');
+        $('#nivelUpdate').append(nivelOption).trigger('change');
+        $('#estatusUpdate').append(estatusOption).trigger('change');
+
+        //ASIGNACIONES NORMALES
         $('#asuntoUpdate').val(peticion.ASUNTO);
         $('#fecha_llegadaUpdate').val(peticion.FECHA_LLEGADA);
         $('#fecha_entregaUpdate').val(peticion.FECHA_ENTREGA_ESTIMADA);
         $('#fecha_completadoUpdate').val(peticion.FECHA_COMPLETADO);
         $('#descripcionUpdate').val(peticion.DESCRIPCION);
 
-
+        //ASIGNACIONES HIDDEN PARA LA FUNCION DE ENVIAR WP
         $('#numeroCelularSoporte').val(peticion.NUMERO_SOPORTE);
         $('#soporte_Update').val(peticion.NOMSOP);
         $('#desarrollador_nombre').val(peticion.NOMDES);
-
-        //ASIGNACIONES DEL SELECT2
-        $('#desarrolladorUpdate').append(desarrolladorOption).trigger('change');
-        $('#laboratorioUpdate').append(laboratorioOption).trigger('change');
-        $('#nivelUpdate').append(nivelOption).trigger('change');
-        $('#estatusUpdate').append(estatusOption).trigger('change');
 
 
     });
@@ -531,7 +535,7 @@ function actualizar() {
 
 }
 
-//ELIMINA UNA PETICIÓN
+//ELIMINA LA PETICIÓN
 function eliminar(id) {
 
     let eliminarData = true;
@@ -577,8 +581,8 @@ function eliminar(id) {
 
 }
 
-//BUSCADORES PARA LOS SELECT2
-function buscadorLaboratorioSoporte() {
+//BUSCADORES DE SELECT2
+function buscadoresSelect2() {
     let boleanoLaboratorio = true;
     $("#laboratorioAdd").select2({
         placeholder: "Selecciona",
@@ -843,7 +847,7 @@ function buscadorLaboratorioSoporte() {
     });
 }
 
-//LIMPIAR INPUT AGREGAR
+//LIMPIA LOS INPUTS EN AGREGAR PETICION
 function limpiarInputAgregar() {
     $('#asuntoAdd').val('');
     $('#descripcionAdd').val('');
@@ -851,7 +855,7 @@ function limpiarInputAgregar() {
     $('#laboratorioAdd').val(null).trigger('change');
 }
 
-//Al momento de presionar el boton de Wp en la sección de completadas sin enviar, se completa.
+//ENVIA MENSAJE DE PETICION COMPLETADA
 function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fechaLlegada, soporte) {
 
 
@@ -915,6 +919,7 @@ function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fe
 
 }
 
+//ENVIA MENSAJE DE PETICION RECHAZADA
 function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
 
@@ -965,7 +970,7 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
 }
 
-//LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES
+//LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES EN LA PESTAÑA DE BUSCADOR DE PETICIONES
 function limpiarFiltros() {
 
     $('#filtroNivel').val(null).trigger('change');

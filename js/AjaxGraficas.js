@@ -27,8 +27,8 @@ function graficarEstadisticasGenerales() {
 
         let canvas1 = document.createElement("canvas");
         canvas1.id = "peticionesAceptadasDesarrolladores";
-        document.getElementById("contenedor-desarrollador").appendChild(canvas1);
-
+        document.getElementById("contenedor-desarrollador").appendChild(canvas1); 
+        
 
         const ctxDesarrollador = document.getElementById('peticionesAceptadasDesarrolladores').getContext('2d');
         //const ctxDesarrollador = $('#peticionesAceptadasDesarrolladores');
