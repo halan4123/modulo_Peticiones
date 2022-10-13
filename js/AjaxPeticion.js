@@ -6,9 +6,12 @@ $(document).ready(function () {
     //POSTERIORMENTE CARGAN TODOS LOS BUSCADORES DE SELECT2
     buscadoresSelect2();
 
-    $('[data-toggle="popover"]').popover({
-        html: true, 
-    });   
+    //EFECTO VISUAL POPOVER
+    popoverVisual();
+
+    //EDITOR DE TEXTO INTEGRADO
+    trumbowygEditor();
+
 });
 
 //MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PETICIONES POR ENVIAR
@@ -245,12 +248,9 @@ function getInfo(id) {
             $('#desarrolladorSee').val(peticion.NOMDES);
         }
 
-
-        //
         $('#nivelSee').val(peticion.NOMNIVEL);
         $('#estatusSee').val(peticion.NOMESTATUS);
-        $('#descripcionSee').val(peticion.DESCRIPCION);
-
+        $('#descripcionSee').trumbowyg('html', peticion.DESCRIPCION);//$('#descripcionSee').val(peticion.DESCRIPCION);
 
     });
 
@@ -259,11 +259,12 @@ function getInfo(id) {
 }
 
 //COLOCA LA INFORMACIÓN CORRESPONDINTE EN EL MODAL DE ACTUALIZAR
-function actualizarGetInfo(id) {
+function actualizarGetInfo(id, display) {
 
     let getInfoUpdatePeticion = true;
 
     $('#idHidden').val(id);
+    $('#caso_display').val(display);
 
     $.post("app/peticion.php", {
         getInfoUpdatePeticionSend: getInfoUpdatePeticion,
@@ -297,7 +298,9 @@ function actualizarGetInfo(id) {
         $('#fecha_llegadaUpdate').val(peticion.FECHA_LLEGADA);
         $('#fecha_entregaUpdate').val(peticion.FECHA_ENTREGA_ESTIMADA);
         $('#fecha_completadoUpdate').val(peticion.FECHA_COMPLETADO);
-        $('#descripcionUpdate').val(peticion.DESCRIPCION);
+
+        //ASIGNACION CON Trumbowyg
+        $('#descripcionUpdate').trumbowyg('html', peticion.DESCRIPCION);//$('#descripcionUpdate').val(peticion.DESCRIPCION);
 
         //ASIGNACIONES HIDDEN PARA LA FUNCION DE ENVIAR WP
         $('#numeroCelularSoporte').val(peticion.NUMERO_SOPORTE);
@@ -316,6 +319,11 @@ function actualizar() {
     let actualizarData = true;
 
     let enviado = true;
+
+    let caso_display = $('#caso_display').val();
+
+    console.log('El caso es: ' + caso_display);
+    console.log(typeof (caso_display));
 
     let idHidden = $('#idHidden').val();
     let asuntoActualizar = $('#asuntoUpdate').val();
@@ -380,10 +388,24 @@ function actualizar() {
 
                         window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
 
-                        displayData();
-                        displayDataPendientes();
-                        displayDataDesarrollo();
-                        displayDataCompletas();
+                        if (caso_display == '1') {
+
+                            displayData();
+
+                        } else if (caso_display == '2') {
+
+                            displayDataPendientes();
+
+                        } else if (caso_display == '3') {
+
+                            displayDataDesarrollo();
+
+
+                        } else {
+
+                            displayDataCompletas();
+
+                        }
 
                     });
 
@@ -412,10 +434,24 @@ function actualizar() {
                             button: "Cerrar",
                         });
 
-                        displayData();
-                        displayDataPendientes();
-                        displayDataDesarrollo();
-                        displayDataCompletas();
+                        if (caso_display == '1') {
+
+                            displayData();
+
+                        } else if (caso_display == '2') {
+
+                            displayDataPendientes();
+
+                        } else if (caso_display == '3') {
+
+                            displayDataDesarrollo();
+
+                        } else {
+
+                            displayDataCompletas();
+
+                        }
+
 
 
                     });
@@ -451,10 +487,23 @@ function actualizar() {
                 button: "Cerrar",
             });
 
-            displayData();
-            displayDataPendientes();
-            displayDataDesarrollo();
-            displayDataCompletas();
+            if (caso_display == '1') {
+
+                displayData();
+
+            } else if (caso_display == '2') {
+
+                displayDataPendientes();
+
+            } else if (caso_display == '3') {
+
+                displayDataDesarrollo();
+
+            } else {
+
+                displayDataCompletas();
+
+            }
 
 
         });
@@ -922,3 +971,94 @@ function limpiarFiltros() {
 
 }
 
+//Trumbowyg
+function trumbowygEditor() {
+    $('#descripcionAdd').trumbowyg({
+        btns: [
+            ['viewHTML'],
+            ['formatting'],
+            ['strong', 'em'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['upload'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['emoji'],
+            ['fullscreen']
+            
+
+        ],
+        plugins: {
+            
+            upload: {
+                serverPath: 'app/img.php',
+                fileFieldName: 'image',
+                headers: {
+                    'Authorization': 'Client-ID xxxxxxxxxxxx'
+                },
+                urlPropertyName: 'file'
+            }
+        },
+        autogrow: true
+    });
+
+    $('#descripcionSee').trumbowyg({
+        btns: [
+            ['viewHTML'],
+            ['formatting'],
+            ['strong', 'em'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['emoji'],
+            ['fullscreen'],
+
+        ],
+        autogrow: true
+    });
+
+    $('#descripcionUpdate').trumbowyg({
+        btns: [
+            ['viewHTML'],
+            ['formatting'],
+            ['strong', 'em'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['upload'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['emoji'],
+            ['fullscreen'],
+
+        ],
+        plugins: {
+           
+            upload: {
+                serverPath: 'app/img.php',
+                fileFieldName: 'image',
+                headers: {
+                    'Authorization': 'Client-ID xxxxxxxxxxxx'
+                },
+                urlPropertyName: 'file'
+            }
+        },
+        autogrow: true
+    });
+}
+
+//POPOVER
+function popoverVisual() {
+    $('[data-toggle="popover"]').popover({
+        html: true,
+    });
+}

@@ -35,6 +35,9 @@ include 'filtros.php';
     <!--CDN ICONOS BOOTSTRAP-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+    <!-- ESTILOS LIBRERIA Trumbowyg -->
+    <link rel="stylesheet" href="libs/Trumbowyg/dist/ui/trumbowyg.min.css">
+
 
 </head>
 
@@ -97,9 +100,6 @@ include 'filtros.php';
     <!-- CDN BOOTSTRAP 3.4.1 Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!-- Font Awesome CDN -->
-    <!-- <script src="https://use.fontawesome.com/2dc70da5bb.js"></script> -->
-
     <!--CDN DATATABLE-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 
@@ -118,6 +118,13 @@ include 'filtros.php';
     <!-- CDN MOMENT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
+    <!-- LIBRERIA Trumbowyg -->
+    <script src="libs/Trumbowyg/dist/trumbowyg.min.js"></script>
+
+    <script src="libs/Trumbowyg/dist/plugins/emoji/trumbowyg.emoji.min.js"></script>
+
+    <script src="libs/Trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>
 

@@ -11,6 +11,8 @@ include 'connectionController.php';
 
 $conn = connect();
 
+$display = 0;
+
 //==========================================================================================================================
 //MUESTRA DE LA TABLA Y VALIDACIONES DE LA MISMA
 //==========================================================================================================================
@@ -44,7 +46,7 @@ if (isset($_POST['displayDataSend'])) {
             ';
 
         //$sql = "SELECT * FROM `peticion` INNER JOIN laboratorio ON peticion.ID_LABORATORIO = laboratorio.ID_LABORATORIO;"; //CREAMOS LA CONSULTA 
-
+        $display = 1;
     } elseif (isset($_POST['displayDataPendienteSend'])) {
 
         $table = '
@@ -68,6 +70,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
+            $display = 2;
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
         $table = '
@@ -91,6 +94,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
+            $display = 3;
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
         $table = '
@@ -114,6 +118,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
+            $display = 4;
     }
 
     //CONSULTA SQL
@@ -367,7 +372,7 @@ if (isset($_POST['displayDataSend'])) {
                     <span class="bi bi-eye-fill"></span>
                     </button>
 
-                    <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ')">
+                    <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ","  . $display . ')">
                     <span class="bi bi-pencil-fill"></span>
                     </button>
 
