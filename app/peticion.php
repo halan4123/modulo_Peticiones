@@ -70,7 +70,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
-            $display = 2;
+        $display = 2;
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
         $table = '
@@ -94,7 +94,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
-            $display = 3;
+        $display = 3;
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
         $table = '
@@ -118,7 +118,7 @@ if (isset($_POST['displayDataSend'])) {
             </thead>
             <tbody>
             ';
-            $display = 4;
+        $display = 4;
     }
 
     //CONSULTA SQL
@@ -406,40 +406,85 @@ if (isset($_POST['insertDataSend'])) {
 
     extract($_POST); //NOS DEVUELVE UN ARREGLO
 
-    if (
-        isset($_POST['asuntoSend']) &&
-        isset($_POST['laboratorioSend']) &&
-        isset($_POST['fechaEntregaEstimadaSend']) &&
-        isset($_POST['fechaCompletadoSend']) &&
-        isset($_POST['soporteSend']) &&
-        isset($_POST['nivelSend']) &&
-        isset($_POST['estatusSend']) &&
-        isset($_POST['descripcionSend'])
-    ) {
-        //CREAMOS LA CONSULTA
-        $sql =
-            "INSERT INTO `peticion` 
-            (`ASUNTO`, 
-            `ID_LABORATORIO`, 
-            `FECHA_LLEGADA`, 
-            `FECHA_ENTREGA_ESTIMADA`, 
-            `FECHA_COMPLETADO`, 
-            `ID_SOPORTE`, 
-            `ID_NIVEL`, 
-            `ID_ESTATUS`, 
-            `DESCRIPCION`) 
-            VALUES ('$asuntoSend', 
-            '$laboratorioSend', 
-            current_timestamp(), 
-            '$fechaEntregaEstimadaSend', 
-            '$fechaCompletadoSend',
-            '$soporteSend', 
-            '$nivelSend', 
-            '$estatusSend', 
-            '$descripcionSend')";
+    $DESARROLLADOR = $_POST['desarrolladorSend'];
 
-        //EJECUTAMOS LA CONSULTA
-        $result = mysqli_query($conn, $sql);
+    if ($DESARROLLADOR == "") {
+
+        if (
+            isset($_POST['asuntoSend']) &&
+            isset($_POST['laboratorioSend']) &&
+            isset($_POST['fechaEntregaEstimadaSend']) &&
+            isset($_POST['fechaCompletadoSend']) &&
+            isset($_POST['soporteSend']) &&
+            isset($_POST['nivelSend']) &&
+            isset($_POST['estatusSend']) &&
+            isset($_POST['descripcionSend'])
+        ) {
+            //CREAMOS LA CONSULTA
+            $sql =
+                "INSERT INTO `peticion` 
+                (`ASUNTO`, 
+                `ID_LABORATORIO`, 
+                `FECHA_LLEGADA`, 
+                `FECHA_ENTREGA_ESTIMADA`, 
+                `FECHA_COMPLETADO`, 
+                `ID_SOPORTE`, 
+                `ID_NIVEL`, 
+                `ID_ESTATUS`, 
+                `DESCRIPCION`) 
+                VALUES ('$asuntoSend', 
+                '$laboratorioSend', 
+                current_timestamp(), 
+                '$fechaEntregaEstimadaSend', 
+                '$fechaCompletadoSend',
+                '$soporteSend', 
+                '$nivelSend', 
+                '$estatusSend', 
+                '$descripcionSend')";
+
+            //EJECUTAMOS LA CONSULTA
+            $result = mysqli_query($conn, $sql);
+        }
+    } else {
+        
+        if (
+            isset($_POST['asuntoSend']) &&
+            isset($_POST['laboratorioSend']) &&
+            isset($_POST['fechaEntregaEstimadaSend']) &&
+            isset($_POST['fechaCompletadoSend']) &&
+            isset($_POST['soporteSend']) &&
+            isset($_POST['nivelSend']) &&
+            isset($_POST['estatusSend']) &&
+            isset($_POST['descripcionSend']) &&
+            isset($_POST['desarrolladorSend'])
+        ) {
+            //CREAMOS LA CONSULTA
+            $sql =
+                "INSERT INTO `peticion` 
+                (`ASUNTO`, 
+                `ID_LABORATORIO`, 
+                `FECHA_LLEGADA`, 
+                `FECHA_ENTREGA_ESTIMADA`, 
+                `FECHA_COMPLETADO`, 
+                `ID_SOPORTE`, 
+                `ID_NIVEL`, 
+                `ID_ESTATUS`, 
+                `DESCRIPCION`,
+                `ID_DESARROLLADOR`) 
+                VALUES ('$asuntoSend', 
+                '$laboratorioSend', 
+                current_timestamp(), 
+                '$fechaEntregaEstimadaSend', 
+                '$fechaCompletadoSend',
+                '$soporteSend', 
+                '$nivelSend', 
+                '$estatusSend', 
+                '$descripcionSend',
+                '$desarrolladorSend')";
+    
+            //EJECUTAMOS LA CONSULTA
+            $result = mysqli_query($conn, $sql);
+        }
     }
 }
 

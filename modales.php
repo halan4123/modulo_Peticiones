@@ -21,20 +21,26 @@ MODAL AGREGAR PETICION
                 <div class="form-group">
                     <label for="laboratorioAdd">Laboratorio:</label>
                     <select class="form-control" id="laboratorioAdd" style="width: 100%;">
-
-                        <!-- <option value='0'>Seleccionar</option> -->
-
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="soporteAdd">Soporte:</label>
                     <select class="form-control" id="soporteAdd" style="width: 100%;">
-
-                        <!-- <option value='0'>Seleccionar</option> -->
-
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="desarrolladorAdd">Desarrollador:</label>
+                    <div class="input-group">
+                        <select class="form-control" id="desarrolladorAdd" style="width: 100%">
+                        </select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" onclick="limpiarModal()"><i class="bi bi-arrow-clockwise"></i></button>
+                        </span>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <label for="descripcionAdd">Descripción:</label>

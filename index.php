@@ -121,8 +121,10 @@ include 'filtros.php';
     <!-- LIBRERIA Trumbowyg -->
     <script src="libs/Trumbowyg/dist/trumbowyg.min.js"></script>
 
+    <!-- LIBRERIA PLUGIN EMOJI -->
     <script src="libs/Trumbowyg/dist/plugins/emoji/trumbowyg.emoji.min.js"></script>
 
+    <!-- LIBRERIA PLUGIN UPLOAD -->
     <script src="libs/Trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
 
     <!-- MY JS -->

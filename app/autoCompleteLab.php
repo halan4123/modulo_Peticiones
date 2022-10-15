@@ -10,6 +10,7 @@ if (isset($_POST['boleanoLaboratorioSend'])) {
 
     if (!isset($_POST['buscarLaboratorio'])) {
 
+        //PARA QUE SOLO APAREZCAN 5 O EL NUMERO QUE DESEES POR DEFECTO COLOCAR LIMIT N.O
         $fetchData = mysqli_query($conn, "SELECT * FROM laboratorio ORDER BY NOMBRE");
     } else {
         $search = $_POST['buscarLaboratorio'];
@@ -27,7 +28,7 @@ if (isset($_POST['boleanoLaboratorioSend'])) {
 }
 
 //==========================================================================================================================
-//BUSCA LA INFORMACION DEL SOPORTE
+//BUSCA LA INFORMACION DEL SOPORTE -> INCLUSO A LOS OCULTOS
 //==========================================================================================================================
 if (isset($_POST['boleanoSoporteSend'])) {
 
@@ -38,6 +39,29 @@ if (isset($_POST['boleanoSoporteSend'])) {
         $search = $_POST['buscarSoporte'];
 
         $fetchData = mysqli_query($conn, "SELECT * FROM soporte where NOMBRE like '%" . $search . "%' limit 5");
+    }
+
+    $data = array();
+
+    while ($row = mysqli_fetch_array($fetchData)) {
+
+        $data[] = array("id" => $row['ID_SOPORTE'], "text" => $row['NOMBRE']);
+    }
+    echo json_encode($data);
+}
+
+//==========================================================================================================================
+//BUSCA LA INFORMACION DEL SOPORTE -> SOLO A LOS NO OCULTOS
+//==========================================================================================================================
+if (isset($_POST['boleanoSoporteNoOcultosSend'])) {
+
+    if (!isset($_POST['buscarSoporte'])) {
+
+        $fetchData = mysqli_query($conn, "SELECT * FROM soporte WHERE OCULTO = 0 ORDER BY NOMBRE");
+    } else {
+        $search = $_POST['buscarSoporte'];
+
+        $fetchData = mysqli_query($conn, "SELECT * FROM soporte WHERE OCULTO = 0 AND NOMBRE like '%" . $search . "%' limit 5");
     }
 
     $data = array();
@@ -72,6 +96,28 @@ if (isset($_POST['boleanoDesarrolladorSend'])) {
     echo json_encode($data);
 }
 
+//==========================================================================================================================
+//BUSCA LA INFORMACION DEL DESARROLLADOR -> SOLO A LOS NO OCULTOS
+//==========================================================================================================================
+if (isset($_POST['boleanoDesarrolladorNoOcultosSend'])) {
+
+    if (!isset($_POST['buscarDesarrollador'])) {
+
+        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador WHERE OCULTO = 0 ORDER BY NOMBRE");
+    } else {
+        $search = $_POST['buscarDesarrollador'];
+
+        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador WHERE OCULTO = 0 AND NOMBRE like '%" . $search . "%' limit 5");
+    }
+
+    $data = array();
+
+    while ($row = mysqli_fetch_array($fetchData)) {
+
+        $data[] = array("id" => $row['ID_DESARROLLADOR'], "text" => $row['NOMBRE']);
+    }
+    echo json_encode($data);
+}
 
 //==========================================================================================================================
 //BUSCA LA INFORMACION DEL NIVEL

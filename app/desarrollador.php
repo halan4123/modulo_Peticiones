@@ -21,9 +21,9 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
         <tbody>
         ';
 
-    $sql = "SELECT * FROM `desarrollador` WHERE 1";
+    $sql = "SELECT * FROM `desarrollador` WHERE `OCULTO` = 0";
 
-    $result = mysqli_query($conn, $sql); 
+    $result = mysqli_query($conn, $sql);
 
     $CONT = 1;
 
@@ -67,7 +67,7 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
                     </tbody>
                 </table>
                 ';
-                
+
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
 }
@@ -94,13 +94,17 @@ if (isset($_POST['insertDesarrolladorSend'])) {
 }
 
 //==========================================================================================================================
-//ELIMINAR DESARROLLADOR 
+//ELIMINAR DESARROLLADOR -> OCULTAR DESARROLLADOR
 //==========================================================================================================================
 if (isset($_POST['eliminarDesarrolladorSend'])) {
 
     $id = $_POST['deleteSend'];
 
-    $sql = "DELETE FROM `desarrollador` WHERE ID_DESARROLLADOR = $id";
+    //$sql = "DELETE FROM `desarrollador` WHERE ID_DESARROLLADOR = $id";
+    
+    $sql = "UPDATE `desarrollador` SET `OCULTO` = '1' 
+    WHERE `ID_DESARROLLADOR` = $id";
+
     $result = mysqli_query($conn, $sql);
 }
 

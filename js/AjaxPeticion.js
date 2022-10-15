@@ -159,6 +159,7 @@ function agregar() {
     let fechaCompletadoAdd = $('#fechaCompletadoAdd').val();
     let nivelAdd = $('#nivelAdd').val();
     let estatusAdd = $('#estatusAdd').val();
+    let desarrolladorAdd = $('#desarrolladorAdd').val();
 
     if (
         asuntoAdd.length === 0 ||
@@ -194,6 +195,7 @@ function agregar() {
                 nivelSend: nivelAdd,
                 estatusSend: estatusAdd,
                 descripcionSend: descripcionAdd,
+                desarrolladorSend: desarrolladorAdd,
 
             },
             success: function (data, status) {
@@ -561,7 +563,19 @@ function eliminar(id) {
 
 //BUSCADORES DE SELECT2
 function buscadoresSelect2() {
+
     let boleanoLaboratorio = true;
+    let boleanoSoporteNoOcultos = true;
+    let boleanoDesarrolladorNoOcultos = true;
+    let boleanoDesarrollador = true;
+    let boleanoSoporte = true;
+    let boleanoNivel = true;
+    let boleanoEstatus = true;
+
+
+    //===========================================================================
+    //BUSCADORES EN EL MODAL DE AGREGAR PETICION
+    //===========================================================================
     $("#laboratorioAdd").select2({
         placeholder: "Selecciona",
         theme: "bootstrap",
@@ -585,6 +599,56 @@ function buscadoresSelect2() {
         }
     });
 
+    $("#soporteAdd").select2({
+        placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarSoporte: params.term, // search term
+                    boleanoSoporteNoOcultosSend: boleanoSoporteNoOcultos
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#desarrolladorAdd").select2({
+        placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarSoporte: params.term, // search term
+                    boleanoDesarrolladorNoOcultosSend: boleanoDesarrolladorNoOcultos
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+
+    //===========================================================================
+    //BUSCADORES EN EL MODAL DE ACTUALIZAR PETICION
+    //===========================================================================
     $("#laboratorioUpdate").select2({
         placeholder: "Selecciona",
         theme: "bootstrap",
@@ -608,30 +672,6 @@ function buscadoresSelect2() {
         }
     });
 
-    $("#filtroLaboratorioPeti").select2({
-        placeholder: "Laboratorio",
-        theme: "bootstrap",
-        ajax: {
-            url: "app/autoCompleteLab.php",
-            type: "post",
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    buscarLaboratorio: params.term,// search term
-                    boleanoLaboratorioSend: boleanoLaboratorio
-                };
-            },
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-
-    let boleanoDesarrollador = true;
     $("#desarrolladorUpdate").select2({
         placeholder: "Selecciona",
         theme: "bootstrap",
@@ -644,6 +684,80 @@ function buscadoresSelect2() {
                 return {
                     buscarDesarrollador: params.term,// search term
                     boleanoDesarrolladorSend: boleanoDesarrollador
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#nivelUpdate").select2({
+
+        placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarNivel: params.term, // search term
+                    boleanoNivelSend: boleanoNivel
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#estatusUpdate").select2({
+        placeholder: "Selecciona",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarEstatus: params.term, // search term
+                    boleanoEstatusSend: boleanoEstatus
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    //===========================================================================
+    //BUSCADORES EN LA PESTAÑA DE BUSCADOR DE PETICIONES
+    //===========================================================================
+
+    $("#filtroLaboratorioPeti").select2({
+        placeholder: "Laboratorio",
+        theme: "bootstrap",
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarLaboratorio: params.term,// search term
+                    boleanoLaboratorioSend: boleanoLaboratorio
                 };
             },
             processResults: function (response) {
@@ -678,30 +792,6 @@ function buscadoresSelect2() {
         }
     });
 
-    let boleanoSoporte = true;
-    $("#soporteAdd").select2({
-        placeholder: "Selecciona",
-        theme: "bootstrap",
-        ajax: {
-            url: "app/autoCompleteLab.php",
-            type: "post",
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    buscarSoporte: params.term, // search term
-                    boleanoSoporteSend: boleanoSoporte
-                };
-            },
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-
     $("#filtroSoportePeti").select2({
         placeholder: "Soporte",
         theme: "bootstrap",
@@ -724,32 +814,6 @@ function buscadoresSelect2() {
             cache: true
         }
     });
-
-    let boleanoNivel = true;
-    $("#nivelUpdate").select2({
-
-        placeholder: "Selecciona",
-        theme: "bootstrap",
-        ajax: {
-            url: "app/autoCompleteLab.php",
-            type: "post",
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    buscarNivel: params.term, // search term
-                    boleanoNivelSend: boleanoNivel
-                };
-            },
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-
 
     $("#filtroNivel").select2({
 
@@ -774,32 +838,6 @@ function buscadoresSelect2() {
             cache: true
         }
     });
-
-
-    let boleanoEstatus = true;
-    $("#estatusUpdate").select2({
-        placeholder: "Selecciona",
-        theme: "bootstrap",
-        ajax: {
-            url: "app/autoCompleteLab.php",
-            type: "post",
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    buscarEstatus: params.term, // search term
-                    boleanoEstatusSend: boleanoEstatus
-                };
-            },
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-
 
     $("#filtroEstatus").select2({
         placeholder: "Estatus",
@@ -828,9 +866,10 @@ function buscadoresSelect2() {
 //LIMPIA LOS INPUTS EN AGREGAR PETICION
 function limpiarInputAgregar() {
     $('#asuntoAdd').val('');
-    $('#descripcionAdd').val('');
+    $('#descripcionAdd').trumbowyg('html', '');
     $('#soporteAdd').val(null).trigger('change');
     $('#laboratorioAdd').val(null).trigger('change');
+    $('#desarrolladorAdd').val(null).trigger('change');
 }
 
 //ENVIA MENSAJE DE PETICION COMPLETADA
@@ -988,11 +1027,11 @@ function trumbowygEditor() {
             ['removeformat'],
             ['emoji'],
             ['fullscreen']
-            
+
 
         ],
         plugins: {
-            
+
             upload: {
                 serverPath: 'app/img.php',
                 fileFieldName: 'image',
@@ -1042,7 +1081,7 @@ function trumbowygEditor() {
 
         ],
         plugins: {
-           
+
             upload: {
                 serverPath: 'app/img.php',
                 fileFieldName: 'image',
@@ -1061,4 +1100,11 @@ function popoverVisual() {
     $('[data-toggle="popover"]').popover({
         html: true,
     });
+}
+
+//LIMPIAR FILTROS DE MODALES
+function limpiarModal() {
+
+    $('#desarrolladorAdd').val(null).trigger('change');
+
 }

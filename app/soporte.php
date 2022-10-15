@@ -24,7 +24,7 @@ if (isset($_POST['displayDataSoporteSend'])) {
         <tbody>
     ';
 
-    $sql = "SELECT * FROM `soporte` WHERE 1";
+    $sql = "SELECT * FROM `soporte` WHERE `OCULTO` = 0";
 
     $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
 
@@ -105,13 +105,17 @@ if (isset($_POST['insertSoporteSend'])) {
 
 
 //==========================================================================================================================
-//ELIMINA SOPORTE
+//ELIMINA SOPORTE -> OCULTAR SOPORTE
 //==========================================================================================================================
 if (isset($_POST['eliminarSoporteSend'])) {
 
     $id = $_POST['deleteSend'];
 
-    $sql = "DELETE FROM `soporte` WHERE ID_SOPORTE = $id";
+    //$sql = "DELETE FROM `soporte` WHERE ID_SOPORTE = $id";
+
+    $sql = "UPDATE `soporte` SET `OCULTO` = '1' 
+    WHERE `ID_SOPORTE` = $id";
+
     $result = mysqli_query($conn, $sql);
 }
 

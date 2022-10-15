@@ -73,7 +73,7 @@
                                     <div class="dimensiones" id="contenedor-desarrollador">
 
                                         <canvas id="peticionesAceptadasDesarrolladores"></canvas>
-                                        
+
                                     </div>
                                 </div>
 
@@ -338,7 +338,7 @@
         <div class="panel panel-default">
             <div class="panel-heading panel-heading-custom-2">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasDesarrollador">Estadisticas Desarrolladores</a>
+                    <a onfocus="buscadorEstadisticasDesarrolladores()" data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasDesarrollador">Estadisticas Desarrolladores</a>
                 </h4>
             </div>
             <div id="estadisticasDesarrollador" class="panel-collapse collapse ">
@@ -355,26 +355,70 @@
 
                                 <div class=" flex-container">
 
+                                    <div>
+
+                                        <select class="form-control" id="filtroDesarrolladorGrafica" style="width: 100%;">
+
+                                            <!-- <option value='0'>Valor</option> -->
+
+                                        </select>
+                                        
+                                    </div>
+
                                     <!-- FILTRO DE FECHA INICIO -->
                                     <div>
                                         <label for=" filtroFechaInicioGraficosDesarrollador">De:</label>
-                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosDesarrollador" onchange="">
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosDesarrolladorPersonal" onchange="">
                                     </div>
 
                                     <!-- FILTRO DE FECHA FINAL -->
                                     <div>
                                         <label for="filtroFechaFinalGraficosDesarrollador">A:</label>
-                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosDesarrollador" onchange="">
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosDesarrolladorPersonal" onchange="">
                                     </div>
 
                                     <div>
 
-                                        <button class="btn btn-success" onclick="graficarEstadisticasDesarollador()"><i class="bi bi-search"></i></button>
+                                        <button type="button" class="btn btn-warning" onclick="limpiarFiltrosGraficasDesa()">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <div>
+
+                                        <button class="btn btn-success" onclick="graficarEstadisticasDesarrolladores()"><i class="bi bi-search"></i></button>
                                         <!-- <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button> -->
 
                                     </div>
 
 
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--=================================================
+                    AQUI SE COLOCA UNA TABLA POR CADA DESARROLLADOR
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-12 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Desempeño Por Desarrollador</div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-pendiente">
+
+                                        <canvas id="desarrolladorGraficaPendiente"></canvas>
+
+                                    </div>
                                 </div>
 
                             </div>

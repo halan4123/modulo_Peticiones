@@ -16,6 +16,6 @@ move_uploaded_file($datos_imagen['tmp_name'], $directorio . $nombre_archivo);
 
 $retorno['success'] = true;
 
-$retorno['file'] = "http://localhost/Modulo_Peticiones/upload/" . $nombre_archivo;
+$retorno['file'] = "upload/" . $nombre_archivo;
 
 echo json_encode($retorno);

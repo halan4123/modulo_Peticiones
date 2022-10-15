@@ -539,10 +539,94 @@ function graficarEstadisticasLaboratorios() {
 
 }
 
+//GRAFICA LAS GRAFICAS DE CADA DESARROLLADOR
+function graficarEstadisticasDesarrolladores() {
+
+    let graficaDesarrollador = true;
+
+    let desarrollador = $('#filtroDesarrolladorGrafica').val();
+    let fechaInicio = $('#filtroFechaInicioGraficosDesarrolladorPersonal').val();
+    let fechaFinal = $('#filtroFechaFinalGraficosDesarrolladorPersonal').val();
+
+    if (desarrollador == null || fechaInicio == '' || fechaFinal == '') {
+
+        swal({
+            title: "Completa todos los filtros de busqueda ",
+            icon: "error",
+            button: "Cerrar",
+        })
+
+    } else {
+
+        $.post("app/graficas.php", {
+
+            graficaDesarrolladorSend: graficaDesarrollador,
+            desarrolladorSend: desarrollador,
+            fechaInicioSend: fechaInicio,
+            fechaFinalSend: fechaFinal,
+
+        }, function (data, status) {
+
+            let datos = JSON.parse(data);
+            document.getElementById("desarrolladorGraficaPendiente").remove();
+
+            let canvas1 = document.createElement("canvas");
+            canvas1.id = "desarrolladorGraficaPendiente";
+            document.getElementById("contenedor-grafica-desarrollador-pendiente").appendChild(canvas1);
+
+            const ctxDesarrollador = document.getElementById('desarrolladorGraficaPendiente').getContext('2d');
+            const myChartDesarrollador = new Chart(ctxDesarrollador, {
+                type: 'pie',
+                data: {
+                    labels: datos.datos,
+                    datasets: [{
+                        label: 'Desarrollador',
+                        data: datos.datosNumericos,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+        });
+
+
+    }
+
+
+
+
+
+
+}
+
 //BUSCADOR SELECT2 PARA LAS GRAFICAS
 function buscadorLabGraficas() {
 
     let boleanoLaboratorio = true;
+
     $("#filtroLaboratorioGrafica").select2({
         placeholder: "Selecciona Laboratorio",
         theme: "bootstrap",
@@ -566,5 +650,46 @@ function buscadorLabGraficas() {
             cache: true
         }
     });
+
+
+
+
+
 }
 
+function buscadorEstadisticasDesarrolladores() {
+    let boleanoDesarrollador = true;
+
+    $("#filtroDesarrolladorGrafica").select2({
+        placeholder: "Desarrollador",
+        theme: "bootstrap",
+
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarLaboratorio: params.term,// search term
+                    boleanoDesarrolladorSend: boleanoDesarrollador
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+}
+
+
+function limpiarFiltrosGraficasDesa() {
+
+    $('#filtroDesarrolladorGrafica').val(null).trigger('change');
+    $('#filtroFechaInicioGraficosDesarrolladorPersonal').val('');
+    $('#filtroFechaFinalGraficosDesarrolladorPersonal').val('');
+}

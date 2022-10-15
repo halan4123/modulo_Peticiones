@@ -15,7 +15,7 @@ $MES_POR_DEFECTO = 1;
 if (isset($_POST['desarrolladorDatosSend'])) {
 
 
-    $sql = "SELECT `NOMBRE` FROM `desarrollador` WHERE 1 ORDER BY NOMBRE ASC";
+    $sql = "SELECT `NOMBRE` FROM `desarrollador` WHERE `OCULTO` = 0 ORDER BY NOMBRE ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -94,7 +94,7 @@ if (isset($_POST['desarrolladorDatosSend'])) {
 
 if (isset($_POST['soporteDatosSend'])) {
 
-    $sql = "SELECT `NOMBRE` FROM `soporte` WHERE 1 ORDER BY NOMBRE ASC";
+    $sql = "SELECT `NOMBRE` FROM `soporte` WHERE `OCULTO` = 0 ORDER BY NOMBRE ASC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -584,4 +584,80 @@ if (isset($_POST['laboratorioDatosSend'])) {
     echo json_encode($respuesta);
 }
 
+//==========================================================================================================================
+//CODIGO PARA GRAFICA POR DESARROLLADOR
+//==========================================================================================================================
+if (isset($_POST['graficaDesarrolladorSend'])) {
 
+    $DESARROLLADOR = $_POST['desarrolladorSend'];
+    $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $FECHA_FINAL = $_POST['fechaFinalSend'];
+
+    $sql = "SELECT `ESTATUS` FROM `estatus` WHERE 1 ORDER BY ESTATUS ASC";
+
+    $result = mysqli_query($conn, $sql);
+
+    $NOMBRES_ESTATUS = array();
+
+    $DATOS_NUMERICOS = array();
+
+    //OBTENCIÓN DE LOS NOMBRES DE LOS ESTATUS
+    while ($row = mysqli_fetch_assoc($result)) {
+
+        array_push($NOMBRES_ESTATUS, $row['ESTATUS']);
+    }
+
+
+    //OBTENIENDO LA CANTIDAD DE COMPLETADOS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL 
+    FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE d.ID_DESARROLLADOR = $DESARROLLADOR and e.ESTATUS = 'Completado' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $COMPLETADO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $COMPLETADO);
+
+    //OBTENIENDO LA CANTIDAD DE DESARROLLOS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL 
+    FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE d.ID_DESARROLLADOR = $DESARROLLADOR and e.ESTATUS = 'Desarrollo' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $DESARROLLO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $DESARROLLO);
+
+
+    //OBTENIENDO LA CANTIDAD DE PENDIENTES
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL 
+    FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE d.ID_DESARROLLADOR = $DESARROLLADOR and e.ESTATUS = 'Pendiente' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $PENDIENTE = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $PENDIENTE);
+
+
+    //OBTENIENDO LA CANTIDAD DE RECHAZADOS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL 
+    FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE d.ID_DESARROLLADOR = $DESARROLLADOR and e.ESTATUS = 'Rechazado' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $RECHAZADO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $RECHAZADO);
+
+    $respuesta = [
+        "datos" => $NOMBRES_ESTATUS,
+        "datosNumericos" => $DATOS_NUMERICOS,
+    ];
+
+    echo json_encode($respuesta);
+}
