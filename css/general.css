@@ -18,6 +18,19 @@ canvas {
     width: auto;
 }
 
+.dimensiones_2 {
+    height: 100px;
+}
+.contenedor-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-card>p{
+font-size: 25px;
+}
+
 /*=====================================================================================================================
 TAMAÑO ICONOS NIVEL, ESTATUS -> .tam / TAMAÑO ICONOS BOOTSTRAP SIMBOLOGIA -> .tam-i
 =====================================================================================================================*/
@@ -173,6 +186,16 @@ ESTILOS COLLAPSE
 
 .panel-default>.panel-heading-custom-3 {
     background: #138D75;
+}
+
+.panel-default>.panel-heading-custom-3 > h4 > a{
+    color: #fff;
+}
+
+.panel-heading-custom-3 > label{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
     color: #fff;
 }
 
@@ -183,8 +206,19 @@ ESTILOS COLLAPSE
 
 .panel-default>.panel-heading-custom-5 {
     background: #8e44ad;
+}
+
+.panel-default>.panel-heading-custom-5 > h4 > a{
     color: #fff;
 }
+
+.panel-heading-custom-5 > label{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    color: #fff;
+}
+
 
 .panel-default>.panel-heading-custom-6 {
     background: #A93226;

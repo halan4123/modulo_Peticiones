@@ -53,7 +53,7 @@ include 'filtros.php';
 
             <ul class="nav nav-tabs">
                 <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
-                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente()" data-toggle="tab" href="#menu3">Graficos</a></li>
+                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente(); " data-toggle="tab" href="#menu3">Graficos</a></li>
                 <li><a onfocus="displayDataDesarrollador()" data-toggle="tab" href="#menu1">Desarrolladores</a></li>
                 <li><a onfocus="displayDataSoporte()" data-toggle="tab" href="#menu2">Soporte</a></li>
 

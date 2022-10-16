@@ -66,7 +66,11 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Aceptadas Por Desarrollador</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones aceptadas por desarrollador <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -87,7 +91,14 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones Aceptadas Por Soporte</div>
+
+                                <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones aceptadas por soporte</div> -->
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones aceptadas por soporte <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
+
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-soporte">
 
@@ -117,12 +128,28 @@
 
                                         <select class="form-control" id="filtroAnualGrafica_3" onchange="graficarAnualmente()">
 
-                                            <option selected value="">Selecciona el año</option>
-                                            <?php $year = 2099;
-                                            for ($i = 2022; $i <= $year; $i++) {
-                                                echo '<option value="' . $i . '">' . $i . '</option>';
+                                            <?php
+                                            date_default_timezone_set('America/Chihuahua');
+                                            $year = 2099;
+                                            $year_actual = date('Y');
+                                            $year_actual = intval($year_actual);
+
+                                            ?>
+
+                                            <option value="<?php echo $year_actual ?>"><?php echo $year_actual ?></option>
+                                            <?php
+                                            for ($i = 2022; $i <= $year_actual; $i++) {
+                                                if ($i == $year_actual) {
+                                                    continue;
+                                                } else {
+                                                    echo '<option value="' . $i . '">' . $i . '</option>';
+                                                }
                                             }
                                             ?>
+
+
+
+
                                         </select>
 
                                     </div>
@@ -153,7 +180,7 @@
                         <div class="col-md-12 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Recibidas - Completadas - Rechazadas</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedorMix">
 
@@ -169,7 +196,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Recibidas</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas</label></div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-anuales">
 
@@ -185,7 +212,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Completadas</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Completadas </label> </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-completadas-mes">
 
@@ -201,7 +228,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;">Peticiones Rechazadas</div>
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Rechazadas</label> </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-rechazadas-mes">
 
@@ -238,6 +265,77 @@
             <div id="estadisticasLaboratorio" class="panel-collapse collapse ">
                 <div class="panel-body">
 
+                    <!--=================================================
+                    FILTROS POR FECHAS
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div class=" flex-container">
+
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filtroFechaInicioGraficos">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosLaboratorio" onchange="">
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filtroFechaFinalGraficos">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosLaboratorio" onchange="">
+                                    </div>
+
+                                    <!-- BOTON DE BUSCAR -->
+                                    <div>
+                                        <button class="btn btn-success" onclick=""><i class="bi bi-search"></i></button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--=================================================
+                    GRAFICAS - PETICIONES POR DESARROLLADOR / SOPORTE 
+                    ===================================================-->
+                    <div class="row">
+
+                        <!--=================================================
+                        GRAFICA 
+                        ===================================================-->
+                        <div class="col-md-6 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones Recibidas - Completadas - Rechazadas
+                                        <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="">
+
+                                        <canvas id=""></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     <!--=================================================
                     FILTROS GRAFICA DE LABORATORIOS
@@ -250,14 +348,9 @@
 
                                 <div class=" flex-container">
 
-
-
+                                    <!-- FILTRO POR LABORATORIO -->
                                     <div>
-
                                         <select class="form-control" id="filtroLaboratorioGrafica" style="width: 100%;">
-
-                                            <!-- <option value='0'>Seleccionar</option> -->
-
                                         </select>
                                     </div>
 
@@ -266,28 +359,28 @@
 
                                         <select class="form-control" id="filtroAnualGraficaLab">
 
-                                            <option selected value="">Selecciona el año</option>
-                                            <?php $year = 2099;
-                                            for ($i = 2022; $i <= $year; $i++) {
-                                                echo '<option value="' . $i . '">' . $i . '</option>';
+
+                                            <?php
+                                            date_default_timezone_set('America/Chihuahua');
+                                            $year = 2099;
+                                            $year_actual = date('Y');
+                                            $year_actual = intval($year_actual);
+
+                                            ?>
+
+                                            <option value="<?php echo $year_actual ?>"><?php echo $year_actual ?></option>
+                                            <?php
+                                            for ($i = 2022; $i <= $year_actual; $i++) {
+                                                if ($i == $year_actual) {
+                                                    continue;
+                                                } else {
+                                                    echo '<option value="' . $i . '">' . $i . '</option>';
+                                                }
                                             }
                                             ?>
                                         </select>
 
                                     </div>
-
-
-                                    <!-- FILTRO DE FECHA INICIO -->
-                                    <!-- <div>
-                                        <label for=" filtroFechaInicioGraficosLab">De:</label>
-                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosLab">
-                                    </div> -->
-
-                                    <!-- FILTRO DE FECHA FINAL -->
-                                    <!-- <div>
-                                        <label for="filtroFechaFinalGraficosLab">A:</label>
-                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosLab">
-                                    </div> -->
 
                                     <div>
 
@@ -311,7 +404,7 @@
                         <div class="col-md-12 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;">Peticiones Recibidas - Completadas - Rechazadas</div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedorLabGrafica">
 
@@ -362,7 +455,7 @@
                                             <!-- <option value='0'>Valor</option> -->
 
                                         </select>
-                                        
+
                                     </div>
 
                                     <!-- FILTRO DE FECHA INICIO -->
@@ -402,15 +495,15 @@
                     </div>
 
                     <!--=================================================
-                    AQUI SE COLOCA UNA TABLA POR CADA DESARROLLADOR
+                    RENDIMIENTO POR DESARROLLADOR
                     ===================================================-->
                     <div class="row">
 
-                        <div class="col-md-12 separacion">
+                        <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Desempeño Por Desarrollador</div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">Desempeño por desarrollador</div>
 
                                 <div class="panel-body">
 
@@ -422,6 +515,30 @@
                                 </div>
 
                             </div>
+
+                        </div>
+
+                        <div class="col-md-6 separacion">
+
+                            <div class="row">
+
+                                <div class="col-md-6 ">
+
+                                    <div class="panel panel-default">
+
+                                        <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">Total</div>
+
+                                        <div class="contenedor-card dimensiones_2" id="">
+                                            <p id="totalDatosDes"></p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
 
                         </div>
 

@@ -632,7 +632,7 @@ function buscadoresSelect2() {
             delay: 250,
             data: function (params) {
                 return {
-                    buscarSoporte: params.term, // search term
+                    buscarDesarrollador: params.term, // search term
                     boleanoDesarrolladorNoOcultosSend: boleanoDesarrolladorNoOcultos
                 };
             },
@@ -683,7 +683,7 @@ function buscadoresSelect2() {
             data: function (params) {
                 return {
                     buscarDesarrollador: params.term,// search term
-                    boleanoDesarrolladorSend: boleanoDesarrollador
+                    boleanoDesarrolladorNoOcultosSend: boleanoDesarrolladorNoOcultos
                 };
             },
             processResults: function (response) {

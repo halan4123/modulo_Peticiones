@@ -3,6 +3,7 @@
 * DESDEN UN ONFOCUS EN LA PESTAÑA DE ESTADISTICAS DE LABORATORIOS
 */
 
+
 //CANVAS DE GRAFICAS EN LA PESTAÑA DE ESTADISTICAS GENERALES
 function graficarEstadisticasGenerales() {
 
@@ -452,9 +453,6 @@ function graficarEstadisticasLaboratorios() {
     let laboratorioDatos = true;
     let laboratorio = $('#filtroLaboratorioGrafica').val();
     let year = $('#filtroAnualGraficaLab').val();
-    // let fechaInicio = $('#filtroFechaInicioGraficosLab').val();
-    // let fechaFinal = $('#filtroFechaFinalGraficosLab').val();
-
 
 
     if (laboratorio == null || year == '') {
@@ -539,7 +537,7 @@ function graficarEstadisticasLaboratorios() {
 
 }
 
-//GRAFICA LAS GRAFICAS DE CADA DESARROLLADOR
+//GRAFICAS POR DESARROLLADOR
 function graficarEstadisticasDesarrolladores() {
 
     let graficaDesarrollador = true;
@@ -566,6 +564,8 @@ function graficarEstadisticasDesarrolladores() {
             fechaFinalSend: fechaFinal,
 
         }, function (data, status) {
+
+          
 
             let datos = JSON.parse(data);
             document.getElementById("desarrolladorGraficaPendiente").remove();
@@ -610,7 +610,11 @@ function graficarEstadisticasDesarrolladores() {
                 }
             });
 
+              $('#totalDatosDes').text( datos.datosTotal );
+
         });
+
+
 
 
     }

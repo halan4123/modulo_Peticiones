@@ -654,9 +654,19 @@ if (isset($_POST['graficaDesarrolladorSend'])) {
 
     array_push($DATOS_NUMERICOS, $RECHAZADO);
 
+    //OBTENIENDO EL TOTAL SIN IMPORTAR EL ESTATUS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL 
+    FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE d.ID_DESARROLLADOR = $DESARROLLADOR and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $TOTAL = $result->fetch_array()['TOTAL'] ?? 0;
+
     $respuesta = [
         "datos" => $NOMBRES_ESTATUS,
         "datosNumericos" => $DATOS_NUMERICOS,
+        "datosTotal" => $TOTAL,
     ];
 
     echo json_encode($respuesta);
