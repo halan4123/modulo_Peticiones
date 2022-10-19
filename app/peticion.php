@@ -151,6 +151,17 @@ if (isset($_POST['displayDataSend'])) {
         if (isset($_POST['filtroLaboratorioSend']) || isset($_POST['filtroDesarrolladorSend']) || isset($_POST['filtroSoporteSend']) || isset($_POST['filtroNivelSend']) || isset($_POST['filtroEstatusSend']) || isset($_POST['filtroFechaInicioSend']) || isset($_POST['filtroFechaFinalSend'])) {
 
             //FILTRO LABORATORIO
+            if (isset($_POST['filtroLaboratorioSend'])) {
+
+                $LAB = $_POST['filtroLaboratorioSend'];
+
+                if ($LAB !== "") {
+
+                    $sql .= " and l.ID_LABORATORIO = '$LAB'";
+                }
+            }
+
+            //FILTRO DESARROLLADOR
             if (isset($_POST['filtroDesarrolladorSend'])) {
 
                 $DESA = $_POST['filtroDesarrolladorSend'];
@@ -160,8 +171,6 @@ if (isset($_POST['displayDataSend'])) {
                     $sql .= " and d.ID_DESARROLLADOR = '$DESA'";
                 }
             }
-
-            //FILTRO DESARROLLADOR
 
             //FILTRO NIVEL
             if (isset($_POST['filtroNivelSend'])) {

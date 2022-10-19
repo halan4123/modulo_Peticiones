@@ -6,8 +6,14 @@ body {
 CANVAS GRAFICAS
 =====================================================================================================================*/
 
+.flex3 { 
+    display: flex; 
+    justify-content: space-between; 
+    
+} 
+
 .dimensiones {
-    height: 200px;
+    height: 300px; /*200*/
 }
 
 .separacion {
@@ -19,7 +25,7 @@ canvas {
 }
 
 .dimensiones_2 {
-    height: 100px;
+    height: 75px;
 }
 .contenedor-card{
     display: flex;
@@ -181,6 +187,17 @@ ESTILOS COLLAPSE
 
 .panel-default>.panel-heading-custom-2 {
     background: #2471A3;
+
+}
+
+.panel-default>.panel-heading-custom-2 > h4 > a{
+    color: #fff;
+}
+
+.panel-heading-custom-2 > label{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
     color: #fff;
 }
 

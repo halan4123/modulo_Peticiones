@@ -499,6 +499,92 @@ if (isset($_POST['anualMixSend'])) {
 }
 
 //==========================================================================================================================
+//GRAFICA DE PETCIONES POR LABORATORIO POR RANGO DE FECHAS
+//==========================================================================================================================
+
+if (isset($_POST['laboratorioDatosFechasSend'])) {
+
+
+    $LAB = $_POST['laboratorioSend'];
+    $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $FECHA_FINAL = $_POST['fechaFinalSend'];
+
+    $DATOS_NUMERICOS = array();
+
+    //OBTENIENDO LA CANTIDAD DE PENDIENTES
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+    INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE l.ID_LABORATORIO = $LAB and e.ESTATUS = 'Pendiente' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $PENDIENTE = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $PENDIENTE);
+
+    //OBTENIENDO LA CANTIDAD DE DESARROLLO
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+    INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE l.ID_LABORATORIO = $LAB and e.ESTATUS = 'Desarrollo' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $DESARROLLO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $DESARROLLO);
+
+
+    //OBTENIENDO LA CANTIDAD DE COMPLETADOS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+    INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE l.ID_LABORATORIO = $LAB and e.ESTATUS = 'Completado' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $COMPLETADO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $COMPLETADO);
+
+    //OBTENIENDO LA CANTIDAD DE RECHAZADOS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+    INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE l.ID_LABORATORIO = $LAB and e.ESTATUS = 'Rechazado' and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $RECHAZADO = $result->fetch_array()['TOTAL'] ?? 0;
+
+    array_push($DATOS_NUMERICOS, $RECHAZADO);
+
+    //OBTENIENDO LA CANTIDAD DE RECIBIDAS
+    $query = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
+    INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+    WHERE l.ID_LABORATORIO = $LAB and FECHA_LLEGADA BETWEEN '$FECHA_INICIO' and '$FECHA_FINAL'";
+
+    $result = $conn->query($query);
+
+    $RECIBIDAS = $result->fetch_array()['TOTAL'] ?? 0;
+
+    //array_push($DATOS_NUMERICOS, $RECIBIDAS);
+
+    $respuesta = [
+        "datos" => $DATOS_NUMERICOS,
+        "datosPendientes" => $PENDIENTE,
+        "datosDesarrollo" => $DESARROLLO,
+        "datosCompletados" => $COMPLETADO,
+        "datosRechazados" => $RECHAZADO,
+        "datosTotal" => $RECIBIDAS,
+    ];
+
+    echo json_encode($respuesta);
+}
+
+//==========================================================================================================================
 //GRAFICA DE PETCIONES POR LABORATORIO ANUALES RECIBIDAS POR MES
 //==========================================================================================================================
 
@@ -585,6 +671,125 @@ if (isset($_POST['laboratorioDatosSend'])) {
 }
 
 //==========================================================================================================================
+//GRAFICA DE PETCIONES POR LABORATORIO ANUALES RECIBIDAS
+//==========================================================================================================================
+
+if (isset($_POST['laboratorioMixSend'])) {
+
+    //RECIBIDAS
+    if (isset($_POST['laboRecibidasSend'])) {
+
+
+        $yearGot = $_POST['yearSend']; //string
+
+        $laboratorio = $_POST['laboratorioSend'];
+
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion 
+            WHERE `ID_LABORATORIO`= $laboratorio AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+        $respuesta = [
+            "datos" => $VALOR_MENSUAL,
+        ];
+
+        echo json_encode($respuesta);
+    }
+
+    //COMPLETAS
+    if (isset($_POST['laboratorioCompletadasSend'])) {
+
+
+        $yearGot = $_POST['yearSend']; //string
+
+        $laboratorio = $_POST['laboratorioSend'];
+
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Completado' and `ID_LABORATORIO`= $laboratorio 
+            AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+        $respuesta = [
+            "datos" => $VALOR_MENSUAL,
+        ];
+
+        echo json_encode($respuesta);
+    }
+
+    //RECHAZADAS
+    if (isset($_POST['laboratorioRechazadoSend'])) {
+
+
+        $yearGot = $_POST['yearSend']; //string
+
+        $laboratorio = $_POST['laboratorioSend'];
+
+        $MES_POR_DEFECTO = 1;
+
+        $VALOR_MENSUAL = array();
+
+        while ($MES_POR_DEFECTO <= 12) {
+
+            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Rechazado' and `ID_LABORATORIO`= $laboratorio 
+            AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+            AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+            $result = mysqli_query($conn, $sql);
+
+            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+            $VALOR = intval($VALOR);
+
+            array_push($VALOR_MENSUAL, $VALOR);
+
+            $MES_POR_DEFECTO++;
+        }
+
+        $respuesta = [
+            "datos" => $VALOR_MENSUAL,
+        ];
+
+        echo json_encode($respuesta);
+    }
+}
+
+//==========================================================================================================================
 //CODIGO PARA GRAFICA POR DESARROLLADOR
 //==========================================================================================================================
 if (isset($_POST['graficaDesarrolladorSend'])) {
@@ -666,8 +871,112 @@ if (isset($_POST['graficaDesarrolladorSend'])) {
     $respuesta = [
         "datos" => $NOMBRES_ESTATUS,
         "datosNumericos" => $DATOS_NUMERICOS,
+        "datosCompletados" => $COMPLETADO,
+        "datosPendientes" => $PENDIENTE,
+        "datosRechazados" => $RECHAZADO,
+        "datosDesarrollo" => $DESARROLLO,
         "datosTotal" => $TOTAL,
     ];
 
     echo json_encode($respuesta);
+}
+
+//==========================================================================================================================
+//CODIGO PARA GRAFICA POR AÑO DESARROLLADOR
+//==========================================================================================================================
+if (isset($_POST['graficaPorYearSend'])) {
+
+    $yearGot = $_POST['yearSend'];
+
+    $DESARROLLADOR = $_POST['desarrolladorSend'];
+
+    $MES_POR_DEFECTO = 1;
+
+    $VALOR_MENSUAL_COMPLETADAS = array();
+
+    while ($MES_POR_DEFECTO <= 12) {
+
+        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE e.estatus = 'Completado'AND ID_DESARROLLADOR = $DESARROLLADOR 
+        AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
+        AND YEAR(FECHA_LLEGADA) = $yearGot";
+
+        $result = mysqli_query($conn, $sql);
+
+        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+        $VALOR = intval($VALOR);
+
+        array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
+
+        $MES_POR_DEFECTO++;
+    }
+
+    $respuesta = [
+        "datos" => $VALOR_MENSUAL_COMPLETADAS,
+    ];
+
+    echo json_encode($respuesta);
+}
+
+//==========================================================================================================================
+//CODIGO PARA GRAFICA POR DIA POR MES
+//==========================================================================================================================
+if (isset($_POST['desarrolladorDiasMesSend'])) {
+
+    $yearGot = $_POST['yearSend'];
+    $mesGot = $_POST['mesSend'];
+    $desGot = $_POST['laboratorioSend'];
+
+    $DIAS_DEL_MES = cal_days_in_month(CAL_GREGORIAN, intval($mesGot), intval($yearGot));
+
+    $DIA_INICIO = 1;
+
+    $DIAS_DEL_MES_GRAFICA = array();
+
+    while ($DIA_INICIO <= $DIAS_DEL_MES) {
+
+        array_push($DIAS_DEL_MES_GRAFICA, $DIA_INICIO);
+
+        $DIA_INICIO++;
+    }
+
+    $DIA_INICIO = 1;
+
+    $CONT = 1;
+
+    $DIAS_DEL_MES_GRAFICA_VALORES = array();
+
+    while ($CONT <= $DIAS_DEL_MES) {
+
+        if ($DIA_INICIO <= 9) {
+            $DIA_INICIO = "0" . $DIA_INICIO;
+        }
+
+        $FECHA = "$yearGot-$mesGot-$DIA_INICIO";
+
+        $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
+        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+        WHERE FECHA_LLEGADA LIKE '$FECHA%' 
+        AND e.estatus = 'Completado'AND ID_DESARROLLADOR = $desGot";
+
+        $result = mysqli_query($conn, $sql);
+
+        $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+
+        array_push($DIAS_DEL_MES_GRAFICA_VALORES, $VALOR);
+
+        $CONT++;
+        $DIA_INICIO++;
+    }
+
+
+    $respuesta = [
+        "dias" => $DIAS_DEL_MES_GRAFICA,
+        "valores" => $DIAS_DEL_MES_GRAFICA_VALORES,
+    ];
+
+    echo json_encode($respuesta);
+
 }

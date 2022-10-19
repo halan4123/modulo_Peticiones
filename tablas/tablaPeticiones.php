@@ -256,8 +256,6 @@
 
                                     <select class="form-control" id="filtroLaboratorioPeti" style="width: 100%;" onchange="">
 
-                                        
-
                                     </select>
                                 </div>
 

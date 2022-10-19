@@ -116,7 +116,6 @@ function displayData() {
     let filtroLaboratorio = $('#filtroLaboratorioPeti').val();
 
 
-
     $.ajax({
         url: "app/peticion.php",
         type: "POST",
