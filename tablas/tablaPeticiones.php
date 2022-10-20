@@ -227,7 +227,7 @@
                                 <div>
 
                                     <button type="button" class="btn btn-success" onclick="window.location = 'excel.php?fechaInicio='+$('#filtroFechaInicio').val() + '&fechaFinal='+$('#filtroFechaFinal').val()">
-                                    <i class="bi bi-filetype-xls"></i>
+                                        <i class="bi bi-filetype-xls"></i>
                                     </button>
 
                                 </div>
@@ -235,7 +235,7 @@
                                 <div>
 
                                     <button type="button" class="btn btn-warning" onclick="limpiarFiltros()">
-                                    <i class="bi bi-arrow-clockwise"></i>
+                                        <i class="bi bi-arrow-clockwise"></i>
                                     </button>
 
                                 </div>
@@ -243,7 +243,7 @@
                                 <div>
 
                                     <button class="btn btn-info" onclick="displayData()"><i class="bi bi-search"></i></button>
-                                    
+
 
                                 </div>
 
@@ -252,70 +252,121 @@
                             <div class=" flex-container">
 
                                 <!-- FILTRO DE LABORATORIO -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 
                                     <select class="form-control" id="filtroLaboratorioPeti" style="width: 100%;" onchange="">
 
                                     </select>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="input-group" >
+                                        <select class="form-control" id="filtroLaboratorioPeti" >
+                                        </select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="limpiarLaboratorio()"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
 
 
                                 <!-- FILTRO DE NIVEL -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 
                                     <select class="form-control" id="filtroNivel" style="width: 100%;" onchange="">
 
-                                      
+
 
                                     </select>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="input-group" >
+                                        <select class="form-control" id="filtroNivel" >
+                                        </select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="limpiarNivel()"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <!-- FILTRO DE SOPORTE -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 
                                     <select class="form-control" id="filtroSoportePeti" style="width: 100%;" onchange="">
 
-                                       
+
 
                                     </select>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="input-group" >
+                                        <select class="form-control" id="filtroSoportePeti" >
+                                        </select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="limpiarSoportew()"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <!-- FILTRO DE DESARROLLADOR -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 
                                     <select class="form-control" id="filtroDesarrolladorPeti" style="width: 100%;" onchange="">
 
-                                       
+
 
                                     </select>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="input-group" >
+                                        <select class="form-control" id="filtroDesarrolladorPeti" >
+                                        </select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="limpiarDesarrolladorw()"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
 
 
                                 <!-- FILTRO DE ESTATUS -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
 
                                     <select class="form-control" id="filtroEstatus" style="width: 100%;" onchange="">
 
-                        
+
 
                                     </select>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <div class="input-group" >
+                                        <select class="form-control" id="filtroEstatus">
+                                        </select>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="limpiarEstatusw()"><i class="bi bi-arrow-clockwise"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <?php
-                                    date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
-                                    $fecha_hoy = date("Y-m-d");
+                                date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
+                                $fecha_hoy = date("Y-m-d");
+                                $fecha_hoy_2 = date("Y-m-d");
                                 ?>
 
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
                                     <label for=" filterFechaInicio">De:</label>
-                                    <input type="date" class="form-control" id="filtroFechaInicio" value="<?php echo date("Y-m-d",strtotime($fecha_hoy."- 1 days"));  ?>" onchange="">
+                                    <input type="date" class="form-control" id="filtroFechaInicio" value="<?php echo date("Y-m-d", strtotime($fecha_hoy));  ?>" onchange="">
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->
                                 <div>
                                     <label for="filterFechaFinal">A:</label>
-                                    <input type="date" class="form-control" id="filtroFechaFinal" value="<?php echo date("Y-m-d",strtotime($fecha_hoy."+ 1 days"));  ?>" onchange="">
+                                    <input type="date" class="form-control" id="filtroFechaFinal" value="<?php echo date("Y-m-d", strtotime($fecha_hoy_2));  ?>" onchange="">
                                 </div>
 
 

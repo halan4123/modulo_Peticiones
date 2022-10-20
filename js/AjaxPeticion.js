@@ -1107,3 +1107,23 @@ function limpiarModal() {
     $('#desarrolladorAdd').val(null).trigger('change');
 
 }
+
+function limpiarLaboratorio() {
+    $('#filtroLaboratorioPeti').val(null).trigger('change');
+}
+
+function limpiarNivel() {
+    $('#filtroNivel').val(null).trigger('change');
+}
+
+function limpiarSoportew() {
+    $('#filtroSoportePeti').val(null).trigger('change');
+}
+
+function limpiarDesarrolladorw() {
+    $('#filtroDesarrolladorPeti').val(null).trigger('change');
+}
+
+function limpiarEstatusw() {
+    $('#filtroEstatus').val(null).trigger('change');
+}

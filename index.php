@@ -61,13 +61,13 @@ include 'filtros.php';
 
             <div class="tab-content">
 
-                <div id="home" class="tab-pane fade ">
+                <div id="home" class="tab-pane fade in active">
 
                     <?php include 'tablas/tablaPeticiones.php'; ?>
 
                 </div>
 
-                <div id="menu3" class="tab-pane fade in active">
+                <div id="menu3" class="tab-pane fade ">
 
                     <?php include 'tablas/tablaGraficos.php'; ?>
 

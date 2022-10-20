@@ -273,167 +273,7 @@
             <div id="estadisticasLaboratorio" class="panel-collapse collapse ">
                 <div class="panel-body">
 
-                    <!--=================================================
-                    FILTROS POR FECHAS
-                    ===================================================-->
-                    <div class="row">
 
-                        <div class="col-md-12">
-
-                            <div class="well ">
-
-                                <div class=" flex-container">
-
-                                    <!-- FILTRO POR LABORATORIO -->
-                                    <div>
-                                        <select class="form-control" id="filtroLaboratorioGrafica_2" style="width: 100%;">
-                                        </select>
-                                    </div>
-
-                                    <!-- FILTRO DE FECHA INICIO -->
-                                    <div>
-                                        <label for=" filtroFechaInicioGraficos">De:</label>
-                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosLaboratorio" onchange="">
-                                    </div>
-
-                                    <!-- FILTRO DE FECHA FINAL -->
-                                    <div>
-                                        <label for="filtroFechaFinalGraficos">A:</label>
-                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosLaboratorio" onchange="">
-                                    </div>
-
-                                    <div>
-
-                                        <button type="button" class="btn btn-warning" onclick="limpiarFiltrosGraficasLab()">
-                                            <i class="bi bi-arrow-clockwise"></i>
-                                        </button>
-
-                                    </div>
-
-                                    <!-- BOTON DE BUSCAR -->
-                                    <div>
-                                        <button class="btn btn-success" onclick="graficarEstadisticasPorFechaLab()"><i class="bi bi-search"></i></button>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!--=================================================
-                    DATOS NUMERICOS
-                    ===================================================-->
-                    <div class="row flex3">
-
-                        <div class="col-md-2 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Pendientes</label> </div>
-
-                                <div class="contenedor-card dimensiones_2" id="">
-                                    <p id="totalDatosPendientesLab"></p>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>En Desarrollo</label></div>
-
-                                <div class="contenedor-card dimensiones_2" id="">
-                                    <p id="totalDatosDesarrolloLab"></p>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Completadas</label></div>
-
-                                <div class="contenedor-card dimensiones_2" id="">
-                                    <p id="totalDatosCompletadosLab"></p>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Rechazadas</label></div>
-
-                                <div class="contenedor-card dimensiones_2" id="">
-                                    <p id="totalDatosRechazadosLab"></p>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-md-2 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Total</label></div>
-
-                                <div class="contenedor-card dimensiones_2" id="">
-                                    <p id="totalDatosLab"></p>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!--=================================================
-                    GRAFICAS 
-                    ===================================================-->
-                    <div class="row">
-
-                        <!--=================================================
-                        GRAFICA 
-                        ===================================================-->
-                        <div class="col-md-6 separacion">
-
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
-
-
-
-                                </div>
-
-                                <div class="panel-body">
-
-                                    <div class="dimensiones" id="contenedor-lab-fechas">
-
-                                        <canvas id="peticionesLabFechas"></canvas>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
 
 
                     <!--=================================================
@@ -571,6 +411,168 @@
 
                     </div>
 
+                    <!--=================================================
+                    FILTROS POR FECHAS
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div class=" flex-container">
+
+                                    <!-- FILTRO POR LABORATORIO -->
+                                    <div>
+                                        <select class="form-control" id="filtroLaboratorioGrafica_2" style="width: 100%;">
+                                        </select>
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filtroFechaInicioGraficos">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficosLaboratorio" onchange="">
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filtroFechaFinalGraficos">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficosLaboratorio" onchange="">
+                                    </div>
+
+                                    <div>
+
+                                        <button type="button" class="btn btn-warning" onclick="limpiarFiltrosGraficasLab()">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <!-- BOTON DE BUSCAR -->
+                                    <div>
+                                        <button class="btn btn-success" onclick="graficarEstadisticasPorFechaLab()"><i class="bi bi-search"></i></button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--=================================================
+                    DATOS NUMERICOS
+                    ===================================================-->
+                    <div class="row flex3">
+
+                        <div class="col-md-2 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Pendientes</label> </div>
+
+                                <div class="contenedor-card dimensiones_2" id="">
+                                    <p id="totalDatosPendientesLab"></p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>En Desarrollo</label></div>
+
+                                <div class="contenedor-card dimensiones_2" id="">
+                                    <p id="totalDatosDesarrolloLab"></p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Completadas</label></div>
+
+                                <div class="contenedor-card dimensiones_2" id="">
+                                    <p id="totalDatosCompletadosLab"></p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Rechazadas</label></div>
+
+                                <div class="contenedor-card dimensiones_2" id="">
+                                    <p id="totalDatosRechazadosLab"></p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-2 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Total</label></div>
+
+                                <div class="contenedor-card dimensiones_2" id="">
+                                    <p id="totalDatosLab"></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--=================================================
+                    GRAFICAS 
+                    ===================================================-->
+                    <div class="row">
+
+                        <!--=================================================
+                        GRAFICA 
+                        ===================================================-->
+                        <div class="col-md-12 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
+
+
+
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-lab-fechas">
+
+                                        <canvas id="peticionesLabFechas"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
             </div>
@@ -597,6 +599,18 @@
                         <div class="col-md-12">
 
                             <div class="well ">
+
+                                <div class="flex-container" style="margin-bottom: 10px;">
+                                    <div>
+                                        <button id="opcion_1" class="btn btn-default" onclick="opcionAnual()">Anual</button>
+                                    </div>
+
+                                    <div>
+                                        <button id="opcion_2" class="btn btn-default" onclick="opcionDiasMes()">Mensual</button>
+                                    </div>
+                                </div>
+
+
 
                                 <div class=" flex-container">
 
@@ -669,13 +683,7 @@
                                         <button class="btn btn-success" onclick="graficarDesarrolladorMes()"><i class="bi bi-search"></i></button>
                                     </div>
 
-                                    <div>
-                                        <button id="opcion_1" class="btn btn-default" onclick="opcionAnual()">Anual</button>
-                                    </div>
 
-                                    <div>
-                                        <button id="opcion_2" class="btn btn-default" onclick="opcionDiasMes()">Mensual</button>
-                                    </div>
 
                                 </div>
 
@@ -695,7 +703,7 @@
                             <div class="panel panel-default">
 
                                 <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
-                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento <span class="bi bi-question-circle-fill"></span></label>
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Anual <span class="bi bi-question-circle-fill"></span></label>
                                 </div>
 
                                 <div class="panel-body">
@@ -716,7 +724,7 @@
                             <div class="panel panel-default">
 
                                 <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
-                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento <span class="bi bi-question-circle-fill"></span></label>
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Mensual <span class="bi bi-question-circle-fill"></span></label>
                                 </div>
 
                                 <div class="panel-body">
@@ -896,6 +904,177 @@
 
                     </div>
 
+
+                    <!--=================================================
+                    FILTROS POR SELECTMULTIPLE
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="well ">
+
+                                <div style="width: 100%; margin-bottom: 10px;" >
+                                    <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple" style="width: 100%;">
+
+                                    </select>
+
+
+                                </div>
+
+                                <div class="flex-container">
+
+                                    <!-- FILTRO DE FECHA INICIO -->
+                                    <div>
+                                        <label for=" filtroFechaInicioGraficosDesarrollador">De:</label>
+                                        <input type="date" class="form-control" id="filtroFechaInicioMultiple" onchange="">
+                                    </div>
+
+                                    <!-- FILTRO DE FECHA FINAL -->
+                                    <div>
+                                        <label for="filtroFechaFinalGraficosDesarrollador">A:</label>
+                                        <input type="date" class="form-control" id="filtroFechaFinalMultiple" onchange="">
+                                    </div>
+
+
+                                    <!-- <div>
+
+                                        <select class="form-control" id="filtroDesarrolladorGrafica_4" style="width: 100%;">
+
+                                        </select>
+
+                                        <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple">
+
+                                        </select>
+
+                                    </div> -->
+
+
+
+                                    <div>
+
+                                        <button type="button" class="btn btn-warning" onclick="">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <div>
+
+                                        <button class="btn btn-success" onclick="graficarDesarrolladoresSeccion3()"><i class="bi bi-search"></i></button>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--=================================================
+                    GRAFICA SELECTMULTIPLE
+                    ===================================================-->
+                    <div class="row">
+
+                        <div class="col-md-6 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Completadas</label></div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-comparacion-completas">
+
+                                        <canvas id="desarrolladoresComparadosCompletas"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Rechazadas</label></div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-comparacion-rechazadas">
+
+                                        <canvas id="desarrolladoresComparadosRechazadas"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Pendientes</label></div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-comparacion-pendientes">
+
+                                        <canvas id="desarrolladoresComparadosPendientes"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación en desarrollo</label></div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-comparacion-desarrollo">
+
+                                        <canvas id="desarrolladoresComparadosDesarrollo"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 separacion">
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación total</label></div>
+
+                                <div class="panel-body">
+
+                                    <div class="dimensiones" id="contenedor-grafica-desarrollador-comparacion-total">
+
+                                        <canvas id="desarrolladoresComparadostotal"></canvas>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
                 </div>

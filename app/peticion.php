@@ -210,19 +210,24 @@ if (isset($_POST['displayDataSend'])) {
 
                 $fechaInicio = $_POST['filtroFechaInicioSend'];
                 $fechaFinal = $_POST['filtroFechaFinalSend'];
-                $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
-                $newDate_2 = date("Y-m-d", strtotime($fechaFinal . "+ 1 days"));
+                // $newDate_1 = date("Y-m-d", strtotime($fechaInicio));
+                // $newDate_2 = date("Y-m-d", strtotime($fechaFinal));
+                //$newDate_2 = date("Y-m-d", strtotime($fechaFinal . "+ 1 days"));
 
-                if ($fechaInicio !== '' && $fechaFinal !== '') {
+                if ($fechaInicio == $fechaFinal) {
 
-                    $sql .= " and FECHA_LLEGADA BETWEEN '$newDate_1' and '$newDate_2'";
+                    echo 'Son iguales';
+                    $sql .= " and FECHA_LLEGADA LIKE '$fechaInicio%'";
+
                 } else {
 
-                    $fechaInicio = date("Y-m-d");
+                    if ($fechaInicio !== '' && $fechaFinal !== '') {
 
-                    $fechaFinal = date("Y-m-d", strtotime(date('Y-m-d') . "+ 1 days"));
+                        echo $fechaInicio . ' ' .  $fechaFinal;
 
-                    $sql .= " and FECHA_LLEGADA BETWEEN '$fechaInicio' and '$fechaFinal'";
+                        $sql .= " and FECHA_LLEGADA BETWEEN '$fechaInicio 00:00:00.000' and '$fechaFinal 23:59:59.999'";
+                    }
+
                 }
             }
         }
@@ -455,7 +460,7 @@ if (isset($_POST['insertDataSend'])) {
             $result = mysqli_query($conn, $sql);
         }
     } else {
-        
+
         if (
             isset($_POST['asuntoSend']) &&
             isset($_POST['laboratorioSend']) &&
@@ -490,7 +495,7 @@ if (isset($_POST['insertDataSend'])) {
                 '$estatusSend', 
                 '$descripcionSend',
                 '$desarrolladorSend')";
-    
+
             //EJECUTAMOS LA CONSULTA
             $result = mysqli_query($conn, $sql);
         }

@@ -28,7 +28,8 @@ INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
 INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
 INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
 LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE FECHA_LLEGADA BETWEEN '$fechaInicio' and '$fechaFinal'";
+INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE FECHA_LLEGADA 
+BETWEEN '$fechaInicio' and '$fechaFinal'";
 
 //NECESARIO PARA CREAR EL EXCEL
 header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");

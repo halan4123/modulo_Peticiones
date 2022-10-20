@@ -1060,7 +1060,6 @@ function graficarComparacionDesarrolladores() {
                 data: {
                     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                     datasets: [{
-                        label: 'Peticiones Por Mes',
                         data: datos.datos,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -1116,6 +1115,375 @@ function graficarComparacionDesarrolladores() {
     }
 }
 
+//GRAFICA LA TERCERA SECCION DE DESARROLLADORES
+function graficarDesarrolladoresSeccion3() {
+
+    let desComoaracion = true;
+
+    let completadas = true;
+
+    let rechazadas = true;
+
+    let pendientes = true;
+
+    let desarrollo = true;
+
+    let total = true;
+    
+    let valores_array = $('#filtroDesarrolladorGrafica_4').select2("val");
+  
+    let fechaInicio = $('#filtroFechaInicioMultiple').val();
+
+    let fechaFinal = $('#filtroFechaFinalMultiple').val();
+
+    //COMPLETADAS
+    $.post("app/graficas.php", {
+
+        desComoaracionSend: desComoaracion,
+        completadasSend: completadas,
+        valores_array_send: valores_array,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+    
+
+    }, function (data, status) {
+
+        let datos = JSON.parse(data);
+
+        document.getElementById("desarrolladoresComparadosCompletas").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "desarrolladoresComparadosCompletas";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-completas").appendChild(canvas1);
+    
+    
+        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
+            data: {
+                labels: datos.nombres,
+                datasets: [{
+                    data: datos.valores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    datalabels: {
+                        color: function (context) {
+                            let index = context.dataIndex;
+                            let value = context.dataset.data[index];
+                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                'black';      // else
+    
+                        }
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+    //RECHAZADAS
+    $.post("app/graficas.php", {
+
+        desComoaracionSend: desComoaracion,
+        rechazadasSend: rechazadas,
+        valores_array_send: valores_array,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+    
+
+    }, function (data, status) {
+
+        let datos = JSON.parse(data);
+
+        document.getElementById("desarrolladoresComparadosRechazadas").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "desarrolladoresComparadosRechazadas";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas1);
+    
+    
+        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
+            data: {
+                labels: datos.nombres,
+                datasets: [{
+                    data: datos.valores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    datalabels: {
+                        color: function (context) {
+                            let index = context.dataIndex;
+                            let value = context.dataset.data[index];
+                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                'black';      // else
+    
+                        }
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+    //PENDIENTES
+    $.post("app/graficas.php", {
+
+        desComoaracionSend: desComoaracion,
+        pendientesSend: pendientes,
+        valores_array_send: valores_array,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+    
+
+    }, function (data, status) {
+
+        let datos = JSON.parse(data);
+
+        document.getElementById("desarrolladoresComparadosPendientes").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "desarrolladoresComparadosPendientes";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas1);
+    
+    
+        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
+            data: {
+                labels: datos.nombres,
+                datasets: [{
+                    data: datos.valores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    datalabels: {
+                        color: function (context) {
+                            let index = context.dataIndex;
+                            let value = context.dataset.data[index];
+                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                'black';      // else
+    
+                        }
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+    //DESARROLLO
+    $.post("app/graficas.php", {
+
+        desComoaracionSend: desComoaracion,
+        desarrolloSend: desarrollo,
+        valores_array_send: valores_array,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+    
+
+    }, function (data, status) {
+
+        let datos = JSON.parse(data);
+
+        document.getElementById("desarrolladoresComparadosDesarrollo").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "desarrolladoresComparadosDesarrollo";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas1);
+    
+    
+        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
+            data: {
+                labels: datos.nombres,
+                datasets: [{
+                    data: datos.valores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    datalabels: {
+                        color: function (context) {
+                            let index = context.dataIndex;
+                            let value = context.dataset.data[index];
+                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                'black';      // else
+    
+                        }
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+    //TOTAL
+    $.post("app/graficas.php", {
+
+        desComoaracionSend: desComoaracion,
+        totalSend: total,
+        valores_array_send: valores_array,
+        fechaInicioSend: fechaInicio,
+        fechaFinalSend: fechaFinal,
+    
+
+    }, function (data, status) {
+
+        let datos = JSON.parse(data);
+
+        document.getElementById("desarrolladoresComparadostotal").remove();
+
+        let canvas1 = document.createElement("canvas");
+        canvas1.id = "desarrolladoresComparadostotal";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas1);
+    
+    
+        const ctxDesarrollador = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
+        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+            type: 'pie',
+            data: {
+                labels: datos.nombres,
+                datasets: [{
+                    data: datos.valores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    datalabels: {
+                        color: function (context) {
+                            let index = context.dataIndex;
+                            let value = context.dataset.data[index];
+                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                'black';      // else
+    
+                        }
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    });
+
+
+}
+
 function graficarDesarrolladorMes() {
 
     let desarrolladorDiasMes = true;
@@ -1125,86 +1493,96 @@ function graficarDesarrolladorMes() {
     let year = fecha.slice(0, -3);
     let mes = fecha.slice(5);
 
-    $.post("app/graficas.php", {
+    if (laboratorio == null || year == '' || mes == '') {
 
-        desarrolladorDiasMesSend: desarrolladorDiasMes,
-        yearSend: year,
-        mesSend: mes,
-        laboratorioSend: laboratorio,
+        swal({
+            title: "Completa todos los filtros de busqueda ",
+            icon: "error",
+            button: "Cerrar",
+        })
 
+    } else {
+        $.post("app/graficas.php", {
 
-    }, function (data, status) {
-
-        let datos = JSON.parse(data);
-
-       
-        let coloR = [];
-
-        let dynamicColors = function() {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
-            return "rgb(" + r + "," + g + "," + b + ")";
-         };
-
-         for (let i in datos.valores) {
-            
-            coloR.push(dynamicColors());
-         }
-
-        document.getElementById("desarrolladorComparacionDiasMes").remove();
-
-        let canvas3 = document.createElement("canvas");
-        canvas3.id = "desarrolladorComparacionDiasMes";
-        document.getElementById("contenedor-comparacion-desarrollador-diasMes").appendChild(canvas3);
-
-        const ctx = document.getElementById('desarrolladorComparacionDiasMes').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: datos.dias,
-                datasets: [{
-
-                    label: 'Peticiones Por Mes',
-                    data: datos.valores,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                    ],
-                    borderColor: coloR,
-                    borderWidth: 1,
-
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'rgba(255, 255, 255, 0)';      // else
-
-                        }
-                    }
+            desarrolladorDiasMesSend: desarrolladorDiasMes,
+            yearSend: year,
+            mesSend: mes,
+            laboratorioSend: laboratorio,
 
 
-                }]
+        }, function (data, status) {
 
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
+            let datos = JSON.parse(data);
+
+
+            let coloR = [];
+
+            let dynamicColors = function () {
+                var r = Math.floor(Math.random() * 255);
+                var g = Math.floor(Math.random() * 255);
+                var b = Math.floor(Math.random() * 255);
+                return "rgb(" + r + "," + g + "," + b + ")";
+            };
+
+            for (let i in datos.valores) {
+
+                coloR.push(dynamicColors());
             }
+
+            document.getElementById("desarrolladorComparacionDiasMes").remove();
+
+            let canvas3 = document.createElement("canvas");
+            canvas3.id = "desarrolladorComparacionDiasMes";
+            document.getElementById("contenedor-comparacion-desarrollador-diasMes").appendChild(canvas3);
+
+            const ctx = document.getElementById('desarrolladorComparacionDiasMes').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: datos.dias,
+                    datasets: [{
+                        data: datos.valores,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: coloR,
+                        borderWidth: 1,
+
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'rgba(255, 255, 255, 0)';      // else
+
+                            }
+                        }
+
+
+                    }]
+
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+
         });
+    }
 
 
-    });
 
 
 }
@@ -1380,6 +1758,30 @@ function buscadorEstadisticasDesarrolladores() {
     let boleanoDesarrollador = true;
 
 
+
+    $("#filtroDesarrolladorGrafica_4").select2({
+        placeholder: "Desarrollador",
+        theme: "bootstrap",
+        
+        ajax: {
+            url: "app/autoCompleteLab.php",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    buscarLaboratorio: params.term,// search term
+                    boleanoDesarrolladorSend: boleanoDesarrollador
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
 
     $("#filtroDesarrolladorGrafica_3").select2({
         placeholder: "Desarrollador",
