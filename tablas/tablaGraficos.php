@@ -914,25 +914,40 @@
 
                             <div class="well ">
 
-                                <div style="width: 100%; margin-bottom: 10px;" >
-                                    <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple" style="width: 100%;">
+                                <!-- <div style="width: 100%; margin-bottom: 10px;">
+                                    <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple" style="width: 50%;">
 
                                     </select>
 
 
-                                </div>
+                                </div> -->
 
                                 <div class="flex-container">
 
+
+
+                                    <div class="">
+                                       
+                                        <select id="multiple-checkboxes_desarrollador" multiple="multiple">
+
+                                            <?php foreach ($data as $desarrollador) : ?>
+                                                <option value="<?php echo $desarrollador['ID_DESARROLLADOR']; ?>"><?php echo $desarrollador['NOMBRE']; ?></option>
+                                            <?php endforeach; ?>
+
+
+
+                                        </select>
+                                    </div>
+
                                     <!-- FILTRO DE FECHA INICIO -->
                                     <div>
-                                        <label for=" filtroFechaInicioGraficosDesarrollador">De:</label>
+                                        <label for=" filtroFechaInicioMultiple">De:</label>
                                         <input type="date" class="form-control" id="filtroFechaInicioMultiple" onchange="">
                                     </div>
 
                                     <!-- FILTRO DE FECHA FINAL -->
                                     <div>
-                                        <label for="filtroFechaFinalGraficosDesarrollador">A:</label>
+                                        <label for="filtroFechaFinalMultiple">A:</label>
                                         <input type="date" class="form-control" id="filtroFechaFinalMultiple" onchange="">
                                     </div>
 

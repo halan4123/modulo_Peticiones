@@ -17,11 +17,21 @@ include 'filtros.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modulo de peticiones</title>
 
+
+    <!--CDN jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!--CDN BOOTSTRAP 3.4.1 Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <!--MY CSS-->
-    <link rel="stylesheet" href="css/general.css">
+    <!-- CDN BOOTSTRAP 3.4.1 Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CDN CSS BOOTSTRAP PLUGIN MULTISELECT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+    <!-- CDN JS BOOTSTRAP PLUGIN MULTISELECT -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 
     <!--CDN DATATABLE-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
@@ -37,6 +47,9 @@ include 'filtros.php';
 
     <!-- ESTILOS LIBRERIA Trumbowyg -->
     <link rel="stylesheet" href="libs/Trumbowyg/dist/ui/trumbowyg.min.css">
+
+    <!--MY CSS-->
+    <link rel="stylesheet" href="css/general.css">
 
 
 </head>
@@ -94,12 +107,6 @@ include 'filtros.php';
     </div>
 
 
-    <!--CDN jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- CDN BOOTSTRAP 3.4.1 Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
     <!--CDN DATATABLE-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 
@@ -117,7 +124,7 @@ include 'filtros.php';
 
     <!-- CDN MOMENT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
     <!-- LIBRERIA Trumbowyg -->
     <script src="libs/Trumbowyg/dist/trumbowyg.min.js"></script>
 
@@ -126,6 +133,7 @@ include 'filtros.php';
 
     <!-- LIBRERIA PLUGIN UPLOAD -->
     <script src="libs/Trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+
 
     <!-- MY JS -->
     <script src="js/AjaxPeticion.js"></script>

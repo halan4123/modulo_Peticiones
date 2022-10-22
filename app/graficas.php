@@ -1002,11 +1002,21 @@ if (isset($_POST['desComoaracionSend'])) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+            $stmt = $conn->prepare(
+                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("i", $ID_DES);
 
-            $VALOR = $result->fetch_array()['NOMBRE'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['NOMBRE'];
 
             array_push($NOM_DES, $VALOR);
 
@@ -1020,19 +1030,34 @@ if (isset($_POST['desComoaracionSend'])) {
 
         $CONT = 0;
 
+        $FECHA_INICIO .= " 00:00:00.000";
+
+        $FECHA_FINAL .= " 23:59:59.999";
+
         while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            WHERE e.estatus = 'Completado' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
+            $stmt = $conn->prepare(
+                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+                WHERE e.estatus = 'Completado' AND d.ID_DESARROLLADOR  = ? 
+                AND FECHA_LLEGADA BETWEEN ? and ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['TOTAL'];
 
             array_push($VAL_DES, $VALOR);
 
@@ -1066,11 +1091,21 @@ if (isset($_POST['desComoaracionSend'])) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+            $stmt = $conn->prepare(
+                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("i", $ID_DES);
 
-            $VALOR = $result->fetch_array()['NOMBRE'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['NOMBRE'];
 
             array_push($NOM_DES, $VALOR);
 
@@ -1084,19 +1119,34 @@ if (isset($_POST['desComoaracionSend'])) {
 
         $CONT = 0;
 
+        $FECHA_INICIO .= " 00:00:00.000";
+
+        $FECHA_FINAL .= " 23:59:59.999";
+
         while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            WHERE e.estatus = 'Rechazado' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
+            $stmt = $conn->prepare(
+                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+                WHERE e.estatus = 'Rechazado' AND d.ID_DESARROLLADOR  = ? 
+                AND FECHA_LLEGADA BETWEEN ? and ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['TOTAL'];
 
             array_push($VAL_DES, $VALOR);
 
@@ -1130,11 +1180,19 @@ if (isset($_POST['desComoaracionSend'])) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+            $stmt = $conn->prepare("SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?");
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("i", $ID_DES);
 
-            $VALOR = $result->fetch_array()['NOMBRE'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['NOMBRE'];
 
             array_push($NOM_DES, $VALOR);
 
@@ -1148,19 +1206,33 @@ if (isset($_POST['desComoaracionSend'])) {
 
         $CONT = 0;
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $FECHA_INICIO .= " 00:00:00.000";
 
+        $FECHA_FINAL .= " 23:59:59.999";
+
+        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            WHERE e.estatus = 'Pendiente' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
+            $stmt = $conn->prepare(
+                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+                WHERE e.estatus = 'Pendiente' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
+                BETWEEN ? AND ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['TOTAL'];
 
             array_push($VAL_DES, $VALOR);
 
@@ -1194,11 +1266,21 @@ if (isset($_POST['desComoaracionSend'])) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+            $stmt = $conn->prepare(
+                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("i", $ID_DES);
 
-            $VALOR = $result->fetch_array()['NOMBRE'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['NOMBRE'];
 
             array_push($NOM_DES, $VALOR);
 
@@ -1212,19 +1294,39 @@ if (isset($_POST['desComoaracionSend'])) {
 
         $CONT = 0;
 
+        $FECHA_INICIO .= " 00:00:00.000";
+
+        $FECHA_FINAL .= " 23:59:59.999";
+
         while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
+            // $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            // INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            // WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
 
-            $result = mysqli_query($conn, $sql);
+            $stmt = $conn->prepare(
+                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+                WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
+                BETWEEN ? and ?"
+            );
 
-            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['TOTAL'];
 
             array_push($VAL_DES, $VALOR);
 
@@ -1258,11 +1360,23 @@ if (isset($_POST['desComoaracionSend'])) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+            //$sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
 
-            $result = mysqli_query($conn, $sql);
+            $stmt = $conn->prepare(
+                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
+            );
 
-            $VALOR = $result->fetch_array()['NOMBRE'] ?? 0;
+            $stmt->bind_param("i", $ID_DES);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['NOMBRE'];
 
             array_push($NOM_DES, $VALOR);
 
@@ -1276,18 +1390,31 @@ if (isset($_POST['desComoaracionSend'])) {
 
         $CONT = 0;
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $FECHA_INICIO .= " 00:00:00.000";
 
+        $FECHA_FINAL .= " 23:59:59.999";
+
+        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
             $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            WHERE d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
+            $stmt = $conn->prepare(
+                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+                WHERE d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA BETWEEN ? and ?"
+            );
 
-            $result = mysqli_query($conn, $sql);
+            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-            $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $data = $result->fetch_assoc();
+
+            $stmt->close();
+
+            $VALOR = $data['TOTAL'];
 
             array_push($VAL_DES, $VALOR);
 

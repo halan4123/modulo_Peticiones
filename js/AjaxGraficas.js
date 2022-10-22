@@ -2,7 +2,20 @@
 * SE CARGA LA FUNCION DE BUSCADORLAB GRAFICAS
 * DESDEN UN ONFOCUS EN LA PESTAÑA DE ESTADISTICAS DE LABORATORIOS
 */
+
+
 $(document).ready(function () {
+
+    $('#multiple-checkboxes_desarrollador').multiselect({
+        filterPlaceholder: 'Buscar',
+
+        selectAllText:'Seleccionar Todo',
+        enableCaseInsensitiveFiltering: true,
+        nonSelectedText: 'Selecciona un desarrollador',
+        buttonWidth: 'auto',
+        enableFiltering: true,
+        includeSelectAllOption: true,
+    });
 
     $('#rendimiento_2').hide(); //oculto mediante id
     $("#opcion_1").attr('disabled', 'disabled');
@@ -1129,9 +1142,11 @@ function graficarDesarrolladoresSeccion3() {
     let desarrollo = true;
 
     let total = true;
-    
-    let valores_array = $('#filtroDesarrolladorGrafica_4').select2("val");
-  
+
+    //let valores_array = $('#filtroDesarrolladorGrafica_4').select2("val");
+
+    let valores_array = $('#multiple-checkboxes_desarrollador').val();
+
     let fechaInicio = $('#filtroFechaInicioMultiple').val();
 
     let fechaFinal = $('#filtroFechaFinalMultiple').val();
@@ -1144,7 +1159,7 @@ function graficarDesarrolladoresSeccion3() {
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
-    
+
 
     }, function (data, status) {
 
@@ -1155,8 +1170,8 @@ function graficarDesarrolladoresSeccion3() {
         let canvas1 = document.createElement("canvas");
         canvas1.id = "desarrolladoresComparadosCompletas";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-completas").appendChild(canvas1);
-    
-    
+
+
         const ctxDesarrollador = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
@@ -1187,7 +1202,7 @@ function graficarDesarrolladoresSeccion3() {
                             let value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'black';      // else
-    
+
                         }
                     }
                 }]
@@ -1213,7 +1228,7 @@ function graficarDesarrolladoresSeccion3() {
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
-    
+
 
     }, function (data, status) {
 
@@ -1224,8 +1239,8 @@ function graficarDesarrolladoresSeccion3() {
         let canvas1 = document.createElement("canvas");
         canvas1.id = "desarrolladoresComparadosRechazadas";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas1);
-    
-    
+
+
         const ctxDesarrollador = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
@@ -1256,7 +1271,7 @@ function graficarDesarrolladoresSeccion3() {
                             let value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'black';      // else
-    
+
                         }
                     }
                 }]
@@ -1282,7 +1297,7 @@ function graficarDesarrolladoresSeccion3() {
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
-    
+
 
     }, function (data, status) {
 
@@ -1293,8 +1308,8 @@ function graficarDesarrolladoresSeccion3() {
         let canvas1 = document.createElement("canvas");
         canvas1.id = "desarrolladoresComparadosPendientes";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas1);
-    
-    
+
+
         const ctxDesarrollador = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
@@ -1325,7 +1340,7 @@ function graficarDesarrolladoresSeccion3() {
                             let value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'black';      // else
-    
+
                         }
                     }
                 }]
@@ -1351,7 +1366,7 @@ function graficarDesarrolladoresSeccion3() {
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
-    
+
 
     }, function (data, status) {
 
@@ -1362,8 +1377,8 @@ function graficarDesarrolladoresSeccion3() {
         let canvas1 = document.createElement("canvas");
         canvas1.id = "desarrolladoresComparadosDesarrollo";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas1);
-    
-    
+
+
         const ctxDesarrollador = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
@@ -1394,7 +1409,7 @@ function graficarDesarrolladoresSeccion3() {
                             let value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'black';      // else
-    
+
                         }
                     }
                 }]
@@ -1420,7 +1435,7 @@ function graficarDesarrolladoresSeccion3() {
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
-    
+
 
     }, function (data, status) {
 
@@ -1431,8 +1446,8 @@ function graficarDesarrolladoresSeccion3() {
         let canvas1 = document.createElement("canvas");
         canvas1.id = "desarrolladoresComparadostotal";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas1);
-    
-    
+
+
         const ctxDesarrollador = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
         const myChartDesarrollador = new Chart(ctxDesarrollador, {
             type: 'pie',
@@ -1463,7 +1478,7 @@ function graficarDesarrolladoresSeccion3() {
                             let value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'black';      // else
-    
+
                         }
                     }
                 }]
@@ -1762,7 +1777,7 @@ function buscadorEstadisticasDesarrolladores() {
     $("#filtroDesarrolladorGrafica_4").select2({
         placeholder: "Desarrollador",
         theme: "bootstrap",
-        
+
         ajax: {
             url: "app/autoCompleteLab.php",
             type: "post",
