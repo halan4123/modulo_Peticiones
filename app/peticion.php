@@ -218,7 +218,6 @@ if (isset($_POST['displayDataSend'])) {
 
                     echo 'Son iguales';
                     $sql .= " and FECHA_LLEGADA LIKE '$fechaInicio%'";
-
                 } else {
 
                     if ($fechaInicio !== '' && $fechaFinal !== '') {
@@ -227,7 +226,6 @@ if (isset($_POST['displayDataSend'])) {
 
                         $sql .= " and FECHA_LLEGADA BETWEEN '$fechaInicio 00:00:00.000' and '$fechaFinal 23:59:59.999'";
                     }
-
                 }
             }
         }
@@ -253,8 +251,11 @@ if (isset($_POST['displayDataSend'])) {
     e.ESTATUS = 'Completado' DESC,
     e.ESTATUS = 'Rechazado' DESC";
 
-    //EJECUTAMOS LA CONSULTA
-    $result = mysqli_query($conn, $sql);
+    $stmt = $conn->prepare($sql);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
 
     //SE ESTABLECE UN CONTADOR PARA COLOCARLO EN LA COLUMNA #
     $CONT = 1;
@@ -404,6 +405,8 @@ if (isset($_POST['displayDataSend'])) {
         $CONT += 1;
     }
 
+    $stmt->close();
+
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
     $table .= ' 
                 </tbody>
@@ -434,30 +437,28 @@ if (isset($_POST['insertDataSend'])) {
             isset($_POST['estatusSend']) &&
             isset($_POST['descripcionSend'])
         ) {
-            //CREAMOS LA CONSULTA
-            $sql =
-                "INSERT INTO `peticion` 
-                (`ASUNTO`, 
-                `ID_LABORATORIO`, 
-                `FECHA_LLEGADA`, 
-                `FECHA_ENTREGA_ESTIMADA`, 
-                `FECHA_COMPLETADO`, 
-                `ID_SOPORTE`, 
-                `ID_NIVEL`, 
-                `ID_ESTATUS`, 
-                `DESCRIPCION`) 
-                VALUES ('$asuntoSend', 
-                '$laboratorioSend', 
-                current_timestamp(), 
-                '$fechaEntregaEstimadaSend', 
-                '$fechaCompletadoSend',
-                '$soporteSend', 
-                '$nivelSend', 
-                '$estatusSend', 
-                '$descripcionSend')";
 
-            //EJECUTAMOS LA CONSULTA
-            $result = mysqli_query($conn, $sql);
+            $stmt = $conn->prepare(
+                "INSERT INTO `peticion` 
+                (`ASUNTO`, `ID_LABORATORIO`, `FECHA_LLEGADA`, `FECHA_ENTREGA_ESTIMADA`, `FECHA_COMPLETADO`, `ID_SOPORTE`, `ID_NIVEL`, `ID_ESTATUS`, `DESCRIPCION`) 
+                VALUES (?, ?, current_timestamp(), ?, ?, ?, ?, ?, ?)"
+            );
+
+            $stmt->bind_param(
+                "ssssssss",
+                $asuntoSend,
+                $laboratorioSend,
+                $fechaEntregaEstimadaSend,
+                $fechaCompletadoSend,
+                $soporteSend,
+                $nivelSend,
+                $estatusSend,
+                $descripcionSend
+            );
+
+            $stmt->execute();
+
+            $stmt->close();
         }
     } else {
 
@@ -472,32 +473,29 @@ if (isset($_POST['insertDataSend'])) {
             isset($_POST['descripcionSend']) &&
             isset($_POST['desarrolladorSend'])
         ) {
-            //CREAMOS LA CONSULTA
-            $sql =
-                "INSERT INTO `peticion` 
-                (`ASUNTO`, 
-                `ID_LABORATORIO`, 
-                `FECHA_LLEGADA`, 
-                `FECHA_ENTREGA_ESTIMADA`, 
-                `FECHA_COMPLETADO`, 
-                `ID_SOPORTE`, 
-                `ID_NIVEL`, 
-                `ID_ESTATUS`, 
-                `DESCRIPCION`,
-                `ID_DESARROLLADOR`) 
-                VALUES ('$asuntoSend', 
-                '$laboratorioSend', 
-                current_timestamp(), 
-                '$fechaEntregaEstimadaSend', 
-                '$fechaCompletadoSend',
-                '$soporteSend', 
-                '$nivelSend', 
-                '$estatusSend', 
-                '$descripcionSend',
-                '$desarrolladorSend')";
 
-            //EJECUTAMOS LA CONSULTA
-            $result = mysqli_query($conn, $sql);
+            $stmt = $conn->prepare(
+                "INSERT INTO `peticion` 
+                (`ASUNTO`, `ID_LABORATORIO`, `FECHA_LLEGADA`, `FECHA_ENTREGA_ESTIMADA`, `FECHA_COMPLETADO`, `ID_SOPORTE`, `ID_NIVEL`, `ID_ESTATUS`, `DESCRIPCION`, `ID_DESARROLLADOR`) 
+                VALUES (?, ?, current_timestamp(), ?, ?, ?, ?, ?, ?, ?)"
+            );
+
+            $stmt->bind_param(
+                "sssssssss",
+                $asuntoSend,
+                $laboratorioSend,
+                $fechaEntregaEstimadaSend,
+                $fechaCompletadoSend,
+                $soporteSend,
+                $nivelSend,
+                $estatusSend,
+                $descripcionSend,
+                $desarrolladorSend
+            );
+
+            $stmt->execute();
+
+            $stmt->close();
         }
     }
 }
@@ -509,8 +507,15 @@ if (isset($_POST['eliminarDataSend'])) {
 
     $id = $_POST['deleteSend'];
 
-    $sql = "DELETE FROM `peticion` WHERE ID_PETICION = $id";
-    $result = mysqli_query($conn, $sql);
+    $stmt = $conn->prepare(
+        "DELETE FROM `peticion` WHERE ID_PETICION = ?"
+    );
+
+    $stmt->bind_param("i", $id);
+
+    $stmt->execute();
+
+    $stmt->close();
 }
 
 //==========================================================================================================================
@@ -527,16 +532,24 @@ if (isset($_POST['actualizarDataSend'])) {
     $ID_ESTATUS = $_POST['estatusActualizarSend'];
     $DESCRIPCION = $_POST['descripcionActualizarSend'];
     $ENVIADO = $_POST['enviadoSend'];
-    $WP = $_POST['wpSend'];
+    //$WP = $_POST['wpSend'];
 
     //SI NO HAY NADA EN EL ESTATUS, SE OBTENDRA EL ESTATUS QUE HAY POR DEFECTO 
     if (isset($ID_ESTATUS)) {
 
-        $query = "SELECT ESTATUS FROM estatus WHERE ID_ESTATUS = $ID_ESTATUS";
+        $stmt = $conn->prepare("SELECT ESTATUS FROM estatus WHERE ID_ESTATUS = ?");
 
-        $result = $conn->query($query);
+        $stmt->bind_param("i", $ID_ESTATUS);
 
-        $ID_ESTATUS_TEXT = $result->fetch_array()[0] ?? '';
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+
+        $data = $result->fetch_assoc();
+
+        $ID_ESTATUS_TEXT = $data['ESTATUS'];
 
         $ID_ESTATUS_TEXT = strtolower($ID_ESTATUS_TEXT);
     }
@@ -550,65 +563,90 @@ if (isset($_POST['actualizarDataSend'])) {
          * SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
          */
 
-        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
-        `ID_LABORATORIO` = '$ID_LABORATORIO',
-        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
-        `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
-        `ID_NIVEL` = '$ID_NIVEL',
-        `ID_ESTATUS` = '$ID_ESTATUS',
-        `DESCRIPCION` = '$DESCRIPCION',
-        `FECHA_COMPLETADO` = current_timestamp()
-        WHERE `ID_PETICION` = $ID_PETICION";
+        $stmt = $conn->prepare(
+            "UPDATE `peticion` SET `ASUNTO` = ?,
+            `ID_LABORATORIO` = ?,
+            `FECHA_ENTREGA_ESTIMADA` = ?,
+            `ID_DESARROLLADOR` = ?,
+            `ID_NIVEL` = ?,
+            `ID_ESTATUS` = ?,
+            `DESCRIPCION` = ?,
+            `FECHA_COMPLETADO` = current_timestamp()
+            WHERE `ID_PETICION` = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+        $stmt->execute();
+
+        $stmt->close();
     } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
 
         /**
          * ACTUALIZA LOS DATOS NORMALMENTE, REAFIRMANDO EL ENVIADO COMO TRUE -> 1
          */
 
-        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
-        `ID_LABORATORIO` = '$ID_LABORATORIO',
-        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
-        `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
-        `ID_NIVEL` = '$ID_NIVEL',
-        `ID_ESTATUS` = '$ID_ESTATUS',
-        `DESCRIPCION` = '$DESCRIPCION',
-        `ENVIADO` = 1
-        WHERE `ID_PETICION` = $ID_PETICION";
+        $stmt = $conn->prepare(
+            "UPDATE `peticion` SET `ASUNTO` = ?,
+            `ID_LABORATORIO` = ?,
+            `FECHA_ENTREGA_ESTIMADA` = ?,
+            `ID_DESARROLLADOR` = ?,
+            `ID_NIVEL` = ?,
+            `ID_ESTATUS` = ?,
+            `DESCRIPCION` = ?,
+            `ENVIADO` = 1
+            WHERE `ID_PETICION` = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+        $stmt->execute();
+
+        $stmt->close();
     } elseif ($ID_DESARROLLADOR == 'null') {
 
         /**
          * SI LA PETICION NO ESTA COMPLETADA, HACE UNA ACTUALIZACION NORMAL
          * SE PREGUNTA SI EL DESARROLLADOR ESTA VACIO
          */
-        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
-        `ID_LABORATORIO` = '$ID_LABORATORIO',
-        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
-        `ID_DESARROLLADOR` = NULL,
-        `ID_NIVEL` = '$ID_NIVEL',
-        `ID_ESTATUS` = '$ID_ESTATUS',
-        `DESCRIPCION` = '$DESCRIPCION'
-        WHERE `ID_PETICION` = $ID_PETICION";
+        $stmt = $conn->prepare(
+            "UPDATE `peticion` SET `ASUNTO` = ?,
+            `ID_LABORATORIO` = ?,
+            `FECHA_ENTREGA_ESTIMADA` = ?,
+            `ID_DESARROLLADOR` = NULL,
+            `ID_NIVEL` = ?,
+            `ID_ESTATUS` = ?,
+            `DESCRIPCION` = ?
+            WHERE `ID_PETICION` = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("ssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+        $stmt->execute();
+
+        $stmt->close();
     } else {
 
         /**
          * ACTUALIZACION NORMAL
          */
-        $sql = "UPDATE `peticion` SET `ASUNTO` = '$ASUNTO',
-        `ID_LABORATORIO` = '$ID_LABORATORIO',
-        `FECHA_ENTREGA_ESTIMADA` = '$FECHA_ENTREGA_ESTIMADA',
-        `ID_DESARROLLADOR` = '$ID_DESARROLLADOR',
-        `ID_NIVEL` = '$ID_NIVEL',
-        `ID_ESTATUS` = '$ID_ESTATUS',
-        `DESCRIPCION` = '$DESCRIPCION'
-        WHERE `ID_PETICION` = $ID_PETICION";
 
-        $result = mysqli_query($conn, $sql);
+        $stmt = $conn->prepare(
+            "UPDATE `peticion` SET `ASUNTO` = ?,
+            `ID_LABORATORIO` = ?,
+            `FECHA_ENTREGA_ESTIMADA` = ?,
+            `ID_DESARROLLADOR` = ?,
+            `ID_NIVEL` = ?,
+            `ID_ESTATUS` = ?,
+            `DESCRIPCION` = ?
+            WHERE `ID_PETICION` = ?"
+        );
+
+        $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+        $stmt->execute();
+
+        $stmt->close();
     }
 }
 
@@ -619,9 +657,14 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $ID = $_POST['idSendWp'];
 
-    $sql = "UPDATE `peticion` SET `ENVIADO` = 1 WHERE `ID_PETICION` = $ID";
+    $stmt = $conn->prepare("UPDATE `peticion` SET `ENVIADO` = 1 WHERE `ID_PETICION` = ?");
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->bind_param("i", $ID);
+
+    $stmt->execute();
+
+    $stmt->close();
+
 }
 
 //==========================================================================================================================
@@ -633,30 +676,33 @@ if (isset($_POST['getInfoDataSend']) || isset($_POST['getInfoUpdatePeticionSend'
 
         $id = $_POST['idSend'];
 
-        $sql = "SELECT p.*,
-        l.nombre AS NOMLAB,
-        l.paquete AS PAQUETE, 
-        n.nivel AS NOMNIVEL, 
-        e.estatus AS NOMESTATUS, 
-        d.nombre AS NOMDES,
-        s.nombre AS NOMSOP,
-        s.NUM_CELULAR AS NUMERO_SOPORTE  
-        FROM peticion AS p 
-        INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-        INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
-        INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
-        LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-        INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE ID_PETICION = $id;";
+        $stmt = $conn->prepare(
+            "SELECT p.*,
+            l.nombre AS NOMLAB,
+            l.paquete AS PAQUETE, 
+            n.nivel AS NOMNIVEL, 
+            e.estatus AS NOMESTATUS, 
+            d.nombre AS NOMDES,
+            s.nombre AS NOMSOP,
+            s.NUM_CELULAR AS NUMERO_SOPORTE  
+            FROM peticion AS p 
+            INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+            INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+            INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE ID_PETICION = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("i", $id);
 
-        $response = array();
+        $stmt->execute();
 
-        while ($row = mysqli_fetch_assoc($result)) {
+        $result = $stmt->get_result();
 
-            $response = $row;
-        }
+        $data = $result->fetch_assoc();
 
-        echo json_encode($response);
+        $stmt->close();
+
+        echo json_encode($data);
     }
 }
