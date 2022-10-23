@@ -977,455 +977,246 @@ if (isset($_POST['desarrolladorDiasMesSend'])) {
     echo json_encode($respuesta);
 }
 
-
 //==========================================================================================================================
 //CODIGO PARA GRAFICA COMPARACION DESARROLLADORES
 //==========================================================================================================================
 if (isset($_POST['desComoaracionSend'])) {
 
-    //COMPLETADAS
-    if (isset($_POST['completadasSend'])) {
+    $FECHA_INICIO = $_POST['fechaInicioSend'];
 
-        $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $FECHA_FINAL = $_POST['fechaFinalSend'];
 
-        $FECHA_FINAL = $_POST['fechaFinalSend'];
+    $FECHA_INICIO .= " 00:00:00.000";
 
-        $VALORES_ARRAY_DES = $_POST['valores_array_send'];
+    $FECHA_FINAL .= " 23:59:59.999";
 
-        //SELECCIONAR LOS NOMBRES DE LOS DESARROLLADORES
+    $VALORES_ARRAY_DES = $_POST['valores_array_send'];
 
-        $NOM_DES = array();
+    $NOM_DES = array();
 
-        $CONT = 0;
+    $CONT = 0;
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+    //==========================================================================================================================
+    //SE OBTIENE LOS NOMBRES DE LOS DESARROLLADORES POR EL (LOS) ID RECIBIDOS
+    //==========================================================================================================================
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-            $stmt = $conn->prepare(
-                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
-            );
+        $stmt = $conn->prepare(
+            "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
+        );
 
-            $stmt->bind_param("i", $ID_DES);
+        $stmt->bind_param("i", $ID_DES);
 
-            $stmt->execute();
+        $stmt->execute();
 
-            $result = $stmt->get_result();
+        $result = $stmt->get_result();
 
-            $data = $result->fetch_assoc();
+        $data = $result->fetch_assoc();
 
-            $stmt->close();
+        $stmt->close();
 
-            $VALOR = $data['NOMBRE'];
+        $VALOR = $data['NOMBRE'];
 
-            array_push($NOM_DES, $VALOR);
+        array_push($NOM_DES, $VALOR);
 
-            $CONT++;
-        }
-
-
-        //SELECCIONAR LAS PETICIONES COMPLETADAS DE LOS DESARROLLADORES
-
-        $VAL_DES = array();
-
-        $CONT = 0;
-
-        $FECHA_INICIO .= " 00:00:00.000";
-
-        $FECHA_FINAL .= " 23:59:59.999";
-
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
-
-
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
-
-            $stmt = $conn->prepare(
-                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-                WHERE e.estatus = 'Completado' AND d.ID_DESARROLLADOR  = ? 
-                AND FECHA_LLEGADA BETWEEN ? and ?"
-            );
-
-            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['TOTAL'];
-
-            array_push($VAL_DES, $VALOR);
-
-            $CONT++;
-        }
-
-        $respuesta = [
-            "nombres" => $NOM_DES,
-            "valores" => $VAL_DES,
-        ];
-
-        echo json_encode($respuesta);
+        $CONT++;
     }
 
-    //RECHAZADAS
-    if (isset($_POST['rechazadasSend'])) {
+    //==========================================================================================================================
+    //SE OBTIENE LOS NUMEROS DE PETICIONES COMPLETAS PARA CADA DESARROLLADOR
+    //==========================================================================================================================
+    $VAL_DES_COMPLETE = array();
 
-        $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $CONT = 0;
 
-        $FECHA_FINAL = $_POST['fechaFinalSend'];
-
-        $VALORES_ARRAY_DES = $_POST['valores_array_send'];
-
-        //SELECCIONAR LOS NOMBRES DE LOS DESARROLLADORES
-
-        $NOM_DES = array();
-
-        $CONT = 0;
-
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
-
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
-
-            $stmt = $conn->prepare(
-                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
-            );
-
-            $stmt->bind_param("i", $ID_DES);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['NOMBRE'];
-
-            array_push($NOM_DES, $VALOR);
-
-            $CONT++;
-        }
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
 
-        //SELECCIONAR LAS PETICIONES COMPLETADAS DE LOS DESARROLLADORES
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-        $VAL_DES = array();
+        $stmt = $conn->prepare(
+            "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Completado' AND d.ID_DESARROLLADOR  = ? 
+            AND FECHA_LLEGADA BETWEEN ? and ?"
+        );
 
-        $CONT = 0;
+        $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-        $FECHA_INICIO .= " 00:00:00.000";
+        $stmt->execute();
 
-        $FECHA_FINAL .= " 23:59:59.999";
+        $result = $stmt->get_result();
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $data = $result->fetch_assoc();
 
+        $stmt->close();
 
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
+        $VALOR = $data['TOTAL'];
 
-            $stmt = $conn->prepare(
-                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-                WHERE e.estatus = 'Rechazado' AND d.ID_DESARROLLADOR  = ? 
-                AND FECHA_LLEGADA BETWEEN ? and ?"
-            );
+        array_push($VAL_DES_COMPLETE, $VALOR);
 
-            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['TOTAL'];
-
-            array_push($VAL_DES, $VALOR);
-
-            $CONT++;
-        }
-
-        $respuesta = [
-            "nombres" => $NOM_DES,
-            "valores" => $VAL_DES,
-        ];
-
-        echo json_encode($respuesta);
+        $CONT++;
     }
 
-    //PENDIENTE
-    if (isset($_POST['pendientesSend'])) {
+    //==========================================================================================================================
+    //SE OBTIENE LOS NUMEROS DE PETICIONES RECHAZADAS PARA CADA DESARROLLADOR
+    //==========================================================================================================================
+    $VAL_DES_RECHAZADAS = array();
 
-        $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $CONT = 0;
 
-        $FECHA_FINAL = $_POST['fechaFinalSend'];
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
-        $VALORES_ARRAY_DES = $_POST['valores_array_send'];
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-        //SELECCIONAR LOS NOMBRES DE LOS DESARROLLADORES
+        $stmt = $conn->prepare(
+            "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Rechazado' AND d.ID_DESARROLLADOR  = ? 
+            AND FECHA_LLEGADA BETWEEN ? and ?"
+        );
 
-        $NOM_DES = array();
+        $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-        $CONT = 0;
+        $stmt->execute();
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $result = $stmt->get_result();
 
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
+        $data = $result->fetch_assoc();
 
-            $stmt = $conn->prepare("SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?");
+        $stmt->close();
 
-            $stmt->bind_param("i", $ID_DES);
+        $VALOR = $data['TOTAL'];
 
-            $stmt->execute();
+        array_push($VAL_DES_RECHAZADAS, $VALOR);
 
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['NOMBRE'];
-
-            array_push($NOM_DES, $VALOR);
-
-            $CONT++;
-        }
-
-
-        //SELECCIONAR LAS PETICIONES COMPLETADAS DE LOS DESARROLLADORES
-
-        $VAL_DES = array();
-
-        $CONT = 0;
-
-        $FECHA_INICIO .= " 00:00:00.000";
-
-        $FECHA_FINAL .= " 23:59:59.999";
-
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
-
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
-
-            $stmt = $conn->prepare(
-                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-                WHERE e.estatus = 'Pendiente' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
-                BETWEEN ? AND ?"
-            );
-
-            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['TOTAL'];
-
-            array_push($VAL_DES, $VALOR);
-
-            $CONT++;
-        }
-
-        $respuesta = [
-            "nombres" => $NOM_DES,
-            "valores" => $VAL_DES,
-        ];
-
-        echo json_encode($respuesta);
+        $CONT++;
     }
 
-    //DESARROLLO
-    if (isset($_POST['desarrolloSend'])) {
 
-        $FECHA_INICIO = $_POST['fechaInicioSend'];
+    //==========================================================================================================================
+    //SE OBTIENE LOS NUMEROS DE PETICIONES PENDIENTES PARA CADA DESARROLLADOR
+    //==========================================================================================================================
+    $VAL_DES_PENDIENTES = array();
 
-        $FECHA_FINAL = $_POST['fechaFinalSend'];
+    $CONT = 0;
 
-        $VALORES_ARRAY_DES = $_POST['valores_array_send'];
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
-        //SELECCIONAR LOS NOMBRES DE LOS DESARROLLADORES
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-        $NOM_DES = array();
+        $stmt = $conn->prepare(
+            "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Pendiente' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
+            BETWEEN ? AND ?"
+        );
 
-        $CONT = 0;
+        $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $stmt->execute();
 
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
+        $result = $stmt->get_result();
 
-            $stmt = $conn->prepare(
-                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
-            );
+        $data = $result->fetch_assoc();
 
-            $stmt->bind_param("i", $ID_DES);
+        $stmt->close();
 
-            $stmt->execute();
+        $VALOR = $data['TOTAL'];
 
-            $result = $stmt->get_result();
+        array_push($VAL_DES_PENDIENTES, $VALOR);
 
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['NOMBRE'];
-
-            array_push($NOM_DES, $VALOR);
-
-            $CONT++;
-        }
-
-
-        //SELECCIONAR LAS PETICIONES COMPLETADAS DE LOS DESARROLLADORES
-
-        $VAL_DES = array();
-
-        $CONT = 0;
-
-        $FECHA_INICIO .= " 00:00:00.000";
-
-        $FECHA_FINAL .= " 23:59:59.999";
-
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
-
-
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
-
-            // $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-            // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-            // INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            // WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = $ID_DES AND FECHA_LLEGADA BETWEEN '$FECHA_INICIO 00:00:00.000' and '$FECHA_FINAL 23:59:59.999'";
-
-            $stmt = $conn->prepare(
-                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-                INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-                WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
-                BETWEEN ? and ?"
-            );
-
-            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['TOTAL'];
-
-            array_push($VAL_DES, $VALOR);
-
-            $CONT++;
-        }
-
-        $respuesta = [
-            "nombres" => $NOM_DES,
-            "valores" => $VAL_DES,
-        ];
-
-        echo json_encode($respuesta);
+        $CONT++;
     }
 
-    //TOTAL
-    if (isset($_POST['totalSend'])) {
+    //==========================================================================================================================
+    //SE OBTIENE LOS NUMEROS DE PETICIONES EN DESARROLLO PARA CADA DESARROLLADOR
+    //==========================================================================================================================
+    $VAL_DES_DESARROLLO = array();
 
-        $FECHA_INICIO = $_POST['fechaInicioSend'];
+    $CONT = 0;
 
-        $FECHA_FINAL = $_POST['fechaFinalSend'];
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
 
-        $VALORES_ARRAY_DES = $_POST['valores_array_send'];
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
 
-        //SELECCIONAR LOS NOMBRES DE LOS DESARROLLADORES
+        $stmt = $conn->prepare(
+            "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
+            WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
+            BETWEEN ? and ?"
+        );
 
-        $NOM_DES = array();
+        $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
 
-        $CONT = 0;
+        $stmt->execute();
 
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+        $result = $stmt->get_result();
 
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
+        $data = $result->fetch_assoc();
 
-            //$sql = "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = $ID_DES";
+        $stmt->close();
 
-            $stmt = $conn->prepare(
-                "SELECT NOMBRE FROM desarrollador WHERE ID_DESARROLLADOR = ?"
-            );
+        $VALOR = $data['TOTAL'];
 
-            $stmt->bind_param("i", $ID_DES);
+        array_push($VAL_DES_DESARROLLO, $VALOR);
 
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['NOMBRE'];
-
-            array_push($NOM_DES, $VALOR);
-
-            $CONT++;
-        }
-
-
-        //SELECCIONAR LAS PETICIONES COMPLETADAS DE LOS DESARROLLADORES
-
-        $VAL_DES = array();
-
-        $CONT = 0;
-
-        $FECHA_INICIO .= " 00:00:00.000";
-
-        $FECHA_FINAL .= " 23:59:59.999";
-
-        while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
-
-            $ID_DES = $VALORES_ARRAY_DES[$CONT];
-
-            $stmt = $conn->prepare(
-                "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
-                WHERE d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA BETWEEN ? and ?"
-            );
-
-            $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
-
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            $data = $result->fetch_assoc();
-
-            $stmt->close();
-
-            $VALOR = $data['TOTAL'];
-
-            array_push($VAL_DES, $VALOR);
-
-            $CONT++;
-        }
-
-        $respuesta = [
-            "nombres" => $NOM_DES,
-            "valores" => $VAL_DES,
-        ];
-
-        echo json_encode($respuesta);
+        $CONT++;
     }
+
+
+    //==========================================================================================================================
+    //SE OBTIENE LOS NUMEROS DE PETICIONES TOTALES PARA CADA DESARROLLADOR
+    //==========================================================================================================================
+    $VAL_DES_TOTAL = array();
+
+    $CONT = 0;
+
+    while ($CONT <= count($VALORES_ARRAY_DES) - 1) {
+
+        $ID_DES = $VALORES_ARRAY_DES[$CONT];
+
+        $stmt = $conn->prepare(
+            "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
+            LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
+            WHERE d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA BETWEEN ? and ?"
+        );
+
+        $stmt->bind_param("iss", $ID_DES, $FECHA_INICIO, $FECHA_FINAL);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $data = $result->fetch_assoc();
+
+        $stmt->close();
+
+        $VALOR = $data['TOTAL'];
+
+        array_push($VAL_DES_TOTAL, $VALOR);
+
+        $CONT++;
+    }
+
+    //==========================================================================================================================
+    //EXPORTACIÓN
+    //==========================================================================================================================
+
+    $respuesta = [
+        "nombres" => $NOM_DES,
+        "valoresCompletos" => $VAL_DES_COMPLETE,
+        "valoresRechazados" => $VAL_DES_RECHAZADAS,
+        "valoresPendientes" => $VAL_DES_PENDIENTES,
+        "valoresDesarrollo" => $VAL_DES_DESARROLLO,
+        "valoresTotal" => $VAL_DES_TOTAL,
+    ];
+
+    echo json_encode($respuesta);
 }

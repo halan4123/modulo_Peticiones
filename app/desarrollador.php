@@ -21,9 +21,14 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
         <tbody>
         ';
 
-    $sql = "SELECT * FROM `desarrollador` WHERE `OCULTO` = 0";
+ 
+    $stmt = $conn->prepare(
+        "SELECT * FROM `desarrollador` WHERE `OCULTO` = 0"
+    );
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
 
     $CONT = 1;
 
@@ -62,6 +67,8 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
         $CONT += 1;
     }
 
+    $stmt->close();
+
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
     $table .= ' 
                     </tbody>
@@ -83,13 +90,18 @@ if (isset($_POST['insertDesarrolladorSend'])) {
         isset($_POST['nombreDesarrolladorAddSend']) &&
         isset($_POST['apellidoDesarrolladorAddSend'])
     ) {
-        //CREAMOS LA CONSULTA
-        $sql = "INSERT INTO `desarrollador` 
-        (`NOMBRE`, `APELLIDOS`) VALUES 
-        ('$nombreDesarrolladorAddSend', '$apellidoDesarrolladorAddSend')";
 
-        //EJECUTAMOS LA CONSULTA
-        $result = mysqli_query($conn, $sql);
+        $stmt = $conn->prepare(
+            "INSERT INTO `desarrollador` 
+            (`NOMBRE`, `APELLIDOS`) VALUES 
+            (?,?)"
+        );
+
+        $stmt->bind_param("ss", $nombreDesarrolladorAddSend, $apellidoDesarrolladorAddSend);
+
+        $stmt->execute();
+
+        $stmt->close();
     }
 }
 
@@ -100,12 +112,16 @@ if (isset($_POST['eliminarDesarrolladorSend'])) {
 
     $id = $_POST['deleteSend'];
 
-    //$sql = "DELETE FROM `desarrollador` WHERE ID_DESARROLLADOR = $id";
-    
-    $sql = "UPDATE `desarrollador` SET `OCULTO` = '1' 
-    WHERE `ID_DESARROLLADOR` = $id";
+    $stmt = $conn->prepare(
+        "UPDATE `desarrollador` SET `OCULTO` = '1' 
+        WHERE `ID_DESARROLLADOR` = ?"
+    );
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->bind_param("i", $id);
+
+    $stmt->execute();
+
+    $stmt->close();
 }
 
 //==========================================================================================================================
@@ -117,18 +133,21 @@ if (isset($_POST['getInfoDesarrolladorSend']) || isset($_POST['getInfoUpdateDesa
 
         $id = $_POST['idSend'];
 
-        $sql = "SELECT * FROM `desarrollador` WHERE ID_DESARROLLADOR = $id";
+        $stmt = $conn->prepare(
+            "SELECT * FROM `desarrollador` WHERE ID_DESARROLLADOR = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("i", $id);
 
-        $response = array();
+        $stmt->execute();
 
-        while ($row = mysqli_fetch_assoc($result)) {
+        $result = $stmt->get_result();
 
-            $response = $row;
-        }
+        $data = $result->fetch_assoc();
 
-        echo json_encode($response);
+        $stmt->close();
+
+        echo json_encode($data);
     }
 }
 
@@ -141,9 +160,15 @@ if (isset($_POST['actualizarDesarrolladorSend'])) {
     $NOMBRE = $_POST['nombreActualizarSend'];
     $APELLIDOS = $_POST['apellidoActualizarSend'];
 
-    $sql = "UPDATE `desarrollador` SET `NOMBRE` = '$NOMBRE',
-    `APELLIDOS` = '$APELLIDOS'
-    WHERE `ID_DESARROLLADOR` = $ID_DESARROLLADOR";
+    $stmt = $conn->prepare(
+        "UPDATE `desarrollador` SET `NOMBRE` = ?,
+        `APELLIDOS` = ?
+        WHERE `ID_DESARROLLADOR` = ?"
+    );
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->bind_param("ssi", $NOMBRE, $APELLIDOS, $ID_DESARROLLADOR);
+
+    $stmt->execute();
+
+    $stmt->close();
 }

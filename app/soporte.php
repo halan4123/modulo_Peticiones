@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include 'connectionController.php';
 
@@ -24,9 +24,17 @@ if (isset($_POST['displayDataSoporteSend'])) {
         <tbody>
     ';
 
-    $sql = "SELECT * FROM `soporte` WHERE `OCULTO` = 0";
+    // $sql = "SELECT * FROM `soporte` WHERE `OCULTO` = 0";
 
-    $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+    // $result = mysqli_query($conn, $sql); //EJECUTAMOS LA CONSULTA
+
+    $stmt = $conn->prepare(
+        "SELECT * FROM `soporte` WHERE `OCULTO` = 0"
+    );
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
 
     $CONT = 1;
 
@@ -69,15 +77,16 @@ if (isset($_POST['displayDataSoporteSend'])) {
         $CONT += 1;
     }
 
+    $stmt->close();
+
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
     $table .= ' 
                     </tbody>
                 </table>
                 ';
-                
+
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
-
 }
 
 //==========================================================================================================================
@@ -90,16 +99,20 @@ if (isset($_POST['insertSoporteSend'])) {
     if (
         isset($_POST['nombreSoporteAddSend']) &&
         isset($_POST['apellidoSoporteAddSend']) &&
-        isset($_POST['numeroSoperteAddSend']) && 
-        isset($_POST['correoSoporteAddSend']) 
+        isset($_POST['numeroSoperteAddSend']) &&
+        isset($_POST['correoSoporteAddSend'])
     ) {
-        //CREAMOS LA CONSULTA
-        $sql = "INSERT INTO `soporte` 
-        (`NOMBRE`, `APELLIDOS`, `NUM_CELULAR`, `CORREO`) VALUES 
-        ('$nombreSoporteAddSend', '$apellidoSoporteAddSend', '$numeroSoperteAddSend', '$correoSoporteAddSend')";
+        $stmt = $conn->prepare(
+            "INSERT INTO `soporte` 
+            (`NOMBRE`, `APELLIDOS`, `NUM_CELULAR`, `CORREO`) VALUES 
+            (?, ?, ?, ?)"
+        );
 
-        //EJECUTAMOS LA CONSULTA
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("ssss", $nombreSoporteAddSend, $apellidoSoporteAddSend, $numeroSoperteAddSend, $correoSoporteAddSend);
+
+        $stmt->execute();
+
+        $stmt->close();
     }
 }
 
@@ -111,12 +124,16 @@ if (isset($_POST['eliminarSoporteSend'])) {
 
     $id = $_POST['deleteSend'];
 
-    //$sql = "DELETE FROM `soporte` WHERE ID_SOPORTE = $id";
+    $stmt = $conn->prepare(
+        "UPDATE `soporte` SET `OCULTO` = '1' 
+        WHERE `ID_SOPORTE` = ?"
+    );
 
-    $sql = "UPDATE `soporte` SET `OCULTO` = '1' 
-    WHERE `ID_SOPORTE` = $id";
+    $stmt->bind_param("i", $id);
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->execute();
+
+    $stmt->close();
 }
 
 //==========================================================================================================================
@@ -128,18 +145,21 @@ if (isset($_POST['getInfoSoporteSend']) || isset($_POST['getInfoUpdateSoporteSen
 
         $id = $_POST['idSend'];
 
-        $sql = "SELECT * FROM `soporte` WHERE ID_SOPORTE = $id";
+        $stmt = $conn->prepare(
+            "SELECT * FROM `soporte` WHERE ID_SOPORTE = ?"
+        );
 
-        $result = mysqli_query($conn, $sql);
+        $stmt->bind_param("i", $id);
 
-        $response = array();
+        $stmt->execute();
 
-        while ($row = mysqli_fetch_assoc($result)) {
+        $result = $stmt->get_result();
 
-            $response = $row;
-        }
+        $data = $result->fetch_assoc();
 
-        echo json_encode($response);
+        $stmt->close();
+
+        echo json_encode($data);
     }
 }
 
@@ -154,11 +174,17 @@ if (isset($_POST['actualizarSoporteSend'])) {
     $NUM_CELULAR = $_POST['numeroActualizarSend'];
     $CORREO = $_POST['correoActualizarSend'];
 
-    $sql = "UPDATE `soporte` SET `NOMBRE` = '$NOMBRE',
-    `APELLIDOS` = '$APELLIDOS',
-    `NUM_CELULAR` = '$NUM_CELULAR',
-    `CORREO` = '$CORREO'
-    WHERE `ID_SOPORTE` = $ID_SOPORTE";
+    $stmt = $conn->prepare(
+        "UPDATE `soporte` SET `NOMBRE` = ?,
+        `APELLIDOS` = ?,
+        `NUM_CELULAR` = ?,
+        `CORREO` = ?
+        WHERE `ID_SOPORTE` = ?"
+    );
 
-    $result = mysqli_query($conn, $sql);
+    $stmt->bind_param("ssssi", $NOMBRE, $APELLIDOS, $NUM_CELULAR, $CORREO, $ID_SOPORTE);
+
+    $stmt->execute();
+
+    $stmt->close();
 }

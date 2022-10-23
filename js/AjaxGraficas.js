@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('#multiple-checkboxes_desarrollador').multiselect({
         filterPlaceholder: 'Buscar',
 
-        selectAllText:'Seleccionar Todo',
+        selectAllText: 'Seleccionar Todo',
         enableCaseInsensitiveFiltering: true,
         nonSelectedText: 'Selecciona un desarrollador',
         buttonWidth: 'auto',
@@ -1133,15 +1133,15 @@ function graficarDesarrolladoresSeccion3() {
 
     let desComoaracion = true;
 
-    let completadas = true;
+    // let completadas = true;
 
-    let rechazadas = true;
+    // let rechazadas = true;
 
-    let pendientes = true;
+    // let pendientes = true;
 
-    let desarrollo = true;
+    // let desarrollo = true;
 
-    let total = true;
+    // let total = true;
 
     //let valores_array = $('#filtroDesarrolladorGrafica_4').select2("val");
 
@@ -1155,15 +1155,17 @@ function graficarDesarrolladoresSeccion3() {
     $.post("app/graficas.php", {
 
         desComoaracionSend: desComoaracion,
-        completadasSend: completadas,
         valores_array_send: valores_array,
         fechaInicioSend: fechaInicio,
         fechaFinalSend: fechaFinal,
 
-
     }, function (data, status) {
 
         let datos = JSON.parse(data);
+
+        //==========================================================================================================================
+        //COMPLETAS
+        //==========================================================================================================================
 
         document.getElementById("desarrolladoresComparadosCompletas").remove();
 
@@ -1171,14 +1173,13 @@ function graficarDesarrolladoresSeccion3() {
         canvas1.id = "desarrolladoresComparadosCompletas";
         document.getElementById("contenedor-grafica-desarrollador-comparacion-completas").appendChild(canvas1);
 
-
-        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
-        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+        const ctxCompleto = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
+        const myChartCompleto = new Chart(ctxCompleto, {
             type: 'pie',
             data: {
                 labels: datos.nombres,
                 datasets: [{
-                    data: datos.valores,
+                    data: datos.valoresCompletos,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -1218,36 +1219,23 @@ function graficarDesarrolladoresSeccion3() {
             }
         });
 
-    });
-
-    //RECHAZADAS
-    $.post("app/graficas.php", {
-
-        desComoaracionSend: desComoaracion,
-        rechazadasSend: rechazadas,
-        valores_array_send: valores_array,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
-
-
-    }, function (data, status) {
-
-        let datos = JSON.parse(data);
-
+        //==========================================================================================================================
+        //RECHAZADAS
+        //==========================================================================================================================
         document.getElementById("desarrolladoresComparadosRechazadas").remove();
 
-        let canvas1 = document.createElement("canvas");
-        canvas1.id = "desarrolladoresComparadosRechazadas";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas1);
+        let canvas2 = document.createElement("canvas");
+        canvas2.id = "desarrolladoresComparadosRechazadas";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas2);
 
 
-        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
-        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+        const ctxRechazado = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
+        const myChartRechazado = new Chart(ctxRechazado, {
             type: 'pie',
             data: {
                 labels: datos.nombres,
                 datasets: [{
-                    data: datos.valores,
+                    data: datos.valoresRechazados,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -1287,36 +1275,23 @@ function graficarDesarrolladoresSeccion3() {
             }
         });
 
-    });
-
-    //PENDIENTES
-    $.post("app/graficas.php", {
-
-        desComoaracionSend: desComoaracion,
-        pendientesSend: pendientes,
-        valores_array_send: valores_array,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
-
-
-    }, function (data, status) {
-
-        let datos = JSON.parse(data);
-
+        //==========================================================================================================================
+        //PENDIENTE
+        //==========================================================================================================================
         document.getElementById("desarrolladoresComparadosPendientes").remove();
 
-        let canvas1 = document.createElement("canvas");
-        canvas1.id = "desarrolladoresComparadosPendientes";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas1);
+        let canvas3 = document.createElement("canvas");
+        canvas3.id = "desarrolladoresComparadosPendientes";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas3);
 
 
-        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
-        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+        const ctxPendiente = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
+        const myChartPendiente = new Chart(ctxPendiente, {
             type: 'pie',
             data: {
                 labels: datos.nombres,
                 datasets: [{
-                    data: datos.valores,
+                    data: datos.valoresPendientes,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -1356,36 +1331,24 @@ function graficarDesarrolladoresSeccion3() {
             }
         });
 
-    });
-
-    //DESARROLLO
-    $.post("app/graficas.php", {
-
-        desComoaracionSend: desComoaracion,
-        desarrolloSend: desarrollo,
-        valores_array_send: valores_array,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
-
-
-    }, function (data, status) {
-
-        let datos = JSON.parse(data);
+        //==========================================================================================================================
+        //DESARROLLO
+        //==========================================================================================================================
 
         document.getElementById("desarrolladoresComparadosDesarrollo").remove();
 
-        let canvas1 = document.createElement("canvas");
-        canvas1.id = "desarrolladoresComparadosDesarrollo";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas1);
+        let canvas4 = document.createElement("canvas");
+        canvas4.id = "desarrolladoresComparadosDesarrollo";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas4);
 
 
-        const ctxDesarrollador = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
-        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+        const ctxDesarrollo = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
+        const myChartDesarrollo = new Chart(ctxDesarrollo, {
             type: 'pie',
             data: {
                 labels: datos.nombres,
                 datasets: [{
-                    data: datos.valores,
+                    data: datos.valoresDesarrollo,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -1425,36 +1388,23 @@ function graficarDesarrolladoresSeccion3() {
             }
         });
 
-    });
-
-    //TOTAL
-    $.post("app/graficas.php", {
-
-        desComoaracionSend: desComoaracion,
-        totalSend: total,
-        valores_array_send: valores_array,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
-
-
-    }, function (data, status) {
-
-        let datos = JSON.parse(data);
-
+        //==========================================================================================================================
+        //TOTAL
+        //==========================================================================================================================
         document.getElementById("desarrolladoresComparadostotal").remove();
 
-        let canvas1 = document.createElement("canvas");
-        canvas1.id = "desarrolladoresComparadostotal";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas1);
+        let canvas5 = document.createElement("canvas");
+        canvas5.id = "desarrolladoresComparadostotal";
+        document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas5);
 
 
-        const ctxDesarrollador = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
-        const myChartDesarrollador = new Chart(ctxDesarrollador, {
+        const ctxTotal = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
+        const myChartTotal = new Chart(ctxTotal, {
             type: 'pie',
             data: {
                 labels: datos.nombres,
                 datasets: [{
-                    data: datos.valores,
+                    data: datos.valoresTotal,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -1494,7 +1444,11 @@ function graficarDesarrolladoresSeccion3() {
             }
         });
 
+
     });
+
+
+
 
 
 }
