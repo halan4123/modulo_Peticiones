@@ -11,19 +11,39 @@ if (isset($_POST['boleanoLaboratorioSend'])) {
     if (!isset($_POST['buscarLaboratorio'])) {
 
         //PARA QUE SOLO APAREZCAN 5 O EL NUMERO QUE DESEES POR DEFECTO COLOCAR LIMIT N.O
-        $fetchData = mysqli_query($conn, "SELECT * FROM laboratorio ORDER BY NOMBRE");
-    } else {
-        $search = $_POST['buscarLaboratorio'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM laboratorio ORDER BY NOMBRE"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM laboratorio where NOMBRE like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarLaboratorio']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM laboratorio where NOMBRE like ? limit 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_LABORATORIO'], "text" => $row['NOMBRE']);
     }
+
     echo json_encode($data);
 }
 
@@ -34,16 +54,35 @@ if (isset($_POST['boleanoSoporteSend'])) {
 
     if (!isset($_POST['buscarSoporte'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM soporte ORDER BY NOMBRE");
-    } else {
-        $search = $_POST['buscarSoporte'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM soporte ORDER BY NOMBRE"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM soporte where NOMBRE like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarSoporte']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM soporte where NOMBRE like ? limit 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_SOPORTE'], "text" => $row['NOMBRE']);
     }
@@ -55,18 +94,38 @@ if (isset($_POST['boleanoSoporteSend'])) {
 //==========================================================================================================================
 if (isset($_POST['boleanoSoporteNoOcultosSend'])) {
 
+
     if (!isset($_POST['buscarSoporte'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM soporte WHERE OCULTO = 0 ORDER BY NOMBRE");
-    } else {
-        $search = $_POST['buscarSoporte'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM soporte WHERE OCULTO = 0 ORDER BY NOMBRE"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM soporte WHERE OCULTO = 0 AND NOMBRE like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarSoporte']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM soporte WHERE OCULTO = 0 AND NOMBRE LIKE ? LIMIT 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_SOPORTE'], "text" => $row['NOMBRE']);
     }
@@ -80,16 +139,35 @@ if (isset($_POST['boleanoDesarrolladorSend'])) {
 
     if (!isset($_POST['buscarDesarrollador'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador ORDER BY NOMBRE");
-    } else {
-        $search = $_POST['buscarDesarrollador'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM desarrollador ORDER BY NOMBRE"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador where NOMBRE like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarDesarrollador']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM desarrollador WHERE NOMBRE LIKE ? LIMIT 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_DESARROLLADOR'], "text" => $row['NOMBRE']);
     }
@@ -103,16 +181,35 @@ if (isset($_POST['boleanoDesarrolladorNoOcultosSend'])) {
 
     if (!isset($_POST['buscarDesarrollador'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador WHERE OCULTO = 0 ORDER BY NOMBRE");
-    } else {
-        $search = $_POST['buscarDesarrollador'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM desarrollador WHERE OCULTO = 0 ORDER BY NOMBRE"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM desarrollador WHERE OCULTO = 0 AND NOMBRE like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarDesarrollador']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM desarrollador WHERE OCULTO = 0 AND NOMBRE LIKE ? LIMIT 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_DESARROLLADOR'], "text" => $row['NOMBRE']);
     }
@@ -126,16 +223,35 @@ if (isset($_POST['boleanoNivelSend'])) {
 
     if (!isset($_POST['buscarNivel'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM nivel ORDER BY NIVEL");
-    } else {
-        $search = $_POST['buscarNivel'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM nivel ORDER BY NIVEL"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM nivel where NIVEL like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarNivel']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM nivel WHERE NIVEL LIKE ? LIMIT 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_NIVEL'], "text" => $row['NIVEL']);
     }
@@ -149,16 +265,35 @@ if (isset($_POST['boleanoEstatusSend'])) {
 
     if (!isset($_POST['buscarEstatus'])) {
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM estatus ORDER BY ESTATUS");
-    } else {
-        $search = $_POST['buscarEstatus'];
+        $stmt = $conn->prepare(
+            "SELECT * FROM estatus ORDER BY ESTATUS"
+        );
 
-        $fetchData = mysqli_query($conn, "SELECT * FROM estatus where ESTATUS like '%" . $search . "%' limit 5");
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+    } else {
+
+        $search = "%{$_POST['buscarEstatus']}%";
+
+        $stmt = $conn->prepare(
+            "SELECT * FROM estatus WHERE ESTATUS LIKE ? LIMIT 5"
+        );
+
+        $stmt->bind_param("s", $search);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
     }
 
     $data = array();
 
-    while ($row = mysqli_fetch_array($fetchData)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $data[] = array("id" => $row['ID_ESTATUS'], "text" => $row['ESTATUS']);
     }

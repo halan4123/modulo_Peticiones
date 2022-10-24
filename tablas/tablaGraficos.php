@@ -138,7 +138,6 @@
 
                                             <?php
                                             date_default_timezone_set('America/Chihuahua');
-                                            $year = 2099;
                                             $year_actual = date('Y');
                                             $year_actual = intval($year_actual);
 
