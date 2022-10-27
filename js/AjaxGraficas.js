@@ -1151,301 +1151,315 @@ function graficarDesarrolladoresSeccion3() {
 
     let fechaFinal = $('#filtroFechaFinalMultiple').val();
 
-    //COMPLETADAS
-    $.post("app/graficas.php", {
+    // console.log(typeof (valores_array));
 
-        desComoaracionSend: desComoaracion,
-        valores_array_send: valores_array,
-        fechaInicioSend: fechaInicio,
-        fechaFinalSend: fechaFinal,
+    if (valores_array == null || fechaInicio == '' || fechaFinal == '') {
 
-    }, function (data, status) {
+        swal({
+            title: "Completa todos los filtros de busqueda ",
+            icon: "error",
+            button: "Cerrar",
+        })
 
-        let datos = JSON.parse(data);
+    } else {
+        //COMPLETADAS
+        $.post("app/graficas.php", {
 
-        //==========================================================================================================================
-        //COMPLETAS
-        //==========================================================================================================================
+            desComoaracionSend: desComoaracion,
+            valores_array_send: valores_array,
+            fechaInicioSend: fechaInicio,
+            fechaFinalSend: fechaFinal,
 
-        document.getElementById("desarrolladoresComparadosCompletas").remove();
+        }, function (data, status) {
 
-        let canvas1 = document.createElement("canvas");
-        canvas1.id = "desarrolladoresComparadosCompletas";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-completas").appendChild(canvas1);
+            let datos = JSON.parse(data);
 
-        const ctxCompleto = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
-        const myChartCompleto = new Chart(ctxCompleto, {
-            type: 'pie',
-            data: {
-                labels: datos.nombres,
-                datasets: [{
-                    data: datos.valoresCompletos,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'black';      // else
+            //==========================================================================================================================
+            //COMPLETAS
+            //==========================================================================================================================
 
+            document.getElementById("desarrolladoresComparadosCompletas").remove();
+
+            let canvas1 = document.createElement("canvas");
+            canvas1.id = "desarrolladoresComparadosCompletas";
+            document.getElementById("contenedor-grafica-desarrollador-comparacion-completas").appendChild(canvas1);
+
+            const ctxCompleto = document.getElementById('desarrolladoresComparadosCompletas').getContext('2d');
+            const myChartCompleto = new Chart(ctxCompleto, {
+                type: 'pie',
+                data: {
+                    labels: datos.nombres,
+                    datasets: [{
+                        data: datos.valoresCompletos,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'black';      // else
+
+                            }
                         }
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    }]
                 },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            //==========================================================================================================================
+            //RECHAZADAS
+            //==========================================================================================================================
+            document.getElementById("desarrolladoresComparadosRechazadas").remove();
+
+            let canvas2 = document.createElement("canvas");
+            canvas2.id = "desarrolladoresComparadosRechazadas";
+            document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas2);
+
+
+            const ctxRechazado = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
+            const myChartRechazado = new Chart(ctxRechazado, {
+                type: 'pie',
+                data: {
+                    labels: datos.nombres,
+                    datasets: [{
+                        data: datos.valoresRechazados,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'black';      // else
+
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            //==========================================================================================================================
+            //PENDIENTE
+            //==========================================================================================================================
+            document.getElementById("desarrolladoresComparadosPendientes").remove();
+
+            let canvas3 = document.createElement("canvas");
+            canvas3.id = "desarrolladoresComparadosPendientes";
+            document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas3);
+
+
+            const ctxPendiente = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
+            const myChartPendiente = new Chart(ctxPendiente, {
+                type: 'pie',
+                data: {
+                    labels: datos.nombres,
+                    datasets: [{
+                        data: datos.valoresPendientes,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'black';      // else
+
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            //==========================================================================================================================
+            //DESARROLLO
+            //==========================================================================================================================
+
+            document.getElementById("desarrolladoresComparadosDesarrollo").remove();
+
+            let canvas4 = document.createElement("canvas");
+            canvas4.id = "desarrolladoresComparadosDesarrollo";
+            document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas4);
+
+
+            const ctxDesarrollo = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
+            const myChartDesarrollo = new Chart(ctxDesarrollo, {
+                type: 'pie',
+                data: {
+                    labels: datos.nombres,
+                    datasets: [{
+                        data: datos.valoresDesarrollo,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'black';      // else
+
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            //==========================================================================================================================
+            //TOTAL
+            //==========================================================================================================================
+            document.getElementById("desarrolladoresComparadostotal").remove();
+
+            let canvas5 = document.createElement("canvas");
+            canvas5.id = "desarrolladoresComparadostotal";
+            document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas5);
+
+
+            const ctxTotal = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
+            const myChartTotal = new Chart(ctxTotal, {
+                type: 'pie',
+                data: {
+                    labels: datos.nombres,
+                    datasets: [{
+                        data: datos.valoresTotal,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        datalabels: {
+                            color: function (context) {
+                                let index = context.dataIndex;
+                                let value = context.dataset.data[index];
+                                return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
+                                    'black';      // else
+
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+
         });
 
-        //==========================================================================================================================
-        //RECHAZADAS
-        //==========================================================================================================================
-        document.getElementById("desarrolladoresComparadosRechazadas").remove();
+    }
 
-        let canvas2 = document.createElement("canvas");
-        canvas2.id = "desarrolladoresComparadosRechazadas";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-rechazadas").appendChild(canvas2);
-
-
-        const ctxRechazado = document.getElementById('desarrolladoresComparadosRechazadas').getContext('2d');
-        const myChartRechazado = new Chart(ctxRechazado, {
-            type: 'pie',
-            data: {
-                labels: datos.nombres,
-                datasets: [{
-                    data: datos.valoresRechazados,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'black';      // else
-
-                        }
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-
-        //==========================================================================================================================
-        //PENDIENTE
-        //==========================================================================================================================
-        document.getElementById("desarrolladoresComparadosPendientes").remove();
-
-        let canvas3 = document.createElement("canvas");
-        canvas3.id = "desarrolladoresComparadosPendientes";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-pendientes").appendChild(canvas3);
-
-
-        const ctxPendiente = document.getElementById('desarrolladoresComparadosPendientes').getContext('2d');
-        const myChartPendiente = new Chart(ctxPendiente, {
-            type: 'pie',
-            data: {
-                labels: datos.nombres,
-                datasets: [{
-                    data: datos.valoresPendientes,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'black';      // else
-
-                        }
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-
-        //==========================================================================================================================
-        //DESARROLLO
-        //==========================================================================================================================
-
-        document.getElementById("desarrolladoresComparadosDesarrollo").remove();
-
-        let canvas4 = document.createElement("canvas");
-        canvas4.id = "desarrolladoresComparadosDesarrollo";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-desarrollo").appendChild(canvas4);
-
-
-        const ctxDesarrollo = document.getElementById('desarrolladoresComparadosDesarrollo').getContext('2d');
-        const myChartDesarrollo = new Chart(ctxDesarrollo, {
-            type: 'pie',
-            data: {
-                labels: datos.nombres,
-                datasets: [{
-                    data: datos.valoresDesarrollo,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'black';      // else
-
-                        }
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-
-        //==========================================================================================================================
-        //TOTAL
-        //==========================================================================================================================
-        document.getElementById("desarrolladoresComparadostotal").remove();
-
-        let canvas5 = document.createElement("canvas");
-        canvas5.id = "desarrolladoresComparadostotal";
-        document.getElementById("contenedor-grafica-desarrollador-comparacion-total").appendChild(canvas5);
-
-
-        const ctxTotal = document.getElementById('desarrolladoresComparadostotal').getContext('2d');
-        const myChartTotal = new Chart(ctxTotal, {
-            type: 'pie',
-            data: {
-                labels: datos.nombres,
-                datasets: [{
-                    data: datos.valoresTotal,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    datalabels: {
-                        color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
-                            return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
-                                'black';      // else
-
-                        }
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-
-
-    });
 
 
 

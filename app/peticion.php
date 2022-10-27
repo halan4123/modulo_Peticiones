@@ -24,7 +24,7 @@ if (isset($_POST['displayDataSend'])) {
     if (isset($_POST['displayDataFullSend'])) {
 
         $table = '
-        <table id="tabla_peticiones" class="display table table-responsive table-striped">
+        <table id="tabla_peticiones" class="display table table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
@@ -45,12 +45,11 @@ if (isset($_POST['displayDataSend'])) {
             <tbody>
             ';
 
-        //$sql = "SELECT * FROM `peticion` INNER JOIN laboratorio ON peticion.ID_LABORATORIO = laboratorio.ID_LABORATORIO;"; //CREAMOS LA CONSULTA 
         $display = 1;
     } elseif (isset($_POST['displayDataPendienteSend'])) {
 
         $table = '
-        <table id="tabla_peticiones_pendientes" class="display table table-responsive table-striped">
+        <table id="tabla_peticiones_pendientes" class="display table table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
@@ -74,7 +73,7 @@ if (isset($_POST['displayDataSend'])) {
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
         $table = '
-        <table id="tabla_peticiones_desarrollo" class="display table table-responsive table-striped">
+        <table id="tabla_peticiones_desarrollo" class="display table table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
@@ -98,7 +97,7 @@ if (isset($_POST['displayDataSend'])) {
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
         $table = '
-        <table id="tabla_peticiones_coompletadas" class="display table table-responsive table-striped">
+        <table id="tabla_peticiones_coompletadas" class="display table table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
@@ -216,13 +215,13 @@ if (isset($_POST['displayDataSend'])) {
 
                 if ($fechaInicio == $fechaFinal) {
 
-                    echo 'Son iguales';
+                    //echo 'Son iguales';
                     $sql .= " and FECHA_LLEGADA LIKE '$fechaInicio%'";
                 } else {
 
                     if ($fechaInicio !== '' && $fechaFinal !== '') {
 
-                        echo $fechaInicio . ' ' .  $fechaFinal;
+                        //echo $fechaInicio . ' ' .  $fechaFinal;
 
                         $sql .= " and FECHA_LLEGADA BETWEEN '$fechaInicio 00:00:00.000' and '$fechaFinal 23:59:59.999'";
                     }
@@ -270,6 +269,8 @@ if (isset($_POST['displayDataSend'])) {
         $FECHA_LLEGADA = $row['FECHA_LLEGADA'];
         $FECHA_ENTREGA_ESTIMADA = $row['FECHA_ENTREGA_ESTIMADA'];
         $FECHA_COMPLETADO = $row['FECHA_COMPLETADO'];
+        $ENVIADODB = $row['ENVIADO'];
+        $ELIMINADODB = $row['ELIMINADO'];
         $ID_DESARROLLADOR = $row['NOMDES'];
         $ID_SOPORTE = $row['NOMSOP'];
         $NUMERO_SOPORTE = $row['NUMERO_SOPORTE'];
@@ -329,8 +330,7 @@ if (isset($_POST['displayDataSend'])) {
             ';
         }
 
-        //EL DESAROLLADOR PUEDE SER NULL POR EL LEFT JOIN
-        //LABEL -> SIN DEFINIR
+        //EL DESAROLLADOR PUEDE SER NULL POR EL LEFT JOIN/LABEL -> SIN DEFINIR
         if ($ID_DESARROLLADOR == NULL) {
             $ID_DESARROLLADOR = 'Sin Definir';
         }
@@ -343,9 +343,15 @@ if (isset($_POST['displayDataSend'])) {
          <label hidden>' . $ID_ESTATUS . '</label>';
 
 
-        //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD
+        if ($ELIMINADODB == 1) {
+            $table .= '<tr style=" background-color: rgba(255, 23, 0, 0.2); ">';
+        } else {
+            $table .= '<tr>';
+        }
+
+        //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD tr
         $table .= '
-            <tr>
+
                 <td>' . $CONT . '</td>
                 <td>' . $ID_ESTATUS . '</td>
                 <td>' . $ID_NIVEL . '</td>
@@ -369,37 +375,109 @@ if (isset($_POST['displayDataSend'])) {
                             <div class="re">';
         }
 
+        //LO AGREGUE RECIENTEMENTE PARA COMPROBAR SI CON ESTO SE RESULVE EL BUG QUE SE PRESENTA AL ENVIAR UNA PETCION 
+        // // if (empty($FECHA_COMPLETADO)) {
+        // //     $FECHA_COMPLETADO = 'Sin Definir';
+        // // }
+
+        // if ($FECHA_COMPLETADO == '<span class="label label-danger">Incompleta</span>') {
+        //     $FECHA_COMPLETADO_WP = 'Sin Definir';
+        // }
+
+        // $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $FECHA_COMPLETADO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
+        // <span class="bi bi-whatsapp"></span>
+        // </button>';
+
 
         //BOTONES DE WHATSAPP 
-        if ($ID_ESTATUS_COPY == 'Completado') {
-            $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $FECHA_COMPLETADO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
-            <span class="bi bi-whatsapp"></span>
-            </button>';
-        } elseif ($ID_ESTATUS_COPY == 'Rechazado') {
-            $table .= '<button onclick="wpRechazado(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
-            <span class="bi bi-whatsapp"></span>
-            </button>';
+
+        if ($ELIMINADODB == 0) {
+
+            if (($ID_ESTATUS_COPY == 'Completado' && $ENVIADODB == 1) || ($ID_ESTATUS_COPY == 'Completado' && $ENVIADODB == 0)) {
+                $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
+                <span class="bi bi-whatsapp"></span>
+                </button>';
+            } elseif ($ID_ESTATUS_COPY == 'Rechazado' && $ENVIADODB == 1 || ($ID_ESTATUS_COPY == 'Rechazado' && $ENVIADODB == 0)) {
+                $table .= '<button onclick="wpRechazado(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
+                <span class="bi bi-whatsapp"></span>
+                </button>';
+            }
         }
 
-        //BOTONES DE ACCIONES
-        $table .=
-            '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
-                    <span class="bi bi-eye-fill"></span>
-                    </button>
 
-                    <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ","  . $display . ')">
-                    <span class="bi bi-pencil-fill"></span>
-                    </button>
 
-                    <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
-                    <span class="bi bi-trash-fill"></span>
-                    </button>
-                </div>
-                   
 
-                </td>
-            </tr>
-            ';
+        if ($ELIMINADODB == 1) {
+
+            //BOTONES DE ACCIONES
+            $table .=
+                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                <span class="bi bi-eye-fill"></span>
+                </button>
+
+            </div>
+               
+
+            </td>
+        </tr>
+        ';
+        } elseif ($ID_ESTATUS_COPY == 'Completado' || $ID_ESTATUS_COPY == 'Rechazado') {
+
+            //BOTONES DE ACCIONES
+            $table .=
+                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                <span class="bi bi-eye-fill"></span>
+                </button>
+
+
+            </div>
+               
+
+            </td>
+        </tr>
+        ';
+        } else {
+            $table .=
+                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                <span class="bi bi-eye-fill"></span>
+                </button>
+
+                <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ","  . $display . ')">
+                <span class="bi bi-pencil-fill"></span>
+                </button>
+
+                <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
+                <span class="bi bi-trash-fill"></span>
+                </button>
+            </div>
+
+
+            </td>
+        </tr>
+        ';
+        }
+
+
+        //         $table .=
+        //         '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+        //         <span class="bi bi-eye-fill"></span>
+        //         </button>
+
+        //         <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ","  . $display . ')">
+        //         <span class="bi bi-pencil-fill"></span>
+        //         </button>
+
+        //         <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
+        //         <span class="bi bi-trash-fill"></span>
+        //         </button>
+        //     </div>
+
+
+        //     </td>
+        // </tr>
+        // ';
+
+
 
         //CONTADOR QUE HACE REFERENCIA AL # EN LA TABLA
         $CONT += 1;
@@ -507,8 +585,18 @@ if (isset($_POST['eliminarDataSend'])) {
 
     $id = $_POST['deleteSend'];
 
+    // $stmt = $conn->prepare(
+    //     "DELETE FROM `peticion` WHERE ID_PETICION = ?"
+    // );
+
+    // $stmt->bind_param("i", $id);
+
+    // $stmt->execute();
+
+    // $stmt->close();
+
     $stmt = $conn->prepare(
-        "DELETE FROM `peticion` WHERE ID_PETICION = ?"
+        "UPDATE `peticion` SET `ELIMINADO` = '1' WHERE ID_PETICION = ?"
     );
 
     $stmt->bind_param("i", $id);
@@ -532,10 +620,12 @@ if (isset($_POST['actualizarDataSend'])) {
     $ID_ESTATUS = $_POST['estatusActualizarSend'];
     $DESCRIPCION = $_POST['descripcionActualizarSend'];
     $ENVIADO = $_POST['enviadoSend'];
-    //$WP = $_POST['wpSend'];
 
-    //SI NO HAY NADA EN EL ESTATUS, SE OBTENDRA EL ESTATUS QUE HAY POR DEFECTO 
+
+    //OBTENEMOS DATOS NECESARIOS
     if (isset($ID_ESTATUS)) {
+
+        //OBTENEMOS EL NOMBRE DEL ESTATUS -> COMPLETADO, PENDIENTE, RECHAZADO, DESARROLLO 
 
         $stmt = $conn->prepare("SELECT ESTATUS FROM estatus WHERE ID_ESTATUS = ?");
 
@@ -552,39 +642,104 @@ if (isset($_POST['actualizarDataSend'])) {
         $ID_ESTATUS_TEXT = $data['ESTATUS'];
 
         $ID_ESTATUS_TEXT = strtolower($ID_ESTATUS_TEXT);
-    }
 
+        //OBTENEMOS LA FECHA DE COMPLETADO 
 
-    //ACTUALIZA DEPENDE EL CASO
-    if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
+        $stmt = $conn->prepare("SELECT FECHA_COMPLETADO FROM PETICION WHERE ID_PETICION = ?");
 
-        /**
-         * SI EL ESTATUS ES COMPLETADO, 2 ES LA REFERENCIA EN LA BASE DE DATOS
-         * SI EL ESTATUS CAMBIA A COMPLETADO SE REGISTRARA LA FECHA ACTUAL DE COMPLETADO
-         */
-
-        $stmt = $conn->prepare(
-            "UPDATE `peticion` SET `ASUNTO` = ?,
-            `ID_LABORATORIO` = ?,
-            `FECHA_ENTREGA_ESTIMADA` = ?,
-            `ID_DESARROLLADOR` = ?,
-            `ID_NIVEL` = ?,
-            `ID_ESTATUS` = ?,
-            `DESCRIPCION` = ?,
-            `FECHA_COMPLETADO` = current_timestamp()
-            WHERE `ID_PETICION` = ?"
-        );
-
-        $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+        $stmt->bind_param("i", $ID_PETICION);
 
         $stmt->execute();
 
-        $stmt->close();
-    } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
+        $result = $stmt->get_result();
 
-        /**
-         * ACTUALIZA LOS DATOS NORMALMENTE, REAFIRMANDO EL ENVIADO COMO TRUE -> 1
-         */
+        $stmt->close();
+
+        $data = $result->fetch_assoc();
+
+        $FECHA_COMPLETADO_TEXT = $data['FECHA_COMPLETADO'];
+
+        $FECHA_COMPLETADO_TEXT = strtolower($FECHA_COMPLETADO_TEXT);
+    }
+
+    //COMPROBAMOS SI EL DESARROLLADOR ES NULO, VOLVEMOS A ACTUALIZARLO COMO NULO
+    if ($ID_DESARROLLADOR == 'null' || $ID_DESARROLLADOR == '0') {
+
+        $ID_DESARROLLADOR = NULL;
+    }
+
+    if ($FECHA_COMPLETADO_TEXT == '0000-00-00 00:00:00' && $ID_ESTATUS_TEXT == 'completado') {
+
+        echo 'Aqui primero';
+        if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
+
+            $stmt = $conn->prepare(
+                "UPDATE `peticion` SET `ASUNTO` = ?,
+                `ID_LABORATORIO` = ?,
+                `FECHA_ENTREGA_ESTIMADA` = ?,
+                `ID_DESARROLLADOR` = ?,
+                `ID_NIVEL` = ?,
+                `ID_ESTATUS` = ?,
+                `DESCRIPCION` = ?,
+                `FECHA_COMPLETADO` = current_timestamp()
+                WHERE `ID_PETICION` = ?"
+            );
+
+            $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+            $stmt->execute();
+
+            $stmt->close();
+        } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
+
+            $stmt = $conn->prepare(
+                "UPDATE `peticion` SET `ASUNTO` = ?,
+                `ID_LABORATORIO` = ?,
+                `FECHA_ENTREGA_ESTIMADA` = ?,
+                `ID_DESARROLLADOR` = ?,
+                `ID_NIVEL` = ?,
+                `ID_ESTATUS` = ?,
+                `DESCRIPCION` = ?,
+                `FECHA_COMPLETADO` = current_timestamp(),
+                `ENVIADO` = 1
+                WHERE `ID_PETICION` = ?"
+            );
+
+            $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+            $stmt->execute();
+
+            $stmt->close();
+
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0; //Enable verbose debug output
+                $mail->isSMTP(); //Send using SMTP
+                $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
+                $mail->SMTPAuth   = true; //Enable SMTP authentication
+                $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
+                $mail->Password   = 'gVD!bSf7'; //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+                $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                //Recipients
+                $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
+                $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+
+                //Content
+                $mail->isHTML(true); //Set email format to HTML
+                $mail->Subject = 'Asunto del correo de prueba 2';
+                $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
+                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+            } catch (Exception $e) {
+            }
+        }
+    } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
 
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
@@ -603,34 +758,37 @@ if (isset($_POST['actualizarDataSend'])) {
         $stmt->execute();
 
         $stmt->close();
-    } elseif ($ID_DESARROLLADOR == 'null') {
 
-        /**
-         * SI LA PETICION NO ESTA COMPLETADA, HACE UNA ACTUALIZACION NORMAL
-         * SE PREGUNTA SI EL DESARROLLADOR ESTA VACIO
-         */
-        $stmt = $conn->prepare(
-            "UPDATE `peticion` SET `ASUNTO` = ?,
-            `ID_LABORATORIO` = ?,
-            `FECHA_ENTREGA_ESTIMADA` = ?,
-            `ID_DESARROLLADOR` = NULL,
-            `ID_NIVEL` = ?,
-            `ID_ESTATUS` = ?,
-            `DESCRIPCION` = ?
-            WHERE `ID_PETICION` = ?"
-        );
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
 
-        $stmt->bind_param("ssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0; //Enable verbose debug output
+            $mail->isSMTP(); //Send using SMTP
+            $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
+            $mail->SMTPAuth   = true; //Enable SMTP authentication
+            $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
+            $mail->Password   = 'gVD!bSf7'; //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+            $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-        $stmt->execute();
+            //Recipients
+            $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
+            $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
 
-        $stmt->close();
+            //Content
+            $mail->isHTML(true); //Set email format to HTML
+            $mail->Subject = 'Asunto del correo de prueba 2';
+            $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
+            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+        } catch (Exception $e) {
+        }
     } else {
 
-        /**
-         * ACTUALIZACION NORMAL
-         */
-
+        //ESTA ES UNA ACTUALIZACIÓN NORMAL
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
             `ID_LABORATORIO` = ?,
@@ -638,7 +796,8 @@ if (isset($_POST['actualizarDataSend'])) {
             `ID_DESARROLLADOR` = ?,
             `ID_NIVEL` = ?,
             `ID_ESTATUS` = ?,
-            `DESCRIPCION` = ?
+            `DESCRIPCION` = ?,
+            `ENVIADO` = 0
             WHERE `ID_PETICION` = ?"
         );
 
@@ -648,6 +807,60 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $stmt->close();
     }
+
+
+    //SE ACTUALIZA DEPENDIENDO EL CASO
+    // if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
+    // } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
+
+    //     /**
+    //      * ACTUALIZA LOS DATOS NORMALMENTE, REAFIRMANDO EL ENVIADO COMO TRUE -> 1
+    //      */
+    // } elseif ($ID_DESARROLLADOR == 'null') {
+
+    //     /**
+    //      * SI LA PETICION NO ESTA COMPLETADA, HACE UNA ACTUALIZACION NORMAL
+    //      * SE PREGUNTA SI EL DESARROLLADOR ESTA VACIO
+    //      */
+    //     // $stmt = $conn->prepare(
+    //     //     "UPDATE `peticion` SET `ASUNTO` = ?,
+    //     //     `ID_LABORATORIO` = ?,
+    //     //     `FECHA_ENTREGA_ESTIMADA` = ?,
+    //     //     `ID_DESARROLLADOR` = NULL,
+    //     //     `ID_NIVEL` = ?,
+    //     //     `ID_ESTATUS` = ?,
+    //     //     `DESCRIPCION` = ?
+    //     //     WHERE `ID_PETICION` = ?"
+    //     // );
+
+    //     // $stmt->bind_param("ssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+    //     // $stmt->execute();
+
+    //     // $stmt->close();
+    // } else {
+
+    //     /**
+    //      * ACTUALIZACION NORMAL
+    //      */
+
+    //     $stmt = $conn->prepare(
+    //         "UPDATE `peticion` SET `ASUNTO` = ?,
+    //         `ID_LABORATORIO` = ?,
+    //         `FECHA_ENTREGA_ESTIMADA` = ?,
+    //         `ID_DESARROLLADOR` = ?,
+    //         `ID_NIVEL` = ?,
+    //         `ID_ESTATUS` = ?,
+    //         `DESCRIPCION` = ?
+    //         WHERE `ID_PETICION` = ?"
+    //     );
+
+    //     $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
+
+    //     $stmt->execute();
+
+    //     $stmt->close();
+    // }
 }
 
 //==========================================================================================================================
@@ -665,6 +878,34 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $stmt->close();
 
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = 0; //Enable verbose debug output
+        $mail->isSMTP(); //Send using SMTP
+        $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
+        $mail->SMTPAuth   = true; //Enable SMTP authentication
+        $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
+        $mail->Password   = 'gVD!bSf7'; //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+        $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
+        $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+
+        //Content
+        $mail->isHTML(true); //Set email format to HTML
+        $mail->Subject = 'Asunto del correo de prueba 80';
+        $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+    } catch (Exception $e) {
+    }
 }
 
 //==========================================================================================================================

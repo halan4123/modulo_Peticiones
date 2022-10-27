@@ -53,7 +53,7 @@ TAMAÑO ICONOS NIVEL, ESTATUS -> .tam / TAMAÑO ICONOS BOOTSTRAP SIMBOLOGIA -> .
 ESTILOS MODALES
 =====================================================================================================================*/
 .modal-color {
-    background-color: #FF5757;
+    background-color: #FF7A7A;
     color: white;
 }
 
@@ -61,7 +61,8 @@ ESTILOS MODALES
 ESTILOS TABLA
 =====================================================================================================================*/
 table th {
-    background-color: #FF5757;
+   
+    background-color: #FF7A7A;
     color: white;
 }
 
@@ -69,7 +70,9 @@ table th {
 #displayDataTable,
 #displayDataTablePendiente,
 #displayDataTableDesarrolloo,
-#displayDataTableCompletadas {
+#displayDataTableCompletadas,
+#displayDataTableDesarrollador,
+#displayDataTableSoporte {
     overflow: auto;
 }
 

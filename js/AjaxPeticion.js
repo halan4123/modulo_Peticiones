@@ -323,8 +323,8 @@ function actualizar() {
 
     let caso_display = $('#caso_display').val();
 
-    console.log('El caso es: ' + caso_display);
-    console.log(typeof (caso_display));
+    // console.log('El caso es: ' + caso_display);
+    // console.log(typeof (caso_display));
 
     let idHidden = $('#idHidden').val();
     let asuntoActualizar = $('#asuntoUpdate').val();
@@ -355,8 +355,9 @@ function actualizar() {
     if (estatusActualizar == "2") {
 
         swal({
-            title: "¿Te gustaria enviar el mensaje de Whatsapp?",
-            icon: "images/wp.png",
+            title: "¿Enviar correo electronico y mensaje de whatsapp?",
+            // icon: "images/wp.png",
+            icon: "warning",
             buttons: ["No, no enviar", "Si, si enviar"],
             closeOnClickOutside: false,
             allowOutsideClick: false
@@ -365,6 +366,12 @@ function actualizar() {
             .then((willSend) => {
 
                 if (willSend) {
+
+                    swal("Enviando Correo...", {
+                        icon: "images/loading3.gif",
+                        buttons: false,
+                        closeOnClickOutside: false
+                    });
 
                     $.post("app/peticion.php", {
 
@@ -382,12 +389,14 @@ function actualizar() {
                     }, function (data, status) {
 
                         swal({
-                            title: "Petición Actualizada y ventana emergente de whatsapp abierta",
+                            title: "Correo enviado y ventana emergente de whatsapp abierta",
                             icon: "success",
                             button: "Cerrar",
                         });
 
-                        window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
+                        let msg = 'https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*';
+
+                        window.open(msg, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=700,left=700,width=600,height=400");
 
                         if (caso_display == '1') {
 
@@ -872,23 +881,16 @@ function limpiarInputAgregar() {
 }
 
 //ENVIA MENSAJE DE PETICION COMPLETADA
-function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fechaLlegada, soporte) {
+function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
 
     let actualizarDesdeWp = true;
 
-    // console.log(id);
-    // console.log(asunto);
+    let fechaEnviado = moment().format("DD-MM-YYYY");
 
-    // console.log(celular);
-    // console.log(laboratorio);
-    // console.log(fechaCompletado);
-    // console.log(desarrollador);
-    // console.log(fechaLlegada);
-    // console.log(soporte);
 
     swal({
-        title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+        title: "¿Enviar correo electrónico y mensaje de whatsapp?",
         icon: "images/wp.png",
         buttons: ["No, no enviar", "Si, si enviar"],
         closeOnClickOutside: false,
@@ -898,6 +900,11 @@ function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fe
 
             if (willSend) {
 
+                swal("Enviando correo electrónico...", {
+                    icon: "images/loading3.gif",
+                    buttons: false,
+                    closeOnClickOutside: false
+                });
 
                 $.post("app/peticion.php", {
 
@@ -906,12 +913,20 @@ function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fe
 
                 }, function (data, status) {
 
+
+
+                    swal({
+                        title: "Correo enviado y ventana emergente de whatsapp abierta",
+                        icon: "success",
+                        button: "Cerrar",
+                    });
+
                     // displayData();
                     // displayDataPendientes();
                     // displayDataDesarrollo();
                     displayDataCompletas();
 
-                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20el%20*' + fechaEnviado + '*%20por%20*' + desarrollador + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
 
                 });
 
@@ -919,7 +934,7 @@ function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fe
 
 
                 swal({
-                    title: "La Petición No Fue Enviada",
+                    title: "La petición no fue enviada",
                     icon: "warning",
                     button: "Cerrar",
                 });
@@ -938,12 +953,13 @@ function wp(id, asunto, celular, laboratorio, fechaCompletado, desarrollador, fe
 //ENVIA MENSAJE DE PETICION RECHAZADA
 function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
-
+    console.log('Estoy en rechazdo');
     let actualizarDesdeWp = true;
 
+    let fechaEnviado = moment().format("DD-MM-YYYY");
 
     swal({
-        title: "¿Te gustaria enviar el mensaje de Whatsapp?",
+        title: "¿Enviar correo electrónico y mensaje de whatsapp?",
         icon: "images/wp.png",
         buttons: ["No, no enviar", "Si, si enviar"],
         closeOnClickOutside: false,
@@ -953,6 +969,12 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
             if (willSend) {
 
+                swal("Enviando correo electrónico...", {
+                    icon: "images/loading3.gif",
+                    buttons: false,
+                    closeOnClickOutside: false
+                });
+
 
                 $.post("app/peticion.php", {
 
@@ -961,9 +983,15 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
                 }, function (data, status) {
 
+                    swal({
+                        title: "Correo enviado y ventana emergente de whatsapp abierta",
+                        icon: "success",
+                        button: "Cerrar",
+                    });
+
                     displayDataCompletas();
 
-                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20fecha%20de%20llegada%20*' + fechaLlegada + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada.');
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20fecha%20de%20llegada%20*' + fechaLlegada + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada%20el%20*' + fechaEnviado + '*%20por%20*' + desarrollador + '*.');
 
                 });
 
@@ -971,7 +999,7 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
 
                 swal({
-                    title: "La Petición No Fue Enviada",
+                    title: "La petición no fue enviada",
                     icon: "warning",
                     button: "Cerrar",
                 });
@@ -985,6 +1013,8 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
 
 }
+
+
 
 //LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES EN LA PESTAÑA DE BUSCADOR DE PETICIONES
 function limpiarFiltros() {

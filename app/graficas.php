@@ -1033,22 +1033,6 @@ if (isset($_POST['graficaPorYearSend'])) {
 
     while ($MES_POR_DEFECTO <= 12) {
 
-        // $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
-        // INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-        // WHERE e.estatus = 'Completado'AND ID_DESARROLLADOR = $DESARROLLADOR 
-        // AND MONTH(FECHA_LLEGADA) = $MES_POR_DEFECTO 
-        // AND YEAR(FECHA_LLEGADA) = $yearGot";
-
-        // $result = mysqli_query($conn, $sql);
-
-        // $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
-
-        // $VALOR = intval($VALOR);
-
-        // array_push($VALOR_MENSUAL_COMPLETADAS, $VALOR);
-
-        // $MES_POR_DEFECTO++;
-
         $stmt = $conn->prepare(
             "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
             INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
@@ -1114,22 +1098,6 @@ if (isset($_POST['desarrolladorDiasMesSend'])) {
         if ($DIA_INICIO <= 9) {
             $DIA_INICIO = "0" . $DIA_INICIO;
         }
-
-        // $FECHA = "$yearGot-$mesGot-$DIA_INICIO";
-
-        // $sql = "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
-        // INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-        // WHERE FECHA_LLEGADA LIKE '$FECHA%' 
-        // AND e.estatus = 'Completado'AND ID_DESARROLLADOR = $desGot";
-
-        // $result = mysqli_query($conn, $sql);
-
-        // $VALOR = $result->fetch_array()['TOTAL'] ?? 0;
-
-        // array_push($DIAS_DEL_MES_GRAFICA_VALORES, $VALOR);
-
-        // $CONT++;
-        // $DIA_INICIO++;
 
         $FECHA = "$yearGot-$mesGot-$DIA_INICIO";
 
