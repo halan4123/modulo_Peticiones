@@ -323,9 +323,6 @@ function actualizar() {
 
     let caso_display = $('#caso_display').val();
 
-    // console.log('El caso es: ' + caso_display);
-    // console.log(typeof (caso_display));
-
     let idHidden = $('#idHidden').val();
     let asuntoActualizar = $('#asuntoUpdate').val();
     let laboratorioActualizar = $('#laboratorioUpdate').val();
@@ -394,9 +391,7 @@ function actualizar() {
                             button: "Cerrar",
                         });
 
-                        let msg = 'https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20el%20*' + fechaCompletado + '*%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*';
-
-                        window.open(msg, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=700,left=700,width=600,height=400");
+                        window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
 
                         if (caso_display == '1') {
 
@@ -886,7 +881,6 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
 
     let actualizarDesdeWp = true;
 
-    let fechaEnviado = moment().format("DD-MM-YYYY");
 
 
     swal({
@@ -926,7 +920,7 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
                     // displayDataDesarrollo();
                     displayDataCompletas();
 
-                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20el%20*' + fechaEnviado + '*%20por%20*' + desarrollador + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
+                    window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20por%20*' + desarrollador.trim() + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
 
                 });
 
@@ -953,7 +947,6 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
 //ENVIA MENSAJE DE PETICION RECHAZADA
 function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
-    console.log('Estoy en rechazdo');
     let actualizarDesdeWp = true;
 
     let fechaEnviado = moment().format("DD-MM-YYYY");
@@ -1156,4 +1149,71 @@ function limpiarDesarrolladorw() {
 
 function limpiarEstatusw() {
     $('#filtroEstatus').val(null).trigger('change');
+}
+
+function soloNumeros(e) {
+
+    let key = e.KeyCode || e.which;
+
+    let teclado = String.fromCharCode(key);
+
+    let numero = "0123456789";
+
+    let especiales = "8-37-38-46";
+
+    let teclado_especial = false;
+
+    for (const i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial = true;
+
+        }
+    }
+
+    if (numero.indexOf(teclado) == -1 && !teclado_especial) {
+        return false;
+    }
+
+
+}
+
+
+function colr() {
+    let coloR = [];
+
+    let colorRGBA = []
+
+    let dynamicColors = function () {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    };
+
+
+    for (let index = 0; index < 5; index++) {
+        coloR.push(dynamicColors());
+
+    }
+
+    let nue;
+
+    for (let index = 0; index < 5; index++) {
+
+        nue = insertarTexto(coloR[index], "a", 3);
+        nue = nue.substring(0, 15);
+        nue = insertarTexto(nue, ",0.5)", 15);
+        colorRGBA.push(nue);
+    }
+
+
+
+    console.log(coloR);
+
+    console.log(colorRGBA);
+
+}
+
+function insertarTexto(frase, textoAgregar, posicion) {
+    return frase.slice(0, posicion) + textoAgregar + frase.slice(posicion);
 }

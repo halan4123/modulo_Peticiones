@@ -1,5 +1,5 @@
 <!--=====================================================================================================================
-MODAL AGREGAR PETICION 
+MODAL AGREGAR PETICION -> maxlength="75" en asunto
 ======================================================================================================================-->
 <div id="modalAgregar" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
@@ -14,7 +14,7 @@ MODAL AGREGAR PETICION
 
                 <div class="form-group">
                     <label for="asuntoAdd">Asunto:</label>
-                    <input type="text" class="form-control" id="asuntoAdd" placeholder="Asunto">
+                    <input type="text" class="form-control" id="asuntoAdd" placeholder="Asunto" maxlength="75">
                 </div>
 
 
@@ -146,7 +146,7 @@ MODAL VER INFORMACIÓN PETICION
 </div>
 
 <!--=====================================================================================================================
-MODAL EDITAR PETICION
+MODAL EDITAR PETICION -> maxlength="75" en asunto
 ======================================================================================================================-->
 <div id="modalEditar" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -161,7 +161,7 @@ MODAL EDITAR PETICION
 
                 <div class="form-group">
                     <label for="asuntoUpdate">Asunto:</label>
-                    <input type="text" class="form-control" id="asuntoUpdate">
+                    <input type="text" class="form-control" id="asuntoUpdate" maxlength="75">
                 </div>
 
                 <div class="form-group">
@@ -172,7 +172,7 @@ MODAL EDITAR PETICION
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_entregaUpdate">Fecha de entrega:</label>
+                    <label for="fecha_entregaUpdate">Fecha de entrega estimada:</label>
                     <input type="datetime-local" class="form-control" id="fecha_entregaUpdate">
                 </div>
 
@@ -235,7 +235,7 @@ MODAL EDITAR PETICION
 </div>
 
 <!--=====================================================================================================================
-MODAL AGREGAR DESARROLLADOR 
+MODAL AGREGAR DESARROLLADOR  -> maxlength="25" en nombre y apellido
 ======================================================================================================================-->
 <div id="modalAgregarDesarrollador" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
@@ -250,12 +250,12 @@ MODAL AGREGAR DESARROLLADOR
 
                 <div class="form-group">
                     <label for="nombreDesarrolladorAdd">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombreDesarrolladorAdd" placeholder="Nombre(s)">
+                    <input type="text" class="form-control" id="nombreDesarrolladorAdd" placeholder="Nombre(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="apellidoDesarrolladorAdd">Apellido(s):</label>
-                    <input type="text" class="form-control" id="apellidoDesarrolladorAdd" placeholder="Apellido(s)">
+                    <input type="text" class="form-control" id="apellidoDesarrolladorAdd" placeholder="Apellido(s)" maxlength="25">
                 </div>
 
             </div>
@@ -308,7 +308,7 @@ MODAL VER INFORMACIÓN DESARROLLADOR
 </div>
 
 <!--=====================================================================================================================
-MODAL ACTUALIZAR DESARROLLADOR 
+MODAL ACTUALIZAR DESARROLLADOR -> maxlength="25" en nombre y apellido
 ======================================================================================================================-->
 <div id="modalEditarDesarrollador" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
@@ -323,12 +323,12 @@ MODAL ACTUALIZAR DESARROLLADOR
 
                 <div class="form-group">
                     <label for="nombreDesarrolladorUpdate">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombreDesarrolladorUpdate" placeholder="Nombre(s)">
+                    <input type="text" class="form-control" id="nombreDesarrolladorUpdate" placeholder="Nombre(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="apellidoDesarrolladorUpdate">Apellido(s):</label>
-                    <input type="text" class="form-control" id="apellidoDesarrolladorUpdate" placeholder="Apellido(s)">
+                    <input type="text" class="form-control" id="apellidoDesarrolladorUpdate" placeholder="Apellido(s)" maxlength="25">
                 </div>
 
             </div>
@@ -345,7 +345,7 @@ MODAL ACTUALIZAR DESARROLLADOR
 </div>
 
 <!--=====================================================================================================================
-MODAL AGREGAR SOPORTE 
+MODAL AGREGAR SOPORTE -> maxlength
 ======================================================================================================================-->
 <div id="modalAgregarSoporte" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
@@ -360,22 +360,22 @@ MODAL AGREGAR SOPORTE
 
                 <div class="form-group">
                     <label for="nombreSoporteAdd">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombreSoporteAdd" placeholder="Nombre(s)">
+                    <input type="text" class="form-control" id="nombreSoporteAdd" placeholder="Nombre(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="apellidoSoporteAdd">Apellido(s):</label>
-                    <input type="text" class="form-control" id="apellidoSoporteAdd" placeholder="Apellido(s)">
+                    <input type="text" class="form-control" id="apellidoSoporteAdd" placeholder="Apellido(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="numeroSoperteAdd">Numero de celular:</label>
-                    <input type="text" class="form-control" id="numeroSoperteAdd" placeholder="Numero de celular">
+                    <input type="text" class="form-control" id="numeroSoperteAdd" placeholder="Numero de celular" maxlength="10" onkeypress="return soloNumeros(event)" onpaste="return false">
                 </div>
 
                 <div class="form-group">
                     <label for="correoSoporteAdd">Correo:</label>
-                    <input type="text" class="form-control" id="correoSoporteAdd" placeholder="Correo">
+                    <input type="email" class="form-control" id="correoSoporteAdd" placeholder="Correo" maxlength="30">
                 </div>
 
             </div>
@@ -454,22 +454,22 @@ MODAL EDITAR SOPORTE
 
                 <div class="form-group">
                     <label for="nombreSoporteSee">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombreSoporteUpdate" placeholder="Nombre(s)">
+                    <input type="text" class="form-control" id="nombreSoporteUpdate" placeholder="Nombre(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="apellidoSoporteSee">Apellido(s):</label>
-                    <input type="text" class="form-control" id="apellidoSoporteUpdate" placeholder="Apellido(s)">
+                    <input type="text" class="form-control" id="apellidoSoporteUpdate" placeholder="Apellido(s)" maxlength="25">
                 </div>
 
                 <div class="form-group">
                     <label for="numeroSoperteSee">Numero de celular:</label>
-                    <input type="text" class="form-control" id="numeroSoperteUpdaate" placeholder="Numero de celular">
+                    <input type="text" class="form-control" id="numeroSoperteUpdaate" placeholder="Numero de celular" maxlength="10" onkeypress="return soloNumeros(event)" onpaste="return false">
                 </div>
 
                 <div class="form-group">
                     <label for="correoSoporteSee">Correo:</label>
-                    <input type="text" class="form-control" id="correoSoporteUpdate" placeholder="Correo">
+                    <input type="text" class="form-control" id="correoSoporteUpdate" placeholder="Correo" maxlength="30">
                 </div>
 
                 <input type="hidden" id="idHiddenSoporte">

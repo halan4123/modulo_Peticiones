@@ -33,6 +33,7 @@ function graficarEstadisticasGenerales() {
     let fechaInicio = $('#filtroFechaInicioGraficos').val();
     let fechaFinal = $('#filtroFechaFinalGraficos').val();
 
+
     let desarrolladorDatos = true;
     let soporteDatos = true;
 
@@ -46,6 +47,20 @@ function graficarEstadisticasGenerales() {
     }, function (data, status) {
 
         let datos = JSON.parse(data);
+
+        let coloR = [];
+
+        let dynamicColors = function () {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
+        };
+
+        for (let i in datos.datos) {
+
+            coloR.push(dynamicColors());
+        }
 
         document.getElementById("peticionesAceptadasDesarrolladores").remove();
 
@@ -63,22 +78,7 @@ function graficarEstadisticasGenerales() {
                 datasets: [{
                     label: 'Peticiones Por Desarrollador',
                     data: datos.datos,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
+                    backgroundColor: coloR,
                     borderWidth: 1,
                     datalabels: {
                         color: function (context) {
@@ -115,6 +115,20 @@ function graficarEstadisticasGenerales() {
 
         let datosSoporte = JSON.parse(data);
 
+        let coloR = [];
+
+        let dynamicColors = function () {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
+        };
+
+        for (let i in datosSoporte.datos) {
+
+            coloR.push(dynamicColors());
+        }
+
         document.getElementById("peticionesRegistradasSoporte").remove();
 
         let canvas2 = document.createElement("canvas");
@@ -130,22 +144,7 @@ function graficarEstadisticasGenerales() {
                 datasets: [{
                     label: 'Peticiones Por Desarrollador',
                     data: datosSoporte.datos,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
+                    backgroundColor: coloR,
                     borderWidth: 1,
                     datalabels: {
                         color: function (context) {
@@ -1497,7 +1496,6 @@ function graficarDesarrolladorMes() {
 
             let datos = JSON.parse(data);
 
-
             let coloR = [];
 
             let dynamicColors = function () {
@@ -1511,6 +1509,8 @@ function graficarDesarrolladorMes() {
 
                 coloR.push(dynamicColors());
             }
+
+
 
             document.getElementById("desarrolladorComparacionDiasMes").remove();
 

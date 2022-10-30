@@ -64,6 +64,8 @@ include 'filtros.php';
 
             <h2>Módulo Peticiones</h2>
 
+            <button class="btn btn-default" onclick="colr() ">Colores</button>
+
             <ul class="nav nav-tabs">
                 <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
                 <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente(); " data-toggle="tab" href="#menu3">Graficos</a></li>

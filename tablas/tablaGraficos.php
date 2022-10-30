@@ -4,7 +4,6 @@
         <!--=====================================================================================================================
         ESTADISTICAS GENERALES 
         ======================================================================================================================-->
-
         <div class="panel panel-default">
 
             <div class="panel-heading panel-heading-custom-5">
@@ -259,12 +258,11 @@
             </div>
         </div>
 
-
         <!--=====================================================================================================================
         ESTADISTICAS DE LABORATORIO 
         ======================================================================================================================-->
         <div class="panel panel-default">
-            <div class="panel-heading panel-heading-custom-3">
+            <div class="panel-heading panel-heading-custom-2">
                 <h4 class="panel-title">
                     <a onfocus="buscadorLabGraficas()" data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasLaboratorio">Estadisticas Laboratorios</a>
                 </h4>
@@ -343,7 +341,7 @@
                         <div class="col-md-12 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedorLabGrafica">
 
@@ -360,7 +358,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;"><label>Peticiones Recibidas</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas</label></div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-recibidas">
 
@@ -377,7 +375,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;"><label>Peticiones Completadas</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Completadas</label></div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-completadas">
 
@@ -394,7 +392,7 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center;"><label>Peticiones Rechazadas</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Rechazadas</label></div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-rechazadas">
 
@@ -470,7 +468,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Pendientes</label> </div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Pendientes</label> </div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosPendientesLab"></p>
@@ -484,7 +482,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>En Desarrollo</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>En Desarrollo</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosDesarrolloLab"></p>
@@ -498,7 +496,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Completadas</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Completadas</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosCompletadosLab"></p>
@@ -512,7 +510,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Rechazadas</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Rechazadas</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosRechazadosLab"></p>
@@ -522,13 +520,11 @@
                             </div>
                         </div>
 
-
-
                         <div class="col-md-2 separacion">
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Total</label></div>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Total</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosLab"></p>
@@ -551,7 +547,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
 
 
 
@@ -577,12 +573,11 @@
             </div>
         </div>
 
-
         <!--=====================================================================================================================
         ESTADISTICAS DE DESARROLLADOR 
         ======================================================================================================================-->
         <div class="panel panel-default">
-            <div class="panel-heading panel-heading-custom-2">
+            <div class="panel-heading panel-heading-custom-3">
                 <h4 class="panel-title">
                     <a onfocus="buscadorEstadisticasDesarrolladores()" data-toggle="collapse" data-parent="#acordion_graficas" href="#estadisticasDesarrollador">Estadisticas Desarrolladores</a>
                 </h4>
@@ -701,7 +696,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
                                     <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Anual <span class="bi bi-question-circle-fill"></span></label>
                                 </div>
 
@@ -722,7 +717,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
                                     <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Mensual <span class="bi bi-question-circle-fill"></span></label>
                                 </div>
 
@@ -808,7 +803,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Pendientes</label> </div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Pendientes</label> </div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosPendientes"></p>
@@ -822,7 +817,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>En Desarrollo</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>En Desarrollo</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosDesarrollo"></p>
@@ -836,7 +831,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Completadas</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Completadas</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosCompletados"></p>
@@ -850,7 +845,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Rechazadas</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Rechazadas</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosRechazados"></p>
@@ -866,7 +861,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Total</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Total</label></div>
 
                                 <div class="contenedor-card dimensiones_2" id="">
                                     <p id="totalDatosDes"></p>
@@ -886,7 +881,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Desempeño por desarrollador</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Desempeño por desarrollador</label></div>
 
                                 <div class="panel-body">
 
@@ -997,7 +992,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Completadas</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Completadas</label></div>
 
                                 <div class="panel-body">
 
@@ -1016,7 +1011,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Rechazadas</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Rechazadas</label></div>
 
                                 <div class="panel-body">
 
@@ -1035,7 +1030,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación Pendientes</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Pendientes</label></div>
 
                                 <div class="panel-body">
 
@@ -1054,7 +1049,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación en desarrollo</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación en desarrollo</label></div>
 
                                 <div class="panel-body">
 
@@ -1073,7 +1068,7 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Comparación total</label></div>
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación total</label></div>
 
                                 <div class="panel-body">
 

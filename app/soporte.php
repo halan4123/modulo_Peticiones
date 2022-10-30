@@ -13,12 +13,12 @@ if (isset($_POST['displayDataSoporteSend'])) {
     <table id="tabla_soporte" class="display table table-responsive table-striped">
         <thead>
             <tr>
-                <th>#</th>
-                <th>NOMBRES(S)</th>     
-                <th>APELLIDOS(S)</th>       
-                <th>MÓVIL</th>  
-                <th>CORREO</th>       
-                <th>ACCIONES</th>   
+                <th class="color-tabla-soporte">#</th>
+                <th class="color-tabla-soporte">NOMBRE(S)</th>     
+                <th class="color-tabla-soporte">APELLIDO(S)</th>       
+                <th class="color-tabla-soporte">MÓVIL</th>  
+                <th class="color-tabla-soporte">CORREO</th>       
+                <th class="color-tabla-soporte">ACCIONES</th>   
             </tr>
         </thead>
         <tbody>

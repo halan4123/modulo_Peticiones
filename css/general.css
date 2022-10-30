@@ -7,14 +7,15 @@ body {
 CANVAS GRAFICAS
 =====================================================================================================================*/
 
-.flex3 { 
-    display: flex; 
-    justify-content: space-between; 
-    
-} 
+.flex3 {
+    display: flex;
+    justify-content: space-between;
+
+}
 
 .dimensiones {
-    height: 300px; /*200*/
+    height: 300px;
+    /*200*/
 }
 
 .separacion {
@@ -28,14 +29,15 @@ canvas {
 .dimensiones_2 {
     height: 75px;
 }
-.contenedor-card{
+
+.contenedor-card {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.contenedor-card>p{
-font-size: 25px;
+.contenedor-card>p {
+    font-size: 25px;
 }
 
 /*=====================================================================================================================
@@ -53,16 +55,47 @@ TAMAÑO ICONOS NIVEL, ESTATUS -> .tam / TAMAÑO ICONOS BOOTSTRAP SIMBOLOGIA -> .
 ESTILOS MODALES
 =====================================================================================================================*/
 .modal-color {
-    background-color: #FF7A7A;
+    background: rgb(288, 61, 81);
     color: white;
 }
 
 /*=====================================================================================================================
 ESTILOS TABLA
 =====================================================================================================================*/
-table th {
-   
-    background-color: #FF7A7A;
+table tr .color-tabla-desarrollador {
+
+    background: rgb(288, 61, 81);
+    color: white;
+}
+
+table tr .color-tabla-soporte {
+
+    background: rgb(288, 61, 81);
+    color: white;
+}
+
+table tr .color-pendiente-tabla {
+
+    background: #8e44ad;
+    color: white;
+}
+
+table tr .color-desarrollo-tabla {
+
+    background: #2471A3;
+    color: white;
+}
+
+table tr .color-enviar-tabla {
+
+    background: #2E4053;
+    color: white;
+}
+
+table tr .color-buscador-tabla {
+
+
+    background: #138D75;
     color: white;
 }
 
@@ -122,7 +155,8 @@ ESTILOS FILTROS DE BUSQUEDA
 .flex-container {
     display: flex;
     justify-content: flex-end;
-
+    flex-wrap: wrap;
+    /*Si se chinga es esto*/
 }
 
 .flex-container>div {
@@ -185,7 +219,7 @@ ESTILOS COLLAPSE
 =====================================================================================================================*/
 
 .panel-default>.panel-heading-custom-1 {
-    background: #D4AC0D;
+    background: #8e44ad;
     color: #fff;
 }
 
@@ -194,11 +228,11 @@ ESTILOS COLLAPSE
 
 }
 
-.panel-default>.panel-heading-custom-2 > h4 > a{
+.panel-default>.panel-heading-custom-2>h4>a {
     color: #fff;
 }
 
-.panel-heading-custom-2 > label{
+.panel-heading-custom-2>label {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -206,14 +240,14 @@ ESTILOS COLLAPSE
 }
 
 .panel-default>.panel-heading-custom-3 {
-    background: #138D75;
+    background: #2E4053;
 }
 
-.panel-default>.panel-heading-custom-3 > h4 > a{
+.panel-default>.panel-heading-custom-3>h4>a {
     color: #fff;
 }
 
-.panel-heading-custom-3 > label{
+.panel-heading-custom-3>label {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -229,11 +263,11 @@ ESTILOS COLLAPSE
     background: #8e44ad;
 }
 
-.panel-default>.panel-heading-custom-5 > h4 > a{
+.panel-default>.panel-heading-custom-5>h4>a {
     color: #fff;
 }
 
-.panel-heading-custom-5 > label{
+.panel-heading-custom-5>label {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -242,13 +276,17 @@ ESTILOS COLLAPSE
 
 
 .panel-default>.panel-heading-custom-6 {
-    background: #A93226;
+    background: #138D75;
     color: #fff;
 }
 
 /*=====================================================================================================================
 MEDIA QUERY 
 =====================================================================================================================*/
+
+
+
+
 @media screen and (max-width: 1199px) {
 
     .boton {
@@ -285,7 +323,12 @@ MEDIA QUERY
 
     }
 
-    
+    .select2-container {
+        width: 100% !important;
+    }
 
-    
+
+
+
+
 }

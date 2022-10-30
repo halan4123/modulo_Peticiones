@@ -7,6 +7,8 @@ require '../PHPMailer/Exception.php';
 require '../PHPMailer/PHPMailer.php';
 require '../PHPMailer/SMTP.php';
 
+
+
 include 'connectionController.php';
 
 $conn = connect();
@@ -27,19 +29,19 @@ if (isset($_POST['displayDataSend'])) {
         <table id="tabla_peticiones" class="display table table-responsive">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>ESTATUS</th>
-                    <th>NIVEL</th>
-                    <th>ASUNTO</th>
-                    <th>LABORATORIO</th>
-                    <th>PAQUETE</th>
-                    <th>FECHA DE SOLICITUD</th>
-                    <th>FECHA DE ESTIMADA</th>
-                    <th>FECHA DE COMPLETADO</th>
-                    <th>TIEMPO RESTANTE</th>
-                    <th>SOPORTE</th>
-                    <th>DESARROLLADOR</th>
-                    <th>ACCIONES</th>
+                    <th class="color-buscador-tabla">#</th>
+                    <th class="color-buscador-tabla">ESTATUS</th>
+                    <th class="color-buscador-tabla">NIVEL</th>
+                    <th class="color-buscador-tabla">ASUNTO</th>
+                    <th class="color-buscador-tabla">LABORATORIO</th>
+                    <th class="color-buscador-tabla">PAQUETE</th>
+                    <th class="color-buscador-tabla">FECHA DE SOLICITUD</th>
+                    <th class="color-buscador-tabla">ENTREGA ESTIMADA</th>
+                    <th class="color-buscador-tabla">FECHA DE COMPLETADO</th>
+                    <th class="color-buscador-tabla">TIEMPO RESTANTE</th>
+                    <th class="color-buscador-tabla">SOPORTE</th>
+                    <th class="color-buscador-tabla">DESARROLLADOR</th>
+                    <th class="color-buscador-tabla">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,20 +53,20 @@ if (isset($_POST['displayDataSend'])) {
         $table = '
         <table id="tabla_peticiones_pendientes" class="display table table-responsive">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>ESTATUS</th>
-                    <th>NIVEL</th>
-                    <th>ASUNTO</th>
-                    <th>LABORATORIO</th>
-                    <th>PAQUETE</th>
-                    <th>FECHA DE SOLICITUD</th>
-                    <th>FECHA DE ESTIMADA</th>
-                    <th>FECHA DE COMPLETADO</th>
-                    <th>TIEMPO RESTANTE</th>
-                    <th>SOPORTE</th>
-                    <th>DESARROLLADOR</th>
-                    <th>ACCIONES</th>
+                <tr >
+                    <th class="color-pendiente-tabla">#</th>
+                    <th class="color-pendiente-tabla">ESTATUS</th>
+                    <th class="color-pendiente-tabla">NIVEL</th>
+                    <th class="color-pendiente-tabla">ASUNTO</th>
+                    <th class="color-pendiente-tabla">LABORATORIO</th>
+                    <th class="color-pendiente-tabla">PAQUETE</th>
+                    <th class="color-pendiente-tabla">FECHA DE SOLICITUD</th>
+                    <th class="color-pendiente-tabla">ENTREGA ESTIMADA</th>
+                    <th class="color-pendiente-tabla">FECHA DE COMPLETADO</th>
+                    <th class="color-pendiente-tabla">TIEMPO RESTANTE</th>
+                    <th class="color-pendiente-tabla">SOPORTE</th>
+                    <th class="color-pendiente-tabla">DESARROLLADOR</th>
+                    <th class="color-pendiente-tabla">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,19 +78,19 @@ if (isset($_POST['displayDataSend'])) {
         <table id="tabla_peticiones_desarrollo" class="display table table-responsive">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>ESTATUS</th>
-                    <th>NIVEL</th>
-                    <th>ASUNTO</th>
-                    <th>LABORATORIO</th>
-                    <th>PAQUETE</th>
-                    <th>FECHA DE SOLICITUD</th>
-                    <th>FECHA DE ESTIMADA</th>
-                    <th>FECHA DE COMPLETADO</th>
-                    <th>TIEMPO RESTANTE</th>
-                    <th>SOPORTE</th>
-                    <th>DESARROLLADOR</th>
-                    <th>ACCIONES</th>
+                    <th class="color-desarrollo-tabla">#</th>
+                    <th class="color-desarrollo-tabla">ESTATUS</th>
+                    <th class="color-desarrollo-tabla">NIVEL</th>
+                    <th class="color-desarrollo-tabla">ASUNTO</th>
+                    <th class="color-desarrollo-tabla">LABORATORIO</th>
+                    <th class="color-desarrollo-tabla">PAQUETE</th>
+                    <th class="color-desarrollo-tabla">FECHA DE SOLICITUD</th>
+                    <th class="color-desarrollo-tabla">ENTREGA ESTIMADA</th>
+                    <th class="color-desarrollo-tabla">FECHA DE COMPLETADO</th>
+                    <th class="color-desarrollo-tabla">TIEMPO RESTANTE</th>
+                    <th class="color-desarrollo-tabla">SOPORTE</th>
+                    <th class="color-desarrollo-tabla">DESARROLLADOR</th>
+                    <th class="color-desarrollo-tabla">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,19 +102,19 @@ if (isset($_POST['displayDataSend'])) {
         <table id="tabla_peticiones_coompletadas" class="display table table-responsive">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>ESTATUS</th>
-                    <th>NIVEL</th>
-                    <th>ASUNTO</th>
-                    <th>LABORATORIO</th>
-                    <th>PAQUETE</th>
-                    <th>FECHA DE SOLICITUD</th>
-                    <th>FECHA DE ESTIMADA</th>
-                    <th>FECHA DE COMPLETADO</th>
-                    <th>TIEMPO RESTANTE</th>
-                    <th>SOPORTE</th>
-                    <th>DESARROLLADOR</th>
-                    <th>ACCIONES</th>
+                    <th class="color-enviar-tabla">#</th>
+                    <th class="color-enviar-tabla">ESTATUS</th>
+                    <th class="color-enviar-tabla">NIVEL</th>
+                    <th class="color-enviar-tabla">ASUNTO</th>
+                    <th class="color-enviar-tabla">LABORATORIO</th>
+                    <th class="color-enviar-tabla">PAQUETE</th>
+                    <th class="color-enviar-tabla">FECHA DE SOLICITUD</th>
+                    <th class="color-enviar-tabla">ENTREGA ESTIMADA</th>
+                    <th class="color-enviar-tabla">FECHA DE COMPLETADO</th>
+                    <th class="color-enviar-tabla">TIEMPO RESTANTE</th>
+                    <th class="color-enviar-tabla">SOPORTE</th>
+                    <th class="color-enviar-tabla">DESARROLLADOR</th>
+                    <th class="color-enviar-tabla">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -231,11 +233,11 @@ if (isset($_POST['displayDataSend'])) {
     } elseif (isset($_POST['displayDataPendienteSend'])) {
 
 
-        $sql .= " and e.ESTATUS = 'Pendiente' and ENVIADO = 0";
+        $sql .= " and e.ESTATUS = 'Pendiente' and ENVIADO = 0 and ELIMINADO = 0";
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
 
-        $sql .= " and e.ESTATUS = 'Desarrollo' and ENVIADO = 0";
+        $sql .= " and e.ESTATUS = 'Desarrollo' and ENVIADO = 0 and ELIMINADO = 0";
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
         //WHERE 1 and ENVIADO = 0 AND ( e.ESTATUS = 'Completado' OR e.ESTATUS = 'Rechazado')
@@ -324,18 +326,24 @@ if (isset($_POST['displayDataSend'])) {
             $FECHA_ENTREGA_ESTIMADA = '<span class="label label-warning">Sin Definir</span>';
         }
 
+        //==========================================================================================================================
         //EL TIEMPO RESTANTE CAMBIA A COMPLETEADO, DEJA DE APARECER SIN DEFINIR O +5 -8 DIAS POR -> LABEL -> COMPLETADO
+        //==========================================================================================================================
         if ($ID_ESTATUS == 'Completado') {
             $tiempo = '<span class="label label-success">Completado</span>
             ';
         }
 
+        //==========================================================================================================================
         //EL DESAROLLADOR PUEDE SER NULL POR EL LEFT JOIN/LABEL -> SIN DEFINIR
+        //==========================================================================================================================
         if ($ID_DESARROLLADOR == NULL) {
             $ID_DESARROLLADOR = 'Sin Definir';
         }
 
+        //==========================================================================================================================
         //DEPENDIENDO EL STATUS Y DEL NIVEL DE LA DB SE LE ASIGANARA UN ICONO Y UN COLOR
+        //==========================================================================================================================
         $ID_ESTATUS = '<span style="color:' . $ESTATUS_COLOR . ';" class="tam ' . $ESTATUS_ICONO . '" aria-hidden="true"></span>
          <label hidden>' . $ID_ESTATUS . '</label>';
 
@@ -343,13 +351,18 @@ if (isset($_POST['displayDataSend'])) {
          <label hidden>' . $ID_ESTATUS . '</label>';
 
 
+        //==========================================================================================================================
+        //COLOR DE LA FILA SI ESTA ELIMINADA LA PETICIÓN
+        //==========================================================================================================================
         if ($ELIMINADODB == 1) {
             $table .= '<tr style=" background-color: rgba(255, 23, 0, 0.2); ">';
         } else {
             $table .= '<tr>';
         }
 
-        //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD tr
+        //==========================================================================================================================
+        //CONTATENAMOS LAS FILAS OBTENIDAD POR VUELTA CON LA INFORMACIÓN DE LA BD
+        //==========================================================================================================================
         $table .= '
 
                 <td>' . $CONT . '</td>
@@ -375,22 +388,12 @@ if (isset($_POST['displayDataSend'])) {
                             <div class="re">';
         }
 
-        //LO AGREGUE RECIENTEMENTE PARA COMPROBAR SI CON ESTO SE RESULVE EL BUG QUE SE PRESENTA AL ENVIAR UNA PETCION 
-        // // if (empty($FECHA_COMPLETADO)) {
-        // //     $FECHA_COMPLETADO = 'Sin Definir';
-        // // }
-
-        // if ($FECHA_COMPLETADO == '<span class="label label-danger">Incompleta</span>') {
-        //     $FECHA_COMPLETADO_WP = 'Sin Definir';
-        // }
-
-        // $table .= '<button onclick="wp(' . $ID_PETICION  . ",'"  . $ASUNTO . "'" . "," . $NUMERO_SOPORTE . ",'"  . $ID_LABORATORIO . "'" . ",'"  . $FECHA_COMPLETADO . "'" . ",'"  . $ID_DESARROLLADOR . "'" . ",'"  . $FECHA_LLEGADA . "'" . ",'"  . $ID_SOPORTE . "'"  . ')" class="btn btn-success accionesPeticion" >
-        // <span class="bi bi-whatsapp"></span>
-        // </button>';
 
 
-        //BOTONES DE WHATSAPP 
 
+        //==========================================================================================================================
+        //BOTON DE WHATSAPP
+        //==========================================================================================================================
         if ($ELIMINADODB == 0) {
 
             if (($ID_ESTATUS_COPY == 'Completado' && $ENVIADODB == 1) || ($ID_ESTATUS_COPY == 'Completado' && $ENVIADODB == 0)) {
@@ -406,7 +409,9 @@ if (isset($_POST['displayDataSend'])) {
 
 
 
-
+        //==========================================================================================================================
+        //BOTONES DE VER, ACTUALIZAR Y ELIMINAR
+        //==========================================================================================================================
         if ($ELIMINADODB == 1) {
 
             //BOTONES DE ACCIONES
@@ -457,32 +462,11 @@ if (isset($_POST['displayDataSend'])) {
         ';
         }
 
-
-        //         $table .=
-        //         '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
-        //         <span class="bi bi-eye-fill"></span>
-        //         </button>
-
-        //         <button class="btn btn-info accionesPeticion" onclick="actualizarGetInfo(' . $ID_PETICION . ","  . $display . ')">
-        //         <span class="bi bi-pencil-fill"></span>
-        //         </button>
-
-        //         <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
-        //         <span class="bi bi-trash-fill"></span>
-        //         </button>
-        //     </div>
-
-
-        //     </td>
-        // </tr>
-        // ';
-
-
-
         //CONTADOR QUE HACE REFERENCIA AL # EN LA TABLA
         $CONT += 1;
     }
 
+    //CIERRE DE LA CONSULTA
     $stmt->close();
 
     //CONTATENAMOS LA ESTRUCUTURA FINAL DE LA TABLA, ES REQUERIDO SI NO SE HACE NO FUNCIONA EL DATATABLE
@@ -759,33 +743,72 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $stmt->close();
 
-        //Create an instance; passing `true` enables exceptions
-        $mail = new PHPMailer(true);
+        //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
+        // $stmt = $conn->prepare("SELECT p.*,
+        // l.nombre AS NOMLAB,
+        // d.nombre AS NOMDES,
+        // s.nombre AS NOMSOP
+        // FROM peticion AS p 
+        // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+        // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+        // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
 
-        try {
-            //Server settings
-            $mail->SMTPDebug = 0; //Enable verbose debug output
-            $mail->isSMTP(); //Send using SMTP
-            $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
-            $mail->SMTPAuth   = true; //Enable SMTP authentication
-            $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
-            $mail->Password   = 'gVD!bSf7'; //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-            $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        //     $stmt->bind_param("i", $ID);
 
-            //Recipients
-            $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
-            $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+        //     $stmt->execute();
 
-            //Content
-            $mail->isHTML(true); //Set email format to HTML
-            $mail->Subject = 'Asunto del correo de prueba 2';
-            $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
-            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        //     $result = $stmt->get_result();
 
-            $mail->send();
-        } catch (Exception $e) {
-        }
+        //     $stmt->close();
+
+        //     $data = $result->fetch_assoc();
+
+        //     if ($data['ID_ESTATUS'] == 2) {
+        //         $ESTATUS = 'COMPLETADA satisfactoriamente.';
+        //     } else {
+        //         $ESTATUS = 'RECHAZADA';
+        //     }
+
+        //     $ID = $data['ID_PETICION'];
+        //     $LAB = $data['NOMLAB'];
+        //     $DES = $data['NOMDES'];
+        //     $SOP = $data['NOMSOP'];
+        //     $ASUNTO = $data['ASUNTO'];
+        //     $SOLICITUD = $data['FECHA_LLEGADA'];
+
+        //     //Create an instance; passing `true` enables exceptions
+        //     $mail = new PHPMailer(true);
+
+        //     try {
+        //         //Server settings
+        //         $mail->SMTPDebug = 0; //Enable verbose debug output
+        //         $mail->isSMTP(); //Send using SMTP
+        //         $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+        //         $mail->SMTPAuth   = true; //Enable SMTP authentication
+        //         $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
+        //         $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
+        //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+        //         $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //         //Recipients
+        //         $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
+        //         $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+
+        //         //Content
+        //         $mail->isHTML(true); //Set email format to HTML
+        //         $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
+        //         $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
+        //     <b>ID DE LA PETICIÓN: </b>$ID <br>
+        //     <b>ASUNTO: </b>$ASUNTO <br>
+        //     <b>DESARROLLADOR: </b>$DES <br>
+        //     <b>SOPORTE: </b>$SOP <br>
+        //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
+        //     ";
+        //         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        //         $mail->send();
+        //     } catch (Exception $e) {
+        //     }
     } else {
 
         //ESTA ES UNA ACTUALIZACIÓN NORMAL
@@ -807,60 +830,6 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $stmt->close();
     }
-
-
-    //SE ACTUALIZA DEPENDIENDO EL CASO
-    // if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
-    // } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
-
-    //     /**
-    //      * ACTUALIZA LOS DATOS NORMALMENTE, REAFIRMANDO EL ENVIADO COMO TRUE -> 1
-    //      */
-    // } elseif ($ID_DESARROLLADOR == 'null') {
-
-    //     /**
-    //      * SI LA PETICION NO ESTA COMPLETADA, HACE UNA ACTUALIZACION NORMAL
-    //      * SE PREGUNTA SI EL DESARROLLADOR ESTA VACIO
-    //      */
-    //     // $stmt = $conn->prepare(
-    //     //     "UPDATE `peticion` SET `ASUNTO` = ?,
-    //     //     `ID_LABORATORIO` = ?,
-    //     //     `FECHA_ENTREGA_ESTIMADA` = ?,
-    //     //     `ID_DESARROLLADOR` = NULL,
-    //     //     `ID_NIVEL` = ?,
-    //     //     `ID_ESTATUS` = ?,
-    //     //     `DESCRIPCION` = ?
-    //     //     WHERE `ID_PETICION` = ?"
-    //     // );
-
-    //     // $stmt->bind_param("ssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
-
-    //     // $stmt->execute();
-
-    //     // $stmt->close();
-    // } else {
-
-    //     /**
-    //      * ACTUALIZACION NORMAL
-    //      */
-
-    //     $stmt = $conn->prepare(
-    //         "UPDATE `peticion` SET `ASUNTO` = ?,
-    //         `ID_LABORATORIO` = ?,
-    //         `FECHA_ENTREGA_ESTIMADA` = ?,
-    //         `ID_DESARROLLADOR` = ?,
-    //         `ID_NIVEL` = ?,
-    //         `ID_ESTATUS` = ?,
-    //         `DESCRIPCION` = ?
-    //         WHERE `ID_PETICION` = ?"
-    //     );
-
-    //     $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
-
-    //     $stmt->execute();
-
-    //     $stmt->close();
-    // }
 }
 
 //==========================================================================================================================
@@ -878,34 +847,72 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $stmt->close();
 
+    //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
+    // $stmt = $conn->prepare("SELECT p.*,
+    // l.nombre AS NOMLAB,
+    // d.nombre AS NOMDES,
+    // s.nombre AS NOMSOP
+    // FROM peticion AS p 
+    // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+    // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+    // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
 
-    //Create an instance; passing `true` enables exceptions
-    $mail = new PHPMailer(true);
+    // $stmt->bind_param("i", $ID);
 
-    try {
-        //Server settings
-        $mail->SMTPDebug = 0; //Enable verbose debug output
-        $mail->isSMTP(); //Send using SMTP
-        $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
-        $mail->SMTPAuth   = true; //Enable SMTP authentication
-        $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
-        $mail->Password   = 'gVD!bSf7'; //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    // $stmt->execute();
 
-        //Recipients
-        $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
-        $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+    // $result = $stmt->get_result();
 
-        //Content
-        $mail->isHTML(true); //Set email format to HTML
-        $mail->Subject = 'Asunto del correo de prueba 80';
-        $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
-        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    // $stmt->close();
 
-        $mail->send();
-    } catch (Exception $e) {
-    }
+    // $data = $result->fetch_assoc();
+
+    // if ($data['ID_ESTATUS'] == 2) {
+    //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
+    // } else {
+    //     $ESTATUS = 'RECHAZADA';
+    // }
+
+    // $ID = $data['ID_PETICION'];
+    // $LAB = $data['NOMLAB'];
+    // $DES = $data['NOMDES'];
+    // $SOP = $data['NOMSOP'];
+    // $ASUNTO = $data['ASUNTO'];
+    // $SOLICITUD = $data['FECHA_LLEGADA'];
+
+    // //Create an instance; passing `true` enables exceptions
+    // $mail = new PHPMailer(true);
+
+    // try {
+    //     //Server settings
+    //     $mail->SMTPDebug = 0; //Enable verbose debug output
+    //     $mail->isSMTP(); //Send using SMTP
+    //     $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+    //     $mail->SMTPAuth   = true; //Enable SMTP authentication
+    //     $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
+    //     $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
+    //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+    //     $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //     //Recipients
+    //     $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
+    //     $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+
+    //     //Content
+    //     $mail->isHTML(true); //Set email format to HTML
+    //     $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
+    //     $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
+    //     <b>ID DE LA PETICIÓN: </b>$ID <br>
+    //     <b>ASUNTO: </b>$ASUNTO <br>
+    //     <b>DESARROLLADOR: </b>$DES <br>
+    //     <b>SOPORTE: </b>$SOP <br>
+    //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
+    //     ";
+
+
+    //     $mail->send();
+    // } catch (Exception $e) {
+    // }
 }
 
 //==========================================================================================================================

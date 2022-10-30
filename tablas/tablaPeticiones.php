@@ -8,7 +8,7 @@
         <div class="panel-heading panel-heading-custom-1">
             <h4 class="panel-title">
                 <a onfocus="displayDataPendientes()" data-toggle="collapse" data-parent="#accordion" href="#peticionesPendientesCollapse">
-                    Pendientes</a>
+                    Peticiones Pendientes</a>
             </h4>
         </div>
 
@@ -133,7 +133,7 @@
     PETICIONES COMPLETADAS SIN ENVIAR 
     ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading panel-heading-custom-6">
+        <div class="panel-heading panel-heading-custom-3">
             <h4 class="panel-title">
                 <a onfocus="displayDataCompletas()" data-toggle="collapse" data-parent="#accordion" href="#peticionesCompletasCollapse">
                     Peticiones Sin Enviar</a>
@@ -168,7 +168,7 @@
     BUSCADOR DE PENDIENTES - FILTROS - GENERADOR DE EXCEL
     ======================================================================================================================-->
     <div class="panel panel-default">
-        <div class="panel-heading panel-heading-custom-3">
+        <div class="panel-heading panel-heading-custom-6">
             <h4 class="panel-title">
                 <a onfocus="displayData()" data-toggle="collapse" data-parent="#accordion" href="#buscadorPeticiones">
                     Buscador De Peticiones</a>
@@ -249,19 +249,13 @@
 
                             </div>
 
-                            <div class=" flex-container">
+
+                            <div class="flex-container">
 
                                 <!-- FILTRO DE LABORATORIO -->
-                                <!-- <div class="form-group">
-
-                                    <select class="form-control" id="filtroLaboratorioPeti" style="width: 100%;" onchange="">
-
-                                    </select>
-                                </div> -->
-
                                 <div class="form-group">
-                                    <div class="input-group" >
-                                        <select class="form-control" id="filtroLaboratorioPeti" >
+                                    <div class="input-group">
+                                        <select class="form-control" id="filtroLaboratorioPeti">
                                         </select>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="limpiarLaboratorio()"><i class="bi bi-arrow-clockwise"></i></button>
@@ -271,18 +265,9 @@
 
 
                                 <!-- FILTRO DE NIVEL -->
-                                <!-- <div class="form-group">
-
-                                    <select class="form-control" id="filtroNivel" style="width: 100%;" onchange="">
-
-
-
-                                    </select>
-                                </div> -->
-
                                 <div class="form-group">
-                                    <div class="input-group" >
-                                        <select class="form-control" id="filtroNivel" >
+                                    <div class="input-group">
+                                        <select class="form-control" id="filtroNivel">
                                         </select>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="limpiarNivel()"><i class="bi bi-arrow-clockwise"></i></button>
@@ -291,18 +276,9 @@
                                 </div>
 
                                 <!-- FILTRO DE SOPORTE -->
-                                <!-- <div class="form-group">
-
-                                    <select class="form-control" id="filtroSoportePeti" style="width: 100%;" onchange="">
-
-
-
-                                    </select>
-                                </div> -->
-
                                 <div class="form-group">
-                                    <div class="input-group" >
-                                        <select class="form-control" id="filtroSoportePeti" >
+                                    <div class="input-group">
+                                        <select class="form-control" id="filtroSoportePeti">
                                         </select>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="limpiarSoportew()"><i class="bi bi-arrow-clockwise"></i></button>
@@ -311,18 +287,9 @@
                                 </div>
 
                                 <!-- FILTRO DE DESARROLLADOR -->
-                                <!-- <div class="form-group">
-
-                                    <select class="form-control" id="filtroDesarrolladorPeti" style="width: 100%;" onchange="">
-
-
-
-                                    </select>
-                                </div> -->
-
                                 <div class="form-group">
-                                    <div class="input-group" >
-                                        <select class="form-control" id="filtroDesarrolladorPeti" >
+                                    <div class="input-group">
+                                        <select class="form-control" id="filtroDesarrolladorPeti">
                                         </select>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="limpiarDesarrolladorw()"><i class="bi bi-arrow-clockwise"></i></button>
@@ -332,17 +299,8 @@
 
 
                                 <!-- FILTRO DE ESTATUS -->
-                                <!-- <div class="form-group">
-
-                                    <select class="form-control" id="filtroEstatus" style="width: 100%;" onchange="">
-
-
-
-                                    </select>
-                                </div> -->
-
                                 <div class="form-group">
-                                    <div class="input-group" >
+                                    <div class="input-group">
                                         <select class="form-control" id="filtroEstatus">
                                         </select>
                                         <span class="input-group-btn">

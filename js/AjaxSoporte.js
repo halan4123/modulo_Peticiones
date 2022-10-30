@@ -40,34 +40,54 @@ function agregarSoporte() {
     let correoSoporteAdd = $('#correoSoporteAdd').val();
 
 
-    $.ajax({
 
-        url: "app/soporte.php",
-        type: "POST",
-        data: { //INFORMACION QUE RECIBE PHP Send
-            insertSoporteSend: insertSoporte,
-            nombreSoporteAddSend: nombreSoporteAdd,
-            apellidoSoporteAddSend: apellidoSoporteAdd,
-            numeroSoperteAddSend: numeroSoperteAdd,
-            correoSoporteAddSend: correoSoporteAdd,
 
-        },
-        success: function (data, status) {
-            //SWEET ALERT
-            swal({
-                title: "Soporte Agregado",
-                icon: "success",
-                button: "Cerrar",
+    if (nombreSoporteAdd == '' || apellidoSoporteAdd == '' || numeroSoperteAdd == '' || correoSoporteAdd == '') {
+
+        swal({
+            title: "Completa todos los campos",
+            icon: "error",
+            button: "Cerrar",
+        })
+            .then(() => {
+
+                $('#modalAgregarSoporte').modal("show")
+
             });
 
-            limpiarSoporte();
 
-            displayDataSoporte();
+    } else {
+        $.ajax({
 
-        }
+            url: "app/soporte.php",
+            type: "POST",
+            data: { //INFORMACION QUE RECIBE PHP Send
+                insertSoporteSend: insertSoporte,
+                nombreSoporteAddSend: nombreSoporteAdd,
+                apellidoSoporteAddSend: apellidoSoporteAdd,
+                numeroSoperteAddSend: numeroSoperteAdd,
+                correoSoporteAddSend: correoSoporteAdd,
+
+            },
+            success: function (data, status) {
+                //SWEET ALERT
+                swal({
+                    title: "Soporte Agregado",
+                    icon: "success",
+                    button: "Cerrar",
+                });
+
+                limpiarSoporte();
+
+                displayDataSoporte();
+
+            }
 
 
-    });
+        });
+    }
+
+
 
 
 }
