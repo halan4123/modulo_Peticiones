@@ -75,7 +75,7 @@
 
                                 <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
 
-                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones aceptadas por desarrollador <span class="bi bi-question-circle-fill"></span></label>
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones asignadas a desarrollador <span class="bi bi-question-circle-fill"></span></label>
 
                                 </div>
 
@@ -908,17 +908,7 @@
 
                             <div class="well ">
 
-                                <!-- <div style="width: 100%; margin-bottom: 10px;">
-                                    <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple" style="width: 50%;">
-
-                                    </select>
-
-
-                                </div> -->
-
                                 <div class="flex-container">
-
-
 
                                     <div class="">
                                        
@@ -927,8 +917,6 @@
                                             <?php foreach ($data as $desarrollador) : ?>
                                                 <option value="<?php echo $desarrollador['ID_DESARROLLADOR']; ?>"><?php echo $desarrollador['NOMBRE']; ?></option>
                                             <?php endforeach; ?>
-
-
 
                                         </select>
                                     </div>
@@ -945,24 +933,9 @@
                                         <input type="date" class="form-control" id="filtroFechaFinalMultiple" onchange="">
                                     </div>
 
-
-                                    <!-- <div>
-
-                                        <select class="form-control" id="filtroDesarrolladorGrafica_4" style="width: 100%;">
-
-                                        </select>
-
-                                        <select class="form-control" id="filtroDesarrolladorGrafica_4" multiple="multiple">
-
-                                        </select>
-
-                                    </div> -->
-
-
-
                                     <div>
 
-                                        <button type="button" class="btn btn-warning" onclick="">
+                                        <button type="button" class="btn btn-warning" onclick="limpiargraficamultipledes()">
                                             <i class="bi bi-arrow-clockwise"></i>
                                         </button>
 

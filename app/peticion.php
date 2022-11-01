@@ -676,6 +676,8 @@ if (isset($_POST['actualizarDataSend'])) {
             $stmt->close();
         } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
 
+            //SE ACTUALIZA LA PETICION
+
             $stmt = $conn->prepare(
                 "UPDATE `peticion` SET `ASUNTO` = ?,
                 `ID_LABORATORIO` = ?,
@@ -695,6 +697,45 @@ if (isset($_POST['actualizarDataSend'])) {
 
             $stmt->close();
 
+            //OBTENEMOS LOS DATOS ACTUALIZADOS PARA ENVIARLOS POR CORREO
+
+            $stmt = $conn->prepare(
+                "SELECT p.*,
+                l.nombre AS NOMLAB,
+                d.nombre AS NOMDES,
+                s.nombre AS NOMSOP,
+                s.correo AS CORREOSOP
+                FROM peticion AS p 
+                INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+                INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?"
+            );
+
+            $stmt->bind_param("i", $ID);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $stmt->close();
+
+            $data = $result->fetch_assoc();
+
+            if ($data['ID_ESTATUS'] == 2) {
+                $ESTATUS = 'COMPLETADA satisfactoriamente.';
+            } else {
+                $ESTATUS = 'RECHAZADA';
+            }
+
+            $ID = $data['ID_PETICION'];
+            $LAB = $data['NOMLAB'];
+            $DES = $data['NOMDES'];
+            $SOP = $data['NOMSOP'];
+            $CORREO = $data['CORREOSOP'];
+            $ASUNTO = $data['ASUNTO'];
+            $SOLICITUD = $data['FECHA_LLEGADA'];
+
+
             //Create an instance; passing `true` enables exceptions
             // $mail = new PHPMailer(true);
 
@@ -702,29 +743,37 @@ if (isset($_POST['actualizarDataSend'])) {
             //     //Server settings
             //     $mail->SMTPDebug = 0; //Enable verbose debug output
             //     $mail->isSMTP(); //Send using SMTP
-            //     $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
+            //     $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
             //     $mail->SMTPAuth   = true; //Enable SMTP authentication
-            //     $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
-            //     $mail->Password   = 'gVD!bSf7'; //SMTP password
+            //     $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
+            //     $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
             //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
             //     $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //     //Recipients
-            //     $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
-            //     $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+            //     $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
+            //     $mail->addAddress($CORREO, $SOP);     //Add a recipient
 
             //     //Content
             //     $mail->isHTML(true); //Set email format to HTML
-            //     $mail->Subject = 'Asunto del correo de prueba 2';
-            //     $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
-            //     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            //     $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
+            //     $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
+            //     <b>ID DE LA PETICIÓN: </b>$ID <br>
+            //     <b>ASUNTO: </b>$ASUNTO <br>
+            //     <b>DESARROLLADOR: </b>$DES <br>
+            //     <b>SOPORTE: </b>$SOP <br>
+            //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
+            //     ";
+
 
             //     $mail->send();
             // } catch (Exception $e) {
             // }
+
+
         }
     } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
-        echo 'Prue 2';
+
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
             `ID_LABORATORIO` = ?,
@@ -743,72 +792,8 @@ if (isset($_POST['actualizarDataSend'])) {
 
         $stmt->close();
 
-        //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
-        // $stmt = $conn->prepare("SELECT p.*,
-        // l.nombre AS NOMLAB,
-        // d.nombre AS NOMDES,
-        // s.nombre AS NOMSOP
-        // FROM peticion AS p 
-        // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-        // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-        // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
 
-        //     $stmt->bind_param("i", $ID);
-
-        //     $stmt->execute();
-
-        //     $result = $stmt->get_result();
-
-        //     $stmt->close();
-
-        //     $data = $result->fetch_assoc();
-
-        //     if ($data['ID_ESTATUS'] == 2) {
-        //         $ESTATUS = 'COMPLETADA satisfactoriamente.';
-        //     } else {
-        //         $ESTATUS = 'RECHAZADA';
-        //     }
-
-        //     $ID = $data['ID_PETICION'];
-        //     $LAB = $data['NOMLAB'];
-        //     $DES = $data['NOMDES'];
-        //     $SOP = $data['NOMSOP'];
-        //     $ASUNTO = $data['ASUNTO'];
-        //     $SOLICITUD = $data['FECHA_LLEGADA'];
-
-        //     //Create an instance; passing `true` enables exceptions
-        //     $mail = new PHPMailer(true);
-
-        //     try {
-        //         //Server settings
-        //         $mail->SMTPDebug = 0; //Enable verbose debug output
-        //         $mail->isSMTP(); //Send using SMTP
-        //         $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
-        //         $mail->SMTPAuth   = true; //Enable SMTP authentication
-        //         $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
-        //         $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
-        //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        //         $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-        //         //Recipients
-        //         $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
-        //         $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
-
-        //         //Content
-        //         $mail->isHTML(true); //Set email format to HTML
-        //         $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
-        //         $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
-        //     <b>ID DE LA PETICIÓN: </b>$ID <br>
-        //     <b>ASUNTO: </b>$ASUNTO <br>
-        //     <b>DESARROLLADOR: </b>$DES <br>
-        //     <b>SOPORTE: </b>$SOP <br>
-        //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
-        //     ";
-        //         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-        //         $mail->send();
-        //     } catch (Exception $e) {
-        //     }
+        echo 'ESTATUS COMPLETADO Y ENVIADO TRUE YA CON FECHA DE MODIFICACION';
     } else {
 
 
@@ -851,39 +836,42 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
     $stmt->close();
 
     //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
-    // $stmt = $conn->prepare("SELECT p.*,
-    // l.nombre AS NOMLAB,
-    // d.nombre AS NOMDES,
-    // s.nombre AS NOMSOP
-    // FROM peticion AS p 
-    // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-    // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-    // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
+    $stmt = $conn->prepare("SELECT p.*,
+    l.nombre AS NOMLAB,
+    d.nombre AS NOMDES,
+    s.nombre AS NOMSOP,
+    s.correo AS CORREOSOP
+    FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+    LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
 
-    // $stmt->bind_param("i", $ID);
+    $stmt->bind_param("i", $ID);
 
-    // $stmt->execute();
+    $stmt->execute();
 
-    // $result = $stmt->get_result();
+    $result = $stmt->get_result();
 
-    // $stmt->close();
+    $stmt->close();
 
-    // $data = $result->fetch_assoc();
+    $data = $result->fetch_assoc();
 
-    // if ($data['ID_ESTATUS'] == 2) {
-    //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
-    // } else {
-    //     $ESTATUS = 'RECHAZADA';
-    // }
+    if ($data['ID_ESTATUS'] == 2) {
+        $ESTATUS = 'COMPLETADA satisfactoriamente.';
+    } else {
+        $ESTATUS = 'RECHAZADA';
+    }
 
-    // $ID = $data['ID_PETICION'];
-    // $LAB = $data['NOMLAB'];
-    // $DES = $data['NOMDES'];
-    // $SOP = $data['NOMSOP'];
-    // $ASUNTO = $data['ASUNTO'];
-    // $SOLICITUD = $data['FECHA_LLEGADA'];
+    $ID = $data['ID_PETICION'];
+    $LAB = $data['NOMLAB'];
+    $DES = $data['NOMDES'];
+    $SOP = $data['NOMSOP'];
+    $CORREO = $data['CORREOSOP'];
+    $ASUNTO = $data['ASUNTO'];
+    $SOLICITUD = $data['FECHA_LLEGADA'];
 
-    // //Create an instance; passing `true` enables exceptions
+
+    //Create an instance; passing `true` enables exceptions
     // $mail = new PHPMailer(true);
 
     // try {
@@ -899,7 +887,7 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     //     //Recipients
     //     $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
-    //     $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+    //     $mail->addAddress($CORREO, $SOP);     //Add a recipient
 
     //     //Content
     //     $mail->isHTML(true); //Set email format to HTML

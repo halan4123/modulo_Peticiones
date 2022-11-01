@@ -1791,6 +1791,16 @@ function limpiarDesMensual() {
     $('#filtroMes_1').val('');
 }
 
+function limpiargraficamultipledes() {
+
+    $('#filtroFechaInicioMultiple').val('');
+    $('#filtroFechaFinalMultiple').val('');
+
+    $("#multiple-checkboxes_desarrollador").multiselect("clearSelection");
+
+    
+}
+
 function limpiarFiltrosGraficasDesa() {
 
     $('#filtroDesarrolladorGrafica').val(null).trigger('change');

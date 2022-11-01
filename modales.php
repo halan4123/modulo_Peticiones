@@ -69,7 +69,7 @@ MODAL AGREGAR PETICION -> maxlength="75" en asunto
 <!--=====================================================================================================================
 MODAL VER INFORMACIÓN PETICION 
 ======================================================================================================================-->
-<div id="modalVer" class="modal fade" role="dialog">
+<div id="modalVer" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -148,7 +148,7 @@ MODAL VER INFORMACIÓN PETICION
 <!--=====================================================================================================================
 MODAL EDITAR PETICION -> maxlength="75" en asunto
 ======================================================================================================================-->
-<div id="modalEditar" class="modal fade" role="dialog">
+<div id="modalEditar" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
 
         <!-- Modal content-->

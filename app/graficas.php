@@ -515,7 +515,7 @@ if (isset($_POST['laboratorioDatosFechasSend'])) {
         "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p 
         INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO 
         INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-        WHERE l.ID_LABORATORIO = ? and e.ESTATUS = 'Desarrollo' and FECHA_LLEGADA BETWEEN ? and ?"
+        WHERE l.ID_LABORATORIO = ? and e.ESTATUS = 'En Desarrollo' and FECHA_LLEGADA BETWEEN ? and ?"
     );
 
     $stmt->bind_param("iss", $LAB, $FECHA_INICIO, $FECHA_FINAL);
@@ -921,7 +921,7 @@ if (isset($_POST['graficaDesarrolladorSend'])) {
     $stmt = $conn->prepare(
         "SELECT COUNT(ID_PETICION) AS TOTAL 
         FROM peticion AS p LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-        WHERE d.ID_DESARROLLADOR = ? and e.ESTATUS = 'Desarrollo' and FECHA_LLEGADA BETWEEN ? and ?"
+        WHERE d.ID_DESARROLLADOR = ? and e.ESTATUS = 'En Desarrollo' and FECHA_LLEGADA BETWEEN ? and ?"
     );
 
     $stmt->bind_param("iss", $DESARROLLADOR, $FECHA_INICIO, $FECHA_FINAL);
@@ -1309,7 +1309,7 @@ if (isset($_POST['desComoaracionSend'])) {
             "SELECT COUNT(ID_PETICION) AS TOTAL FROM peticion AS p
             LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR 
             INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS 
-            WHERE e.estatus = 'Desarrollo' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
+            WHERE e.estatus = 'En Desarrollo' AND d.ID_DESARROLLADOR  = ? AND FECHA_LLEGADA 
             BETWEEN ? and ?"
         );
 

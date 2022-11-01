@@ -39,13 +39,10 @@ function agregarSoporte() {
     let numeroSoperteAdd = $('#numeroSoperteAdd').val();
     let correoSoporteAdd = $('#correoSoporteAdd').val();
 
-
-
-
-    if (nombreSoporteAdd == '' || apellidoSoporteAdd == '' || numeroSoperteAdd == '' || correoSoporteAdd == '') {
+    if (nombreSoporteAdd == '' || apellidoSoporteAdd == '' || numeroSoperteAdd == '' || correoSoporteAdd == '' || isValidEmail(correoSoporteAdd) == false) {
 
         swal({
-            title: "Completa todos los campos",
+            title: "Comprueba los campos",
             icon: "error",
             button: "Cerrar",
         })
@@ -199,27 +196,42 @@ function actualizarSoporte() {
     let numeroActualizar = $('#numeroSoperteUpdaate').val();
     let correoActualizar = $('#correoSoporteUpdate').val();
 
-    $.post("app/soporte.php", {
-
-        nombreActualizarSend: nombreActualizar,
-        idHiddenSend: idHidden,
-        apellidoActualizarSend: apellidoActualizar,
-        numeroActualizarSend: numeroActualizar,
-        correoActualizarSend: correoActualizar,
-        actualizarSoporteSend: actualizarSoporte
-
-    }, function (data, status) {
-
-        //SWEET ALERT
+    if (isValidEmail(correoActualizar) == false) {
         swal({
-            title: "Soporte Actualizado",
-            icon: "success",
+            title: "Coloca un correo valido",
+            icon: "error",
             button: "Cerrar",
+        })
+            .then(() => {
+
+                $('#modalEditarSoporte').modal("show")
+
+            });
+    } else {
+        $.post("app/soporte.php", {
+
+            nombreActualizarSend: nombreActualizar,
+            idHiddenSend: idHidden,
+            apellidoActualizarSend: apellidoActualizar,
+            numeroActualizarSend: numeroActualizar,
+            correoActualizarSend: correoActualizar,
+            actualizarSoporteSend: actualizarSoporte
+
+        }, function (data, status) {
+
+            //SWEET ALERT
+            swal({
+                title: "Soporte Actualizado",
+                icon: "success",
+                button: "Cerrar",
+            });
+
+            displayDataSoporte();
+
         });
+    }
 
-        displayDataSoporte();
 
-    });
 
 }
 
@@ -232,4 +244,10 @@ function limpiarSoporte() {
     $('#correoSoporteAdd').val('');
 
 
+}
+
+//FUNCION PARA SABER SI ES UN CORREO VALIDO
+function isValidEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

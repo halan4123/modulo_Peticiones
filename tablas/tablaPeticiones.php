@@ -109,6 +109,37 @@
             <div class="panel-body">
 
                 <!--========================
+                ICONOS DE REFERENCIA
+                ========================-->
+                <div class="row" style="margin-bottom: 10px;">
+
+                    <div class="col-md-12">
+
+                        <label class="referencia">
+                            <i style="color: green;" class="tam-i bi bi-check-circle-fill" aria-hidden="true"></i>Completado
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: #2995B8;" class="tam-i bi bi-laptop-fill" aria-hidden="true"></i>Desarrollo
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: orange;" class="tam-i bi bi-exclamation-triangle-fill" aria-hidden="true"></i>Pendiente
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: red;" class="tam-i bi bi-x-circle-fill" aria-hidden="true"></i>Rechazado
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: #363332;" class="tam-i bi bi-question-square-fill" aria-hidden="true"></i>Sin Definir
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!--========================
                 TABLA
                 ========================-->
                 <div class="row">
@@ -141,6 +172,37 @@
         </div>
         <div id="peticionesCompletasCollapse" class="panel-collapse collapse">
             <div class="panel-body">
+
+                <!--========================
+                ICONOS DE REFERENCIA
+                ========================-->
+                <div class="row" style="margin-bottom: 10px;">
+
+                    <div class="col-md-12">
+
+                        <label class="referencia">
+                            <i style="color: green;" class="tam-i bi bi-check-circle-fill" aria-hidden="true"></i>Completado
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: #2995B8;" class="tam-i bi bi-laptop-fill" aria-hidden="true"></i>Desarrollo
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: orange;" class="tam-i bi bi-exclamation-triangle-fill" aria-hidden="true"></i>Pendiente
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: red;" class="tam-i bi bi-x-circle-fill" aria-hidden="true"></i>Rechazado
+                        </label>
+
+                        <label class="referencia">
+                            <i style="color: #363332;" class="tam-i bi bi-question-square-fill" aria-hidden="true"></i>Sin Definir
+                        </label>
+
+                    </div>
+
+                </div>
 
                 <!--========================
                 TABLA
