@@ -237,7 +237,7 @@ if (isset($_POST['displayDataSend'])) {
     } elseif (isset($_POST['displayDataDesarrolloSend'])) {
 
 
-        $sql .= " and e.ESTATUS = 'Desarrollo' and ENVIADO = 0 and ELIMINADO = 0";
+        $sql .= " and e.ESTATUS = 'En Desarrollo' and ENVIADO = 0 and ELIMINADO = 0";
     } elseif (isset($_POST['displayDataCompletaSend'])) {
 
         //WHERE 1 and ENVIADO = 0 AND ( e.ESTATUS = 'Completado' OR e.ESTATUS = 'Rechazado')
@@ -248,7 +248,7 @@ if (isset($_POST['displayDataSend'])) {
     //ORDENAMIENTO QUE SEGUIRAN TODAS LAS TABLAS
     $sql .= " ORDER BY e.ESTATUS = 'Pendiente' DESC,
     p.FECHA_LLEGADA DESC,
-    e.ESTATUS = 'Desarrollo' DESC,
+    e.ESTATUS = 'En Desarrollo' DESC,
     e.ESTATUS = 'Completado' DESC,
     e.ESTATUS = 'Rechazado' DESC";
 
@@ -654,7 +654,7 @@ if (isset($_POST['actualizarDataSend'])) {
 
     if ($FECHA_COMPLETADO_TEXT == '0000-00-00 00:00:00' && $ID_ESTATUS_TEXT == 'completado') {
 
-        echo 'Aqui primero';
+
         if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
 
             $stmt = $conn->prepare(
@@ -696,35 +696,35 @@ if (isset($_POST['actualizarDataSend'])) {
             $stmt->close();
 
             //Create an instance; passing `true` enables exceptions
-            $mail = new PHPMailer(true);
+            // $mail = new PHPMailer(true);
 
-            try {
-                //Server settings
-                $mail->SMTPDebug = 0; //Enable verbose debug output
-                $mail->isSMTP(); //Send using SMTP
-                $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
-                $mail->SMTPAuth   = true; //Enable SMTP authentication
-                $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
-                $mail->Password   = 'gVD!bSf7'; //SMTP password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-                $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            // try {
+            //     //Server settings
+            //     $mail->SMTPDebug = 0; //Enable verbose debug output
+            //     $mail->isSMTP(); //Send using SMTP
+            //     $mail->Host       = 'smtp.dreamhost.com'; //Set the SMTP server to send through
+            //     $mail->SMTPAuth   = true; //Enable SMTP authentication
+            //     $mail->Username   = 'peticiones@toronjalab.com'; //SMTP username
+            //     $mail->Password   = 'gVD!bSf7'; //SMTP password
+            //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+            //     $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-                //Recipients
-                $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
-                $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
+            //     //Recipients
+            //     $mail->setFrom('peticiones@toronjalab.com', 'Modulo De Peticiones');
+            //     $mail->addAddress('halan4126@gmail.com', 'Alan Hernandez Destino');     //Add a recipient
 
-                //Content
-                $mail->isHTML(true); //Set email format to HTML
-                $mail->Subject = 'Asunto del correo de prueba 2';
-                $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
-                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            //     //Content
+            //     $mail->isHTML(true); //Set email format to HTML
+            //     $mail->Subject = 'Asunto del correo de prueba 2';
+            //     $mail->Body    = 'Es un correo de prueba <b>IMPORTANTE!</b>';
+            //     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-                $mail->send();
-            } catch (Exception $e) {
-            }
+            //     $mail->send();
+            // } catch (Exception $e) {
+            // }
         }
     } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
-
+        echo 'Prue 2';
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
             `ID_LABORATORIO` = ?,
@@ -811,7 +811,10 @@ if (isset($_POST['actualizarDataSend'])) {
         //     }
     } else {
 
-        //ESTA ES UNA ACTUALIZACIÓN NORMAL
+
+        //==========================================================================================================================
+        //ESTA ES UNA ACTUALIZACIÓN NORMAL.
+        //==========================================================================================================================
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
             `ID_LABORATORIO` = ?,

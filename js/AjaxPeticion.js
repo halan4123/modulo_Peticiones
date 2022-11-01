@@ -939,9 +939,6 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
         });
 
 
-
-
-
 }
 
 //ENVIA MENSAJE DE PETICION RECHAZADA
@@ -1006,8 +1003,6 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 
 
 }
-
-
 
 //LIMPIA LOS FILTROS DE BUSQUEDA DE LAS PETICIONES EN LA PESTAÑA DE BUSCADOR DE PETICIONES
 function limpiarFiltros() {

@@ -317,7 +317,7 @@ MODAL ACTUALIZAR DESARROLLADOR -> maxlength="25" en nombre y apellido
         <div class="modal-content">
             <div class="modal-header modal-color">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Consultar Desarrollador</h4>
+                <h4 class="modal-title">Editar Desarrollador</h4>
             </div>
             <div class="modal-body">
 
@@ -447,7 +447,7 @@ MODAL EDITAR SOPORTE
         <div class="modal-content">
             <div class="modal-header modal-color">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Consultar Soporte</h4>
+                <h4 class="modal-title">Editar Soporte</h4>
             </div>
             <div class="modal-body">
 

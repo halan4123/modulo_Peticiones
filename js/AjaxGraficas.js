@@ -1173,6 +1173,20 @@ function graficarDesarrolladoresSeccion3() {
 
             let datos = JSON.parse(data);
 
+            let coloR = [];
+
+            let dynamicColors = function () {
+                var r = Math.floor(Math.random() * 255);
+                var g = Math.floor(Math.random() * 255);
+                var b = Math.floor(Math.random() * 255);
+                return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
+            };
+
+            for (let i in datos.nombres) {
+
+                coloR.push(dynamicColors());
+            }
+
             //==========================================================================================================================
             //COMPLETAS
             //==========================================================================================================================
@@ -1190,22 +1204,7 @@ function graficarDesarrolladoresSeccion3() {
                     labels: datos.nombres,
                     datasets: [{
                         data: datos.valoresCompletos,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: coloR,
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
@@ -1246,22 +1245,7 @@ function graficarDesarrolladoresSeccion3() {
                     labels: datos.nombres,
                     datasets: [{
                         data: datos.valoresRechazados,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: coloR,
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
@@ -1302,22 +1286,7 @@ function graficarDesarrolladoresSeccion3() {
                     labels: datos.nombres,
                     datasets: [{
                         data: datos.valoresPendientes,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: coloR,
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
@@ -1359,22 +1328,7 @@ function graficarDesarrolladoresSeccion3() {
                     labels: datos.nombres,
                     datasets: [{
                         data: datos.valoresDesarrollo,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: coloR,
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
@@ -1415,22 +1369,7 @@ function graficarDesarrolladoresSeccion3() {
                     labels: datos.nombres,
                     datasets: [{
                         data: datos.valoresTotal,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: coloR,
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
