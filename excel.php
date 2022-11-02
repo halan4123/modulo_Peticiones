@@ -29,7 +29,11 @@ INNER JOIN nivel AS n ON p.ID_NIVEL = n.ID_NIVEL
 INNER JOIN estatus AS e ON p.ID_ESTATUS = e.ID_ESTATUS
 LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
 INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE FECHA_LLEGADA 
-BETWEEN '$fechaInicio' and '$fechaFinal'";
+BETWEEN '$fechaInicio' and '$fechaFinal' ORDER BY e.ESTATUS = 'Pendiente' DESC,
+p.FECHA_LLEGADA DESC,
+e.ESTATUS = 'En Desarrollo' DESC,
+e.ESTATUS = 'Completado' DESC,
+e.ESTATUS = 'Rechazado' DESC";
 
 //NECESARIO PARA CREAR EL EXCEL
 header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
@@ -60,6 +64,14 @@ header("Content-Disposition: attachment; filename=peticiones.xls");
 
     while ($row = mysqli_fetch_assoc($res)) { ?>
 
+        <?php
+        if ($row["NOMDES"] == "") {
+            $DES_NAME = 'Sin Definir';
+        } else {
+            $DES_NAME = $row["NOMDES"];
+        }
+        ?>
+
         <tr>
             <td><?php echo $row["ID_PETICION"]; ?></td>
             <td><?php echo $row["NOMESTATUS"]; ?></td>
@@ -71,7 +83,7 @@ header("Content-Disposition: attachment; filename=peticiones.xls");
             <td><?php echo $row["FECHA_ENTREGA_ESTIMADA"]; ?></td>
             <td><?php echo $row["FECHA_COMPLETADO"]; ?></td>
             <td><?php echo $row["NOMSOP"]; ?></td>
-            <td><?php echo $row["NOMDES"]; ?></td>
+            <td><?php echo $DES_NAME ?></td>
             <td><?php echo $row["ENVIADO"]; ?></td>
         </tr>
 

@@ -299,3 +299,4 @@ if (isset($_POST['boleanoEstatusSend'])) {
     }
     echo json_encode($data);
 }
+

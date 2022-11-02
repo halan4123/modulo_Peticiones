@@ -271,20 +271,41 @@
                 </div>
 
                 <!--========================
-                FILTROS & BOTON AGREGAR
+                FILTROS 
                 ========================-->
                 <div class="row">
                     <div class="col-md-12">
 
                         <div class="well ">
-
-                            <div class="flex-container_2">
-
-                                <!-- <div>
+                        <div>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
                                         Agregar Petición
                                     </button>
-                                </div> -->
+                                </div>
+
+                            <div class="flex-container_2">
+
+                             
+
+                                <div>
+                                    <label disabled class="btn btn-default" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="
+                                   
+                                    <b>1: </b>Peticiones pendientes. <br>
+                                    <br>
+                               
+                                    <b>2: </b>Peticiones por fecha de llegada. <br>
+                                    <br>
+                                
+                                    <b>3: </b>Peticiones en desarrollo. <br>
+                                    <br>
+                         
+                                    <b>4: </b>Peticiones Completadas. <br>
+                                    <br>
+
+                                    <b>5: </b>Peticiones Rechazadas. <br> 
+                                    <br>
+                                    " title="<b>Orden de las peticiones</b>"><span class="bi bi-question-lg"></span></label>
+                                </div>
 
                                 <div>
 
@@ -308,6 +329,8 @@
 
 
                                 </div>
+
+                                
 
                             </div>
 

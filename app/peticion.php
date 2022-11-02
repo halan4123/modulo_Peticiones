@@ -652,10 +652,10 @@ if (isset($_POST['actualizarDataSend'])) {
         $ID_DESARROLLADOR = NULL;
     }
 
-    if ($FECHA_COMPLETADO_TEXT == '0000-00-00 00:00:00' && $ID_ESTATUS_TEXT == 'completado') {
+    if (($FECHA_COMPLETADO_TEXT == '0000-00-00 00:00:00' && $ID_ESTATUS_TEXT == 'completado') || ($FECHA_COMPLETADO_TEXT == '0000-00-00 00:00:00' && $ID_ESTATUS_TEXT == 'rechazado')) {
 
 
-        if ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") {
+        if (($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "false") || ($ID_ESTATUS_TEXT == 'rechazado' && $ENVIADO == "false")) {
 
             $stmt = $conn->prepare(
                 "UPDATE `peticion` SET `ASUNTO` = ?,
@@ -674,7 +674,7 @@ if (isset($_POST['actualizarDataSend'])) {
             $stmt->execute();
 
             $stmt->close();
-        } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
+        } elseif (($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") || ($ID_ESTATUS_TEXT == 'rechazado' && $ENVIADO == "true")) {
 
             //SE ACTUALIZA LA PETICION
 
@@ -697,44 +697,48 @@ if (isset($_POST['actualizarDataSend'])) {
 
             $stmt->close();
 
+            //DESCOMENTAR LO SIGUIENTE
+            //CAMBIAR EL CORREO DE ENVIO POR EL DE TORONJA LAB -> peticiones@toronjalab.com
+            //CAMBIAR LA CONTRASEÑA -> gVD!bSf7
+            //CAMBIAR EL SMTP DE GOOGLE POR EL DE DREAMHOST
+
             //OBTENEMOS LOS DATOS ACTUALIZADOS PARA ENVIARLOS POR CORREO
 
-            $stmt = $conn->prepare(
-                "SELECT p.*,
-                l.nombre AS NOMLAB,
-                d.nombre AS NOMDES,
-                s.nombre AS NOMSOP,
-                s.correo AS CORREOSOP
-                FROM peticion AS p 
-                INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-                LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-                INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?"
-            );
+            // $stmt = $conn->prepare(
+            //     "SELECT p.*,
+            //     l.nombre AS NOMLAB,
+            //     d.nombre AS NOMDES,
+            //     s.nombre AS NOMSOP,
+            //     s.correo AS CORREOSOP
+            //     FROM peticion AS p 
+            //     INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+            //     LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+            //     INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?"
+            // );
 
-            $stmt->bind_param("i", $ID);
+            // $stmt->bind_param("i", $ID);
 
-            $stmt->execute();
+            // $stmt->execute();
 
-            $result = $stmt->get_result();
+            // $result = $stmt->get_result();
 
-            $stmt->close();
+            // $stmt->close();
 
-            $data = $result->fetch_assoc();
+            // $data = $result->fetch_assoc();
 
-            if ($data['ID_ESTATUS'] == 2) {
-                $ESTATUS = 'COMPLETADA satisfactoriamente.';
-            } else {
-                $ESTATUS = 'RECHAZADA';
-            }
+            // if ($data['ID_ESTATUS'] == 2) {
+            //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
+            // } else {
+            //     $ESTATUS = 'RECHAZADA';
+            // }
 
-            $ID = $data['ID_PETICION'];
-            $LAB = $data['NOMLAB'];
-            $DES = $data['NOMDES'];
-            $SOP = $data['NOMSOP'];
-            $CORREO = $data['CORREOSOP'];
-            $ASUNTO = $data['ASUNTO'];
-            $SOLICITUD = $data['FECHA_LLEGADA'];
-
+            // $ID = $data['ID_PETICION'];
+            // $LAB = $data['NOMLAB'];
+            // $DES = $data['NOMDES'];
+            // $SOP = $data['NOMSOP'];
+            // $CORREO = $data['CORREOSOP'];
+            // $ASUNTO = $data['ASUNTO'];
+            // $SOLICITUD = $data['FECHA_LLEGADA'];
 
             //Create an instance; passing `true` enables exceptions
             // $mail = new PHPMailer(true);
@@ -772,33 +776,11 @@ if (isset($_POST['actualizarDataSend'])) {
 
 
         }
-    } elseif ($ID_ESTATUS_TEXT == 'completado' && $ENVIADO == "true") {
-
-        $stmt = $conn->prepare(
-            "UPDATE `peticion` SET `ASUNTO` = ?,
-            `ID_LABORATORIO` = ?,
-            `FECHA_ENTREGA_ESTIMADA` = ?,
-            `ID_DESARROLLADOR` = ?,
-            `ID_NIVEL` = ?,
-            `ID_ESTATUS` = ?,
-            `DESCRIPCION` = ?,
-            `ENVIADO` = 1
-            WHERE `ID_PETICION` = ?"
-        );
-
-        $stmt->bind_param("sssssssi", $ASUNTO, $ID_LABORATORIO, $FECHA_ENTREGA_ESTIMADA, $ID_DESARROLLADOR, $ID_NIVEL, $ID_ESTATUS, $DESCRIPCION, $ID_PETICION);
-
-        $stmt->execute();
-
-        $stmt->close();
-
-
-        echo 'ESTATUS COMPLETADO Y ENVIADO TRUE YA CON FECHA DE MODIFICACION';
     } else {
 
 
         //==========================================================================================================================
-        //ESTA ES UNA ACTUALIZACIÓN NORMAL.
+        //ESTA ES UNA ACTUALIZACIÓN NORMAL CUNADO EL ESTATUS NO ES COMPLETADO.
         //==========================================================================================================================
         $stmt = $conn->prepare(
             "UPDATE `peticion` SET `ASUNTO` = ?,
@@ -835,40 +817,45 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $stmt->close();
 
+    //DESCOMENTAR LO SIGUIENTE
+    //CAMBIAR EL CORREO DE ENVIO POR EL DE TORONJA LAB -> peticiones@toronjalab.com
+    //CAMBIAR LA CONTRASEÑA -> gVD!bSf7
+    //CAMBIAR EL SMTP DE GOOGLE POR EL DE DREAMHOST
+
     //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
-    $stmt = $conn->prepare("SELECT p.*,
-    l.nombre AS NOMLAB,
-    d.nombre AS NOMDES,
-    s.nombre AS NOMSOP,
-    s.correo AS CORREOSOP
-    FROM peticion AS p 
-    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-    LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
+    // $stmt = $conn->prepare("SELECT p.*,
+    // l.nombre AS NOMLAB,
+    // d.nombre AS NOMDES,
+    // s.nombre AS NOMSOP,
+    // s.correo AS CORREOSOP
+    // FROM peticion AS p 
+    // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+    // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+    // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
 
-    $stmt->bind_param("i", $ID);
+    // $stmt->bind_param("i", $ID);
 
-    $stmt->execute();
+    // $stmt->execute();
 
-    $result = $stmt->get_result();
+    // $result = $stmt->get_result();
 
-    $stmt->close();
+    // $stmt->close();
 
-    $data = $result->fetch_assoc();
+    // $data = $result->fetch_assoc();
 
-    if ($data['ID_ESTATUS'] == 2) {
-        $ESTATUS = 'COMPLETADA satisfactoriamente.';
-    } else {
-        $ESTATUS = 'RECHAZADA';
-    }
+    // if ($data['ID_ESTATUS'] == 2) {
+    //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
+    // } else {
+    //     $ESTATUS = 'RECHAZADA';
+    // }
 
-    $ID = $data['ID_PETICION'];
-    $LAB = $data['NOMLAB'];
-    $DES = $data['NOMDES'];
-    $SOP = $data['NOMSOP'];
-    $CORREO = $data['CORREOSOP'];
-    $ASUNTO = $data['ASUNTO'];
-    $SOLICITUD = $data['FECHA_LLEGADA'];
+    // $ID = $data['ID_PETICION'];
+    // $LAB = $data['NOMLAB'];
+    // $DES = $data['NOMDES'];
+    // $SOP = $data['NOMSOP'];
+    // $CORREO = $data['CORREOSOP'];
+    // $ASUNTO = $data['ASUNTO'];
+    // $SOLICITUD = $data['FECHA_LLEGADA'];
 
 
     //Create an instance; passing `true` enables exceptions
