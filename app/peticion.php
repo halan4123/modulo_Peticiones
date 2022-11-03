@@ -697,84 +697,8 @@ if (isset($_POST['actualizarDataSend'])) {
 
             $stmt->close();
 
-            //DESCOMENTAR LO SIGUIENTE
-            //CAMBIAR EL CORREO DE ENVIO POR EL DE TORONJA LAB -> peticiones@toronjalab.com
-            //CAMBIAR LA CONTRASEÑA -> gVD!bSf7
-            //CAMBIAR EL SMTP DE GOOGLE POR EL DE DREAMHOST
-
-            //OBTENEMOS LOS DATOS ACTUALIZADOS PARA ENVIARLOS POR CORREO
-
-            // $stmt = $conn->prepare(
-            //     "SELECT p.*,
-            //     l.nombre AS NOMLAB,
-            //     d.nombre AS NOMDES,
-            //     s.nombre AS NOMSOP,
-            //     s.correo AS CORREOSOP
-            //     FROM peticion AS p 
-            //     INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-            //     LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-            //     INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?"
-            // );
-
-            // $stmt->bind_param("i", $ID);
-
-            // $stmt->execute();
-
-            // $result = $stmt->get_result();
-
-            // $stmt->close();
-
-            // $data = $result->fetch_assoc();
-
-            // if ($data['ID_ESTATUS'] == 2) {
-            //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
-            // } else {
-            //     $ESTATUS = 'RECHAZADA';
-            // }
-
-            // $ID = $data['ID_PETICION'];
-            // $LAB = $data['NOMLAB'];
-            // $DES = $data['NOMDES'];
-            // $SOP = $data['NOMSOP'];
-            // $CORREO = $data['CORREOSOP'];
-            // $ASUNTO = $data['ASUNTO'];
-            // $SOLICITUD = $data['FECHA_LLEGADA'];
-
-            //Create an instance; passing `true` enables exceptions
-            // $mail = new PHPMailer(true);
-
-            // try {
-            //     //Server settings
-            //     $mail->SMTPDebug = 0; //Enable verbose debug output
-            //     $mail->isSMTP(); //Send using SMTP
-            //     $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
-            //     $mail->SMTPAuth   = true; //Enable SMTP authentication
-            //     $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
-            //     $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
-            //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-            //     $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-            //     //Recipients
-            //     $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
-            //     $mail->addAddress($CORREO, $SOP);     //Add a recipient
-
-            //     //Content
-            //     $mail->isHTML(true); //Set email format to HTML
-            //     $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
-            //     $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
-            //     <b>ID DE LA PETICIÓN: </b>$ID <br>
-            //     <b>ASUNTO: </b>$ASUNTO <br>
-            //     <b>DESARROLLADOR: </b>$DES <br>
-            //     <b>SOPORTE: </b>$SOP <br>
-            //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
-            //     ";
-
-
-            //     $mail->send();
-            // } catch (Exception $e) {
-            // }
-
-
+            //DESCOMENTAR PARA EL ENVIO DEL CORREO
+            //enviarEmail($ID);
         }
     } else {
 
@@ -817,80 +741,8 @@ if (isset($_POST['actualizarDesdeWpSend'])) {
 
     $stmt->close();
 
-    //DESCOMENTAR LO SIGUIENTE
-    //CAMBIAR EL CORREO DE ENVIO POR EL DE TORONJA LAB -> peticiones@toronjalab.com
-    //CAMBIAR LA CONTRASEÑA -> gVD!bSf7
-    //CAMBIAR EL SMTP DE GOOGLE POR EL DE DREAMHOST
-
-    //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
-    // $stmt = $conn->prepare("SELECT p.*,
-    // l.nombre AS NOMLAB,
-    // d.nombre AS NOMDES,
-    // s.nombre AS NOMSOP,
-    // s.correo AS CORREOSOP
-    // FROM peticion AS p 
-    // INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
-    // LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
-    // INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
-
-    // $stmt->bind_param("i", $ID);
-
-    // $stmt->execute();
-
-    // $result = $stmt->get_result();
-
-    // $stmt->close();
-
-    // $data = $result->fetch_assoc();
-
-    // if ($data['ID_ESTATUS'] == 2) {
-    //     $ESTATUS = 'COMPLETADA satisfactoriamente.';
-    // } else {
-    //     $ESTATUS = 'RECHAZADA';
-    // }
-
-    // $ID = $data['ID_PETICION'];
-    // $LAB = $data['NOMLAB'];
-    // $DES = $data['NOMDES'];
-    // $SOP = $data['NOMSOP'];
-    // $CORREO = $data['CORREOSOP'];
-    // $ASUNTO = $data['ASUNTO'];
-    // $SOLICITUD = $data['FECHA_LLEGADA'];
-
-
-    //Create an instance; passing `true` enables exceptions
-    // $mail = new PHPMailer(true);
-
-    // try {
-    //     //Server settings
-    //     $mail->SMTPDebug = 0; //Enable verbose debug output
-    //     $mail->isSMTP(); //Send using SMTP
-    //     $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
-    //     $mail->SMTPAuth   = true; //Enable SMTP authentication
-    //     $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
-    //     $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
-    //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-    //     $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-    //     //Recipients
-    //     $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
-    //     $mail->addAddress($CORREO, $SOP);     //Add a recipient
-
-    //     //Content
-    //     $mail->isHTML(true); //Set email format to HTML
-    //     $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
-    //     $mail->Body    = "La petición de $LAB ha sido $ESTATUS por favor <b>AVISAR</b> al laboratorio <br>
-    //     <b>ID DE LA PETICIÓN: </b>$ID <br>
-    //     <b>ASUNTO: </b>$ASUNTO <br>
-    //     <b>DESARROLLADOR: </b>$DES <br>
-    //     <b>SOPORTE: </b>$SOP <br>
-    //     <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
-    //     ";
-
-
-    //     $mail->send();
-    // } catch (Exception $e) {
-    // }
+    //DESCOMENTAR PARA EL ENVIO DEL CORREO
+    //enviarEmail($ID);
 }
 
 //==========================================================================================================================
@@ -930,5 +782,88 @@ if (isset($_POST['getInfoDataSend']) || isset($_POST['getInfoUpdatePeticionSend'
         $stmt->close();
 
         echo json_encode($data);
+    }
+}
+
+//==========================================================================================================================
+//ENVIA EL CORREO
+//==========================================================================================================================
+function enviarEmail($ID)
+{
+    $conn = connect();
+
+    //INDICACIONES
+    //CAMBIAR EL CORREO DE ENVIO POR EL DE TORONJA LAB -> peticiones@toronjalab.com
+    //CAMBIAR LA CONTRASEÑA -> gVD!bSf7
+    //CAMBIAR EL SMTP DE GOOGLE POR EL DE DREAMHOST
+
+    //OBTENEMOS LA INFORMACIÓN PARA ENVIARLA EN EL CORREO
+    $stmt = $conn->prepare("SELECT p.*,
+    l.nombre AS NOMLAB,
+    d.nombre AS NOMDES,
+    s.nombre AS NOMSOP,
+    s.correo AS CORREOSOP
+    FROM peticion AS p 
+    INNER JOIN laboratorio AS l ON p.ID_LABORATORIO = l.ID_LABORATORIO
+    LEFT JOIN desarrollador AS d ON p.ID_DESARROLLADOR = d.ID_DESARROLLADOR
+    INNER JOIN soporte AS s ON p.ID_SOPORTE = s.ID_SOPORTE WHERE `ID_PETICION` = ?");
+
+    $stmt->bind_param("i", $ID);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $stmt->close();
+
+    $data = $result->fetch_assoc();
+
+    if ($data['ID_ESTATUS'] == 2) {
+        $ESTATUS = 'COMPLETADA satisfactoriamente.';
+    } else {
+        $ESTATUS = 'RECHAZADA';
+    }
+
+    $ID = $data['ID_PETICION'];
+    $LAB = $data['NOMLAB'];
+    $DES = $data['NOMDES'];
+    $SOP = $data['NOMSOP'];
+    $CORREO = $data['CORREOSOP'];
+    $ASUNTO = $data['ASUNTO'];
+    $SOLICITUD = $data['FECHA_LLEGADA'];
+
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = 0; //Enable verbose debug output
+        $mail->isSMTP(); //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+        $mail->SMTPAuth   = true; //Enable SMTP authentication
+        $mail->Username   = 'anzu4147@gmail.com'; //SMTP username
+        $mail->Password   = 'szirzcskstybhfqv'; //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+        $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom('anzu4147@gmail.com', 'Modulo De Peticiones');
+        $mail->addAddress($CORREO, $SOP);     //Add a recipient
+
+        //Content
+        $mail->isHTML(true); //Set email format to HTML
+        $mail->Subject = "La peticion de $LAB ha sido $ESTATUS";
+        $mail->Body    = "La petición de $LAB ha sido <b>$ESTATUS</b>. Por favor <b>AVISAR</b> al laboratorio. <br>
+        <b>ID DE LA PETICIÓN: </b>$ID <br>
+        <b>ASUNTO: </b>$ASUNTO <br>
+        <b>DESARROLLADOR: </b>$DES <br>
+        <b>SOPORTE: </b>$SOP <br>
+        <b>FECHA DE SOLICITUD: </b>$SOLICITUD <br>
+        ";
+
+
+        $mail->send();
+    } catch (Exception $e) {
     }
 }
