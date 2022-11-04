@@ -375,13 +375,13 @@
 
                             <div class="flex-container_2">
 
-                                <div>
+                                <!-- <div>
 
                                     <button type="button" class="btn btn-success" onclick="window.location = 'excel.php?fechaInicio='+$('#filtroFechaInicio').val() + '&fechaFinal='+$('#filtroFechaFinal').val()">
                                         <i class="bi bi-filetype-xls"></i>
                                     </button>
 
-                                </div>
+                                </div> -->
 
                                 <div>
 

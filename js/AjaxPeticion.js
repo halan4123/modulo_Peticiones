@@ -33,6 +33,17 @@ function displayDataCompletas() {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+                dom: 'Bfrtip',
+                buttons: [
+
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'excel', 'csv', 
+
+                ]
 
 
             });
@@ -61,6 +72,17 @@ function displayDataDesarrollo() {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+                dom: 'Bfrtip',
+                buttons: [
+
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'excel', 'csv', 
+
+                ]
 
 
             });
@@ -133,7 +155,7 @@ function displayDataPendientes() {
                         orientation: 'landscape',
                         pageSize: 'LEGAL'
                     },
-                    'excel', 'csv', 'print',
+                    'excel', 'csv', 
 
                 ]
 
@@ -189,7 +211,9 @@ function displayData() {
                         orientation: 'landscape',
                         pageSize: 'LEGAL'
                     },
-                    'excel', 'csv', 'print',
+                    'excel', 'csv',
+                        
+                    
 
                 ]
 
@@ -1241,3 +1265,7 @@ function soloNumeros(e) {
 function insertarTexto(frase, textoAgregar, posicion) {
     return frase.slice(0, posicion) + textoAgregar + frase.slice(posicion);
 }
+
+
+    
+    
