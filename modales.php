@@ -197,7 +197,7 @@ MODAL EDITAR PETICION -> maxlength="75" en asunto
                     <br>
                     <b>Nivel 4: </b> Dias hasta semanas. <br> 
                     Nuevos desarrollos o nuevos módulos. <br>
-                    <br>" title="Duración en base al nivel">Nivel: <span class="bi bi-question-circle-fill"></span></label>
+                    <br>" title="<b>Duración en base al nivel</b>">Nivel: <span class="bi bi-question-circle-fill"></span></label>
 
                     <!-- <label for="nivelUpdate">Nivel: <span class="bi bi-question-circle-fill"></span></label> -->
                     <select class="form-control" id="nivelUpdate" style="width: 100%;">
@@ -484,3 +484,32 @@ MODAL EDITAR SOPORTE
     </div>
 </div>
 
+<!--=====================================================================================================================
+MODAL HISTORIAL 
+======================================================================================================================-->
+<div id="modalHistorialPeticion" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modal-color">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Historial</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="display-historial">
+                    
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

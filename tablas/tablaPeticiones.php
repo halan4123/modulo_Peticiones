@@ -55,7 +55,23 @@
 
                         <div class="well ">
 
-                            <div class="flex-container_2">
+                            <div class="flex-container_3">
+                                <div>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
+                                        Agregar Petición
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <label class="btn color-pendiente-btn-info" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="
+                                   
+                                    Las peticiones pendientes se ordenan desde la peticion pendiente mas reciente a la mas antigua. <br>
+                         
+                                    " title="<b>Orden de las peticiones</b>"><span class="bi bi-question-lg"></span></label>
+                                </div>
+                            </div>
+
+                            <!-- <div class="flex-container_2">
 
                                 <div>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
@@ -65,7 +81,7 @@
 
 
 
-                            </div>
+                            </div> -->
 
 
 
@@ -140,6 +156,32 @@
                 </div>
 
                 <!--========================
+                INFO BOTON
+                ========================-->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="well ">
+
+                            <div class="flex-container_4">
+
+                                <div>
+                                    <label class="btn color-desarrollo-btn-info" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="
+                                   
+                                    Las peticiones en desarrollo se ordenan desde la peticion en desarrollo mas reciente a la mas antigua. <br>
+                         
+                                    " title="<b>Orden de las peticiones</b>"><span class="bi bi-question-lg"></span></label>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--========================
                 TABLA
                 ========================-->
                 <div class="row">
@@ -203,6 +245,32 @@
                     </div>
 
                 </div>
+
+                <!--========================
+                INFO BOTON
+                ========================-->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="well ">
+
+                            <div class="flex-container_4">
+
+                                <div>
+                                    <label class="btn color-enviar-btn-info" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="
+                                   
+                                    Las peticiones sin enviar se ordenan desde la peticion sin enviar mas reciente a la mas antigua. <br>
+                         
+                                    " title="<b>Orden de las peticiones</b>"><span class="bi bi-question-lg"></span></label>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
 
                 <!--========================
                 TABLA
@@ -277,18 +345,15 @@
                     <div class="col-md-12">
 
                         <div class="well ">
-                        <div>
+                            <div class="flex-container_3">
+                                <div>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
                                         Agregar Petición
                                     </button>
                                 </div>
 
-                            <div class="flex-container_2">
-
-                             
-
                                 <div>
-                                    <label disabled class="btn btn-default" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="
+                                    <label class="btn color-buscador-btn-info" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="
                                    
                                     <b>1: </b>Peticiones pendientes. <br>
                                     <br>
@@ -299,13 +364,16 @@
                                     <b>3: </b>Peticiones en desarrollo. <br>
                                     <br>
                          
-                                    <b>4: </b>Peticiones Completadas. <br>
+                                    <b>4: </b>Peticiones completadas. <br>
                                     <br>
 
-                                    <b>5: </b>Peticiones Rechazadas. <br> 
+                                    <b>5: </b>Peticiones rechazadas. <br> 
                                     <br>
                                     " title="<b>Orden de las peticiones</b>"><span class="bi bi-question-lg"></span></label>
                                 </div>
+                            </div>
+
+                            <div class="flex-container_2">
 
                                 <div>
 
@@ -330,7 +398,7 @@
 
                                 </div>
 
-                                
+
 
                             </div>
 

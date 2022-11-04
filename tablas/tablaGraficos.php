@@ -27,16 +27,29 @@
 
                                 <div class=" flex-container">
 
+                                    <?php
+                                    date_default_timezone_set('America/Chihuahua'); //ESTABLECEMOS ZONA HORARIA
+
+                                    //PRIMER DIA DEL MES ACTUAL
+                                    $month = date('m');
+                                    $year = date('Y');
+                                    $primer_dia = date('Y-m-d', mktime(0,0,0, $month, 1, $year));
+
+                                    //ULTIMO DIA DEL MES ACTUAL
+                                    $day = date("d", mktime(0,0,0, $month+1, 0, $year));
+                                    $ultimo_dia =date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+                                    ?>
+
                                     <!-- FILTRO DE FECHA INICIO -->
                                     <div>
                                         <label for=" filtroFechaInicioGraficos">De:</label>
-                                        <input type="date" class="form-control" id="filtroFechaInicioGraficos" onchange="">
+                                        <input type="date" class="form-control" id="filtroFechaInicioGraficos" value="<?php echo date("Y-m-d", strtotime($primer_dia));  ?>" onchange="">
                                     </div>
 
                                     <!-- FILTRO DE FECHA FINAL -->
                                     <div>
                                         <label for="filtroFechaFinalGraficos">A:</label>
-                                        <input type="date" class="form-control" id="filtroFechaFinalGraficos" onchange="">
+                                        <input type="date" class="form-control" id="filtroFechaFinalGraficos" value="<?php echo date("Y-m-d", strtotime($ultimo_dia));  ?>" onchange="">
                                     </div>
 
                                     <div>
@@ -75,7 +88,7 @@
 
                                 <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
 
-                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones asignadas a desarrollador <span class="bi bi-question-circle-fill"></span></label>
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="<b>Nota</b>">Peticiones asignadas a desarrollador <span class="bi bi-question-circle-fill"></span></label>
 
                                 </div>
 
@@ -102,7 +115,7 @@
                                 <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">Peticiones aceptadas por soporte</div> -->
                                 <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
 
-                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="Nota">Peticiones registradas por soporte <span class="bi bi-question-circle-fill"></span></label>
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Por defecto se muestra la información del mes actual." title="<b>Nota</b>">Peticiones registradas por soporte <span class="bi bi-question-circle-fill"></span></label>
 
                                 </div>
 
@@ -186,7 +199,14 @@
                         <div class="col-md-12 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
+                                <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div> -->
+
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones recibidas, completadas y rechazadas durante el año seleccionado." title="<b>Nota</b>">Peticiones Recibidas - Completadas - Rechazadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
+
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedorMix">
 
@@ -202,7 +222,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Recibidas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones recibidas por mes durante el año seleccionado." title="<b>Nota</b>">Peticiones Recibidas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-anuales">
 
@@ -218,7 +244,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Completadas </label> </div>
+                                <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Completadas </label> </div> -->
+
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones completadas por mes durante el año seleccionado." title="<b>Nota</b>">Peticiones Completadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-completadas-mes">
 
@@ -234,7 +266,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Rechazadas</label> </div>
+                                <!-- <div class="panel-heading panel-heading-custom-5" style="text-align: center;"><label>Peticiones Rechazadas</label> </div> -->
+
+                                <div class="panel-heading panel-heading-custom-5" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones rechazadas por mes durante el año seleccionado." title="<b>Nota</b>">Peticiones Rechazadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-rechazadas-mes">
 
@@ -341,7 +379,16 @@
                         <div class="col-md-12 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div>
+                                <!-- <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas - Completadas - Rechazadas</label> </div> -->
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra la información de peticiones recibidas, completadas y rechazadas, en base al laboratorio y año seleccionado." title="<b>Nota</b>">Peticiones Recibidas - Completadas - Rechazadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
+
+
+
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedorLabGrafica">
 
@@ -358,7 +405,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Recibidas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones recibidas por mes en base al laboratorio y año seleccionado." title="<b>Nota</b>">Peticiones Recibidas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-recibidas">
 
@@ -375,7 +428,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Completadas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Completadas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones completadas por mes en base al laboratorio y año seleccionado." title="<b>Nota</b>">Peticiones Completadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-completadas">
 
@@ -392,7 +451,13 @@
                         <div class="col-md-6 separacion">
 
                             <div class="panel panel-default">
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Rechazadas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-2" style="text-align: center;"><label>Peticiones Rechazadas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones rechazadas por mes en base al laboratorio y año seleccionado." title="<b>Nota</b>">Peticiones Rechazadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
                                 <div class="panel-body">
                                     <div class="dimensiones" id="contenedor-lab-rechazadas">
 
@@ -547,9 +612,15 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
+                                <!-- <div class="panel-heading panel-heading-custom-2" style="text-align: center; "><label>Peticiones Recibidas - Completadas - Rechazadas</label>
 
 
+
+                                </div> -->
+
+                                <div class="panel-heading panel-heading-custom-2" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Muestra información de las peticiones recibidas, completadas y rechazadas en base al laboratorio y el rango de fechas seleccionado." title="<b>Nota</b>">Peticiones Recibidas - Completadas - Rechazadas <span class="bi bi-question-circle-fill"></span></label>
 
                                 </div>
 
@@ -696,8 +767,14 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
                                     <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Anual <span class="bi bi-question-circle-fill"></span></label>
+                                </div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento anual en base a las peticiones completadas por desarrollador." title="<b>Nota</b>">Rendimiento Anual <span class="bi bi-question-circle-fill"></span></label>
+
                                 </div>
 
                                 <div class="panel-body">
@@ -717,8 +794,14 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
                                     <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento en base a las peticiones completadas." title="Nota">Rendimiento Mensual <span class="bi bi-question-circle-fill"></span></label>
+                                </div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Rendimiento mensual en base a las peticiones completadas por desarrollador." title="<b>Nota</b>">Rendimiento Mnesual <span class="bi bi-question-circle-fill"></span></label>
+
                                 </div>
 
                                 <div class="panel-body">
@@ -881,7 +964,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Desempeño por desarrollador</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Desempeño por desarrollador</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Desempeño por desarrollador en base al rango de fechas." title="<b>Nota</b>">Desempeño por desarrollador <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -911,7 +1000,7 @@
                                 <div class="flex-container">
 
                                     <div class="">
-                                       
+
                                         <select id="multiple-checkboxes_desarrollador" multiple="multiple">
 
                                             <?php foreach ($data as $desarrollador) : ?>
@@ -965,7 +1054,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Completadas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Completadas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Compara desarrolladores en base a las peticiones completas por un rango de fechas." title="<b>Nota</b>">Comparación Completadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -984,7 +1079,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Rechazadas</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Rechazadas</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Compara desarrolladores en base a las peticiones rechazadas por un rango de fechas." title="<b>Nota</b>">Comparación Rechazadas <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -1003,7 +1104,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Pendientes</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación Pendientes</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Compara desarrolladores en base a las peticiones pendientes por un rango de fechas." title="<b>Nota</b>">Comparación Pendientes <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -1022,7 +1129,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación en desarrollo</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación en desarrollo</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Compara desarrolladores en base a las peticiones en desarrollo por un rango de fechas." title="<b>Nota</b>">Comparación en desarrollo <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 
@@ -1041,7 +1154,13 @@
 
                             <div class="panel panel-default">
 
-                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación total</label></div>
+                                <!-- <div class="panel-heading panel-heading-custom-3" style="text-align: center; "><label>Comparación total</label></div> -->
+
+                                <div class="panel-heading panel-heading-custom-3" style="text-align: center; ">
+
+                                    <label class="" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="Compara desarrolladores en base a las peticiones totales por un rango de fechas." title="<b>Nota</b>">Comparación total <span class="bi bi-question-circle-fill"></span></label>
+
+                                </div>
 
                                 <div class="panel-body">
 

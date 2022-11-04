@@ -72,6 +72,39 @@ function displayDataDesarrollo() {
 
 }
 
+//HISTORIAL
+function mostrarHistorial(id) {
+
+    const displayHistorial = true;
+
+    $.ajax({
+        url: "app/historial.php",
+        type: "POST",
+        data: {
+            displayHistorialSend: displayHistorial,
+            idSend: id
+        },
+        success: function (data, status) {
+            $('#display-historial').html(data);
+
+            $('#tabla-historial').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                "bDestroy": true,
+                searching: false,
+
+            });
+
+            $('#modalHistorialPeticion').modal("show")
+        }
+
+    });
+
+
+
+}
+
 //MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PENDIENTES
 function displayDataPendientes() {
 
@@ -91,6 +124,18 @@ function displayDataPendientes() {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+
+                dom: 'Bfrtip',
+                buttons: [
+
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'excel', 'csv', 'print',
+
+                ]
 
 
             });
@@ -136,7 +181,17 @@ function displayData() {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+                dom: 'Bfrtip',
+                buttons: [
 
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'excel', 'csv', 'print',
+
+                ]
 
             });
         }
@@ -394,12 +449,12 @@ function actualizar() {
                         if (estatusActualizar == "2") {
                             window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%20completada%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
 
-                        }else{
+                        } else {
                             window.open('https://wa.me/52' + numeroCelularSoporte + '?text=La%20petición%20de%20*' + laboratorio_wp + '*%20con%20el%20asunto%20*' + asuntoActualizar + '*%20ha%20sido%rechazada%20por%20*' + desarrollador_wp + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporteNombre + '*');
 
                         }
 
-                       
+
                         if (caso_display == '1') {
 
                             displayData();
@@ -1178,6 +1233,8 @@ function soloNumeros(e) {
 
 
 }
+
+
 
 
 

@@ -4,6 +4,53 @@ body {
 }
 
 /*=====================================================================================================================
+COLORES BOTONES INFO
+=====================================================================================================================*/
+
+.color-desarrollo-btn-info {
+    background-color: #2471A3;
+    color: white;
+
+}
+
+.color-pendiente-btn-info {
+    background-color: #8e44ad;
+    color: white;
+
+    
+}
+
+.color-buscador-btn-info {
+    background-color: #138D75;
+    color: white;
+
+    
+}
+
+.color-enviar-btn-info {
+    background-color: #2E4053;
+    color: white;
+
+    
+}
+
+.color-pendiente-btn-info:hover{
+    color: white;
+}
+
+.color-desarrollo-btn-info:hover{
+    color: white;
+}
+
+.color-buscador-btn-info:hover{
+    color: white;
+}
+
+.color-enviar-btn-info:hover{
+    color: white;
+}
+
+/*=====================================================================================================================
 CANVAS GRAFICAS
 =====================================================================================================================*/
 
@@ -74,6 +121,12 @@ table tr .color-tabla-soporte {
     color: white;
 }
 
+table tr .color-tabla-historial {
+
+    background: rgb(288, 61, 81);
+    color: white;
+}
+
 table tr .color-pendiente-tabla {
 
     background: #8e44ad;
@@ -105,7 +158,9 @@ table tr .color-buscador-tabla {
 #displayDataTableDesarrolloo,
 #displayDataTableCompletadas,
 #displayDataTableDesarrollador,
-#displayDataTableSoporte {
+#displayDataTableSoporte,
+#tabla-historial,
+#display-historial {
     overflow: auto;
 }
 
@@ -183,6 +238,8 @@ ESTILOS FILTROS DE BUSQUEDA
 
 }
 
+/*FLEXCONTAINER 2*/
+
 .flex-container_2 {
     display: flex;
     justify-content: flex-end;
@@ -209,6 +266,72 @@ ESTILOS FILTROS DE BUSQUEDA
 }
 
 .flex-container_2>div>button {
+    display: inline;
+    width: auto;
+
+}
+
+/*FLEXCONTAINER 3*/
+
+.flex-container_3 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.flex-container_3>div {
+    width: auto;
+    text-align: center;
+    margin: 0px 10px;
+}
+
+.flex-container_3>div>input {
+    display: inline;
+    width: auto;
+
+}
+
+.flex-container_3>div>select {
+    display: inline;
+    width: auto;
+
+}
+
+.flex-container_3>div>button {
+    display: inline;
+    width: auto;
+
+}
+
+/*FLEXCONTAINER 4*/
+
+.flex-container_4 {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+}
+
+.flex-container_4>div {
+    width: auto;
+    text-align: center;
+    margin: 0px 10px;
+}
+
+.flex-container_4>div>input {
+    display: inline;
+    width: auto;
+
+}
+
+.flex-container_4>div>select {
+    display: inline;
+    width: auto;
+
+}
+
+.flex-container_4>div>button {
     display: inline;
     width: auto;
 

@@ -416,7 +416,12 @@ if (isset($_POST['displayDataSend'])) {
 
             //BOTONES DE ACCIONES
             $table .=
-                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                '
+                <button class="btn btn-default accionesPeticion" onclick="mostrarHistorial(' . $ID_PETICION . ')">
+                <span class="bi bi-clock-history"></span>
+                </button>
+                
+                <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
                 <span class="bi bi-eye-fill"></span>
                 </button>
 
@@ -430,10 +435,14 @@ if (isset($_POST['displayDataSend'])) {
 
             //BOTONES DE ACCIONES
             $table .=
-                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
-                <span class="bi bi-eye-fill"></span>
+                '
+                <button class="btn btn-default accionesPeticion" onclick="mostrarHistorial(' . $ID_PETICION . ')">
+                <span class="bi bi-clock-history"></span>
                 </button>
 
+                <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                <span class="bi bi-eye-fill"></span>
+                </button>
 
             </div>
                
@@ -443,7 +452,12 @@ if (isset($_POST['displayDataSend'])) {
         ';
         } else {
             $table .=
-                '<button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
+                '
+                <button class="btn btn-default accionesPeticion" onclick="mostrarHistorial(' . $ID_PETICION . ')">
+                <span class="bi bi-clock-history"></span>
+                </button>
+                
+                <button class="btn btn-warning accionesPeticion" onclick="getInfo(' . $ID_PETICION . ')">
                 <span class="bi bi-eye-fill"></span>
                 </button>
 
@@ -477,6 +491,17 @@ if (isset($_POST['displayDataSend'])) {
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
 }
+
+
+//==========================================================================================================================
+//HISTORIAL
+//==========================================================================================================================
+if (isset($_POST['displayHistorial'])) {
+
+    
+    
+}
+
 
 //==========================================================================================================================
 //AGREGA PETICION
