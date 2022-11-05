@@ -62,7 +62,7 @@ include 'filtros.php';
 
         <div class="container-fluid">
 
-            <h2>Módulo Peticiones</h2>
+            <h2>Módulo</h2>
 
             <ul class="nav nav-tabs">
                 <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
