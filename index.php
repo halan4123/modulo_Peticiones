@@ -72,6 +72,8 @@ include 'filtros.php';
 
             </ul>
 
+            <!-- Probado la rama prueba -->
+
             <div class="tab-content">
 
                 <div id="home" class="tab-pane fade in active">
