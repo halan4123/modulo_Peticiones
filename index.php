@@ -49,6 +49,9 @@ include 'filtros.php';
     <link rel="stylesheet" href="libs/Trumbowyg/dist/ui/trumbowyg.min.css">
 
     <!--MY CSS-->
+
+    <link rel="stylesheet" href="css/estructura.css">
+
     <link rel="stylesheet" href="css/general.css">
 
 
@@ -58,7 +61,81 @@ include 'filtros.php';
 
     <?php include 'modales.php'; ?>
 
-    <div class="container-fluid">
+    <nav class="navbar navbar-inverse fondoHeader">
+        <div class="container-fluid ">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand not-active" href="#" style="color: white;">Modulo Peticiones</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" style="color: white;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a onfocus="displayData()" data-toggle="pill" href="#home">Peticiones</a></li>
+                    <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menu4">Graficas</a></li>
+                    <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menu1">Desarrolladores</a></li>
+                    <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menu2">Soporte</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-10 text-left">
+
+                <div class="tab-content">
+
+                    <div id="home" class="tab-pane fade in active" style="padding-top: 20px;">
+
+                        <?php include 'tablas/tablaPeticiones.php'; ?>
+
+                    </div>
+
+                    <div id="menu4" class="tab-pane fade " style="padding-top: 20px;">
+
+                        <?php include 'tablas/tablaGraficos.php';
+                        ?>
+
+                    </div>
+
+                    <div id="menu1" class="tab-pane fade" style="padding-top: 20px;">
+
+                        <?php include 'tablas/tablaDesarrolladores.php';
+                        ?>
+
+                    </div>
+
+                    <div id="menu2" class="tab-pane fade" style="padding-top: 20px;">
+
+                        <?php include 'tablas/tablaSoportes.php'; 
+                        ?>
+
+                    </div>
+
+                </div>
+
+
+                <!-- <h1>Welcome</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <hr>
+                <h3>Test</h3>
+                <p>Lorem ipsum...</p> -->
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- <div class="container-fluid">
 
         <div class="container-fluid">
 
@@ -72,31 +149,35 @@ include 'filtros.php';
 
             </ul>
 
-            <!-- Probado la rama prueba -->
+         
 
             <div class="tab-content">
 
                 <div id="home" class="tab-pane fade in active">
 
-                    <?php include 'tablas/tablaPeticiones.php'; ?>
+                    <?php //include 'tablas/tablaPeticiones.php'; 
+                    ?>
 
                 </div>
 
                 <div id="menu3" class="tab-pane fade ">
 
-                    <?php include 'tablas/tablaGraficos.php'; ?>
+                    <?php //include 'tablas/tablaGraficos.php'; 
+                    ?>
 
                 </div>
 
                 <div id="menu1" class="tab-pane fade">
 
-                    <?php include 'tablas/tablaDesarrolladores.php'; ?>
+                    <?php //include 'tablas/tablaDesarrolladores.php'; 
+                    ?>
 
                 </div>
 
                 <div id="menu2" class="tab-pane fade">
 
-                    <?php include 'tablas/tablaSoportes.php'; ?>
+                    <?php //include 'tablas/tablaSoportes.php'; 
+                    ?>
 
                 </div>
 
@@ -106,7 +187,7 @@ include 'filtros.php';
 
 
 
-    </div>
+    </div> -->
 
 
     <!--CDN DATATABLE-->
