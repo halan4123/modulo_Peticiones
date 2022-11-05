@@ -1,10 +1,24 @@
+/*Fondo del header - header*/
+.fondoHeader{
+    border: none !important;
+}
 
+.fondoHeader .container-fluid{
+    background: rgb(288, 61, 81) ;
+   
+}
+
+/*Fondo del resto del body exeptuando dentro de los collapse*/
+.container-fluid {
+    background: #f1f1f1;
+}
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
 }
+
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
@@ -14,40 +28,37 @@
 /* Set gray background color and 100% height */
 .sidenav {
     padding-top: 20px;
-    background: rgb(288, 61, 81);
+    background: #f1f1f1;
     height: 100vh;
 }
 
 /*Quita algunas propiedades de los enlaces*/
-.not-active { 
-    pointer-events: none; 
-    cursor: default; 
-} 
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
 
-/*En tu hoja de estilos */
-a:link,
+/*COLOR PILL*/
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    /* color: black;
+    background-color: #fff; */
+    color: white;
+    background-color: rgb(288, 61, 81);
+}
+
+
+/* a:link,
 a:visited,
 a:active {
     text-decoration: none;
     color: #fff;
-}
+} */
 
-a:hover{
+/* a:hover{
     color: black;
-}
-
-/*COLOR PILL*/
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
-    color: black;
-    background-color: #fff;
-}
-
-/*Fondo del header*/
-.fondoHeader {
-    background: rgb(288, 61, 81);
-    border:none !important;
-}
-
+} */
 
 
 /* On small screens, set height to 'auto' for sidenav and grid */
