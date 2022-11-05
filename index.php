@@ -89,13 +89,13 @@ include 'filtros.php';
 
                         <!-- <li class="active"><a onfocus="//displayData()" data-toggle="pill" href="#home">Peticiones</a></li> -->
 
-                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span class="badge">10</span></a></li>
+                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span class="badge"><?php echo $TotalPendientes ?></span></a></li>
 
-                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span class="badge">4</span></a></li>
+                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span class="badge"><?php echo $TotalDesarrollo ?></span></a></li>
 
-                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span class="badge">20</span></a></li>
+                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span class="badge"><?php echo $TotalSinEnviar ?></span></a></li>
 
-                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Buscador Peticiones <span class="badge">20</span></a></li>
+                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Buscador De Peticiones</a></li>
 
 
                         <li class="dropdown">

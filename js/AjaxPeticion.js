@@ -41,7 +41,7 @@ function displayDataCompletas() {
                         orientation: 'landscape',
                         pageSize: 'LEGAL'
                     },
-                    'excel', 'csv', 
+                    'excel', 'csv',
 
                 ]
 
@@ -80,7 +80,7 @@ function displayDataDesarrollo() {
                         orientation: 'landscape',
                         pageSize: 'LEGAL'
                     },
-                    'excel', 'csv', 
+                    'excel', 'csv',
 
                 ]
 
@@ -141,6 +141,8 @@ function displayDataPendientes() {
             displayDataPendienteSend: displayDataPendiente
         },
         success: function (data, status) {
+
+           
             $('#displayDataTablePendiente').html(data);
             $('#tabla_peticiones_pendientes').DataTable({
                 "language": {
@@ -155,7 +157,7 @@ function displayDataPendientes() {
                         orientation: 'landscape',
                         pageSize: 'LEGAL'
                     },
-                    'excel', 'csv', 
+                    'excel', 'csv',
 
                 ]
 
@@ -212,8 +214,8 @@ function displayData() {
                         pageSize: 'LEGAL'
                     },
                     'excel', 'csv',
-                        
-                    
+
+
 
                 ]
 
@@ -1267,5 +1269,4 @@ function insertarTexto(frase, textoAgregar, posicion) {
 }
 
 
-    
-    
+

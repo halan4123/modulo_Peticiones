@@ -490,6 +490,13 @@ if (isset($_POST['displayDataSend'])) {
             ';
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
+
+    // $respuesta = [
+    //     "datas" => $table,
+
+    // ];
+
+    // echo json_encode($respuesta);
 }
 
 
