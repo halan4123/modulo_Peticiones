@@ -12,10 +12,10 @@ if (isset($_POST['displayDataDesarrolladorSend'])) {
     <table id="tabla_desarrolladores" class="display table table-responsive table-striped">
         <thead>
             <tr>
-                <th class="color-tabla-desarrollador">#</th>
-                <th class="color-tabla-desarrollador">NOMBRE(S)</th>     
-                <th class="color-tabla-desarrollador">APELLIDO(S)</th>            
-                <th class="color-tabla-desarrollador">ACCIONES</th>   
+                <th class="color-pendiente-btn-info">#</th>
+                <th class="color-pendiente-btn-info">NOMBRE(S)</th>     
+                <th class="color-pendiente-btn-info">APELLIDO(S)</th>            
+                <th class="color-pendiente-btn-info">ACCIONES</th>   
             </tr>
         </thead>
         <tbody>

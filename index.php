@@ -86,17 +86,25 @@ include 'filtros.php';
             <div class="row content">
                 <div class="col-sm-2 sidenav">
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a onfocus="displayData()" data-toggle="pill" href="#home">Peticiones</a></li>
-                        <!-- <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menu4">Graficas</a></li>
-                        <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menu1">Desarrolladores</a></li>
-                        <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menu2">Soporte</a></li> -->
-                        <li class="dropdown" >
+
+                        <!-- <li class="active"><a onfocus="//displayData()" data-toggle="pill" href="#home">Peticiones</a></li> -->
+
+                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span class="badge">10</span></a></li>
+
+                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span class="badge">4</span></a></li>
+
+                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span class="badge">20</span></a></li>
+
+                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Buscador Peticiones <span class="badge">20</span></a></li>
+
+
+                        <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menu4">Graficas</a></li>
-                                <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menu1">Desarrolladores</a></li>
-                                <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menu2">Soporte</a></li>
+                                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menuGraficos">Graficas</a></li>
+                                <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menuDesarrollador">Desarrolladores</a></li>
+                                <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menuSoporte">Soporte</a></li>
                             </ul>
                         </li>
 
@@ -106,27 +114,49 @@ include 'filtros.php';
 
                     <div class="tab-content">
 
-                        <div id="home" class="tab-pane fade in active" style="padding-top: 20px;">
+                        <div id="peticionesPendientesVista" class="tab-pane fade in active" style="padding-top: 20px;">
 
-                            <?php include 'tablas/tablaPeticiones.php'; ?>
+                            <?php include 'tablas/tablaPeticionesPendientes.php'; ?>
 
                         </div>
 
-                        <div id="menu4" class="tab-pane fade " style="padding-top: 20px;">
+                        <div id="peticionesDesarrolloVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaPeticionesDesarrollo.php';
+                            ?>
+
+                        </div>
+
+                        <div id="peticionesSinEnviarVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaPeticionesSinEnviar.php';
+                            ?>
+
+                        </div>
+
+                        <div id="peticionesBuscadirVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaBuscadorPeticiones.php';
+                            ?>
+
+                        </div>
+
+
+                        <div id="menuGraficos" class="tab-pane fade " style="padding-top: 20px;">
 
                             <?php include 'tablas/tablaGraficos.php';
                             ?>
 
                         </div>
 
-                        <div id="menu1" class="tab-pane fade" style="padding-top: 20px;">
+                        <div id="menuDesarrollador" class="tab-pane fade" style="padding-top: 20px;">
 
                             <?php include 'tablas/tablaDesarrolladores.php';
                             ?>
 
                         </div>
 
-                        <div id="menu2" class="tab-pane fade" style="padding-top: 20px;">
+                        <div id="menuSoporte" class="tab-pane fade" style="padding-top: 20px;">
 
                             <?php include 'tablas/tablaSoportes.php';
                             ?>
