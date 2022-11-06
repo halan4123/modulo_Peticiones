@@ -465,7 +465,7 @@ if (isset($_POST['displayDataSend'])) {
                 <span class="bi bi-pencil-fill"></span>
                 </button>
 
-                <button class="btn btn-danger accionesPeticion" onclick="eliminar(' . $ID_PETICION . ')">
+                <button class="btn btn-danger accionesPeticion" onclick="eliminar('. $ID_PETICION . ","  . $display . ')">
                 <span class="bi bi-trash-fill"></span>
                 </button>
             </div>
@@ -490,23 +490,6 @@ if (isset($_POST['displayDataSend'])) {
             ';
     //MOSTRAMOS LA TABLA, SI NO SE MUESTRA NO FUNCIONA
     echo $table;
-
-    // $respuesta = [
-    //     "datas" => $table,
-
-    // ];
-
-    // echo json_encode($respuesta);
-}
-
-
-//==========================================================================================================================
-//HISTORIAL
-//==========================================================================================================================
-if (isset($_POST['displayHistorial'])) {
-
-    
-    
 }
 
 

@@ -62,7 +62,7 @@ include 'filtros.php';
     <?php include 'modales.php'; ?>
 
 
-    <nav class="navbar navbar-inverse fondoHeader" style="background-color: red;">
+    <nav class="navbar navbar-inverse fondoHeader" >
         <div class="container-fluid ">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -80,6 +80,10 @@ include 'filtros.php';
         </div>
     </nav>
 
+
+
+    <span id="pruedadealgo"></span>
+
     <div style="background: white;">
 
         <div class="container-fluid text-center">
@@ -89,11 +93,11 @@ include 'filtros.php';
 
                         <!-- <li class="active"><a onfocus="//displayData()" data-toggle="pill" href="#home">Peticiones</a></li> -->
 
-                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span class="badge"><?php echo $TotalPendientes ?></span></a></li>
+                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span id="spanPeticionesPendientes" class="badge"></span></a></li>
 
-                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span class="badge"><?php echo $TotalDesarrollo ?></span></a></li>
+                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span id="spanPeticionesDesarrollo" class="badge"></span></a></li>
 
-                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span class="badge"><?php echo $TotalSinEnviar ?></span></a></li>
+                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span id="spanPeticionesSinEnviar" class="badge"></span></a></li>
 
                         <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Buscador De Peticiones</a></li>
 

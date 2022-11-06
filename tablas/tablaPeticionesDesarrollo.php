@@ -4,7 +4,7 @@
 
         <div class="panel-heading panel-heading-custom-2">
             <h4 class="panel-title">
-                <a onfocus="//displayDataDesarrollo()" data-toggle="collapse" data-parent="#accordionDesarrolloPeticionesData" href="#pendientesDesarrolloAccordionData">
+                <a class="not-active" data-toggle="collapse" data-parent="#accordionDesarrolloPeticionesData" href="#pendientesDesarrolloAccordionData">
                     Peticiones En Desarrollo</a>
             </h4>
         </div>

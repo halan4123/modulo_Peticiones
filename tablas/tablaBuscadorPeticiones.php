@@ -4,7 +4,7 @@
 
         <div class="panel-heading panel-heading-custom-6">
             <h4 class="panel-title">
-                <a onfocus="//" data-toggle="collapse" data-parent="#accordionPendientesBuscadorData" href="#BuscadorPeticionesAccordionData">
+                <a class="not-active" data-toggle="collapse" data-parent="#accordionPendientesBuscadorData" href="#BuscadorPeticionesAccordionData">
                     Buscador De Peticiones</a>
             </h4>
         </div>

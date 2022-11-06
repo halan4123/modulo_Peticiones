@@ -4,7 +4,7 @@
 
         <div class="panel-heading panel-heading-custom-1">
             <h4 class="panel-title">
-                <a onfocus="//displayDataPendientes()" data-toggle="collapse" data-parent="#accordionPendientesPeticionesData" href="#pendientesPeticionesAccordionData">
+                <a class="not-active" data-toggle="collapse" data-parent="#accordionPendientesPeticionesData" href="#pendientesPeticionesAccordionData">
                     Peticiones Pendientes</a>
             </h4>
         </div>

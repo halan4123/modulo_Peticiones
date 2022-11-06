@@ -3,6 +3,9 @@ $(document).ready(function () {
     //POR DEFECTO CUANDO EL DOCUMENTO CARGA LA PESTAÑA DE PENDIENTES
     displayDataPendientes();
 
+    //CARGA LOS NUMEROS EN BADGES
+    badgesAjax();
+
     //POSTERIORMENTE CARGAN TODOS LOS BUSCADORES DE SELECT2
     buscadoresSelect2();
 
@@ -13,6 +16,34 @@ $(document).ready(function () {
     trumbowygEditor();
 
 });
+
+function badgesAjax() {
+
+    const badgesAjax = true;
+
+    $.ajax({
+        url: "app/badges.php",
+        type: "POST",
+        data: {
+            badgesAjaxSend: badgesAjax,
+        },
+        success: function (data, status) {
+
+            let datos = JSON.parse(data);
+
+
+            $('#spanPeticionesPendientes').text(datos.pendientes);
+
+            $('#spanPeticionesDesarrollo').text(datos.desarrollo);
+
+            $('#spanPeticionesSinEnviar').text(datos.sinenviar);
+
+
+        }
+
+    });
+
+}
 
 //MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PETICIONES POR ENVIAR
 function displayDataCompletas() {
@@ -142,7 +173,7 @@ function displayDataPendientes() {
         },
         success: function (data, status) {
 
-           
+
             $('#displayDataTablePendiente').html(data);
             $('#tabla_peticiones_pendientes').DataTable({
                 "language": {
@@ -291,6 +322,9 @@ function agregar() {
                 //SE MUESTRA NUEVAMENTE LA TABLA ACTUALIZADA
                 displayData();
                 displayDataPendientes();
+
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
 
             }
 
@@ -484,20 +518,26 @@ function actualizar() {
                         if (caso_display == '1') {
 
                             displayData();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else if (caso_display == '2') {
 
                             displayDataPendientes();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else if (caso_display == '3') {
 
                             displayDataDesarrollo();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else {
 
                             displayDataCompletas();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         }
 
                     });
@@ -530,19 +570,23 @@ function actualizar() {
                         if (caso_display == '1') {
 
                             displayData();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else if (caso_display == '2') {
 
                             displayDataPendientes();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else if (caso_display == '3') {
 
                             displayDataDesarrollo();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else {
 
                             displayDataCompletas();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         }
 
 
@@ -583,19 +627,23 @@ function actualizar() {
             if (caso_display == '1') {
 
                 displayData();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else if (caso_display == '2') {
 
                 displayDataPendientes();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else if (caso_display == '3') {
 
                 displayDataDesarrollo();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else {
 
                 displayDataCompletas();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             }
 
 
@@ -607,9 +655,12 @@ function actualizar() {
 }
 
 //ELIMINA LA PETICIÓN
-function eliminar(id) {
+function eliminar(id, display) {
 
-    let eliminarData = true;
+    const eliminarData = true;
+
+    const caso_display = display;
+
 
     swal({
         title: "¿Estas seguro?",
@@ -636,10 +687,32 @@ function eliminar(id) {
 
                         });
 
-                        displayData();//MOSTRAMOS LA TABLA ACTUALIZADA
-                        displayDataPendientes();
-                        displayDataDesarrollo();
-                        displayDataCompletas();
+                        if (caso_display == 1) {
+
+                            displayData();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 2) {
+
+                            displayDataPendientes();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 3) {
+
+                            displayDataDesarrollo();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 4) {
+
+                            displayDataCompletas();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+                        }
+
+
                     }
 
                 });
@@ -966,10 +1039,7 @@ function limpiarInputAgregar() {
 //ENVIA MENSAJE DE PETICION COMPLETADA
 function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
-
     let actualizarDesdeWp = true;
-
-
 
     swal({
         title: "¿Enviar correo electrónico y mensaje de whatsapp?",
@@ -995,19 +1065,15 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
 
                 }, function (data, status) {
 
-
-
                     swal({
                         title: "Correo enviado y ventana emergente de whatsapp abierta",
                         icon: "success",
                         button: "Cerrar",
                     });
 
-                    // displayData();
-                    // displayDataPendientes();
-                    // displayDataDesarrollo();
                     displayDataCompletas();
-
+                    //CARGA LOS BADGES ACTUALIZADOS
+                    badgesAjax();
                     window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20por%20*' + desarrollador.trim() + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
 
                 });
@@ -1068,6 +1134,9 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
                     });
 
                     displayDataCompletas();
+
+                    //CARGA LOS BADGES ACTUALIZADOS
+                    badgesAjax();
 
                     window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20fecha%20de%20llegada%20*' + fechaLlegada + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada%20el%20*' + fechaEnviado + '*%20por%20*' + desarrollador + '*.');
 

@@ -4,7 +4,7 @@
 
         <div class="panel-heading panel-heading-custom-1">
             <h4 class="panel-title">
-                <a onfocus="//displayDataSoporte()" data-toggle="collapse" data-parent="#accordionSoporteData" href="#soporteAccordionData">
+                <a class="not-active" data-toggle="collapse" data-parent="#accordionSoporteData" href="#soporteAccordionData">
                     Administración de soporte</a>
             </h4>
         </div>

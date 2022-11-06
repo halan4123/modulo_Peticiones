@@ -4,7 +4,7 @@
 
         <div class="panel-heading panel-heading-custom-1">
             <h4 class="panel-title">
-                <a onfocus="//displayDataDesarrollador()" data-toggle="collapse" data-parent="#accordionDesarrolladorData" href="#desarrolladorAccordionData">
+                <a class="not-active" data-toggle="collapse" data-parent="#accordionDesarrolladorData" href="#desarrolladorAccordionData">
                     Administración de desarrolladores</a>
             </h4>
         </div>
