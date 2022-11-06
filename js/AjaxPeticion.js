@@ -187,9 +187,20 @@ function displayDataPendientes() {
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                       
+
                     },
-                    'excel', 'csv',
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn-success',
+                    },
+                    {
+                        extend: 'csv',
+                        titleAttr: 'Exportar a cvs',
+
+                    },
 
                 ]
 
