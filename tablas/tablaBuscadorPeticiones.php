@@ -52,13 +52,8 @@
                     <div class="col-md-12">
 
                         <div class="well ">
-                            <div class="flex-container_3">
-                                <div>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregar">
-                                        Agregar Petición
-                                    </button>
-                                </div>
-
+                            <div class="flex-container_4">
+                        
                                 <div>
                                     <label class="btn color-buscador-btn-info" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="
                                    
