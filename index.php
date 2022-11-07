@@ -22,10 +22,10 @@ include 'filtros.php';
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!--CDN BOOTSTRAP 3.4.1 Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- CDN BOOTSTRAP 3.4.1 Latest compiled JavaScript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- CDN CSS BOOTSTRAP PLUGIN MULTISELECT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
@@ -48,25 +48,7 @@ include 'filtros.php';
     <!-- ESTILOS LIBRERIA Trumbowyg -->
     <link rel="stylesheet" href="libs/Trumbowyg/dist/ui/trumbowyg.min.css">
 
-    <!--CDN DATATABLE-->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-
-    <!-- CDN BOTONES DATATABLE EXCEL, COPY, PDF  -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.53/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.53/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
-    <!--CDN BOOTSTRAP CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/datatables.min.css" />
-    <!-- CDN BOOTSTRAP JavaScript -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/datatables.min.js"></script>
-
-    <!--MY CSS -->
+    <!--MY CSS-->
     <link rel="stylesheet" href="css/estructura.css">
 
     <link rel="stylesheet" href="css/general.css">
@@ -79,7 +61,7 @@ include 'filtros.php';
     <?php include 'modales.php'; ?>
 
 
-    <nav class="navbar navbar-inverse fondoHeader">
+    <nav class="navbar navbar-inverse fondoHeader" >
         <div class="container-fluid ">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -97,10 +79,13 @@ include 'filtros.php';
         </div>
     </nav>
 
+
+
     <div style="background: white;">
 
         <div class="container-fluid text-center">
             <div class="row content">
+
                 <div class="col-sm-2 sidenav">
                     <ul class="nav nav-pills nav-stacked">
 
@@ -127,6 +112,8 @@ include 'filtros.php';
 
                     </ul>
                 </div>
+
+                
                 <div class="col-sm-10 text-left">
 
                     <div class="tab-content">
@@ -184,6 +171,8 @@ include 'filtros.php';
 
                     </div>
 
+
+                  
                 </div>
 
             </div>
@@ -195,6 +184,19 @@ include 'filtros.php';
 
 
 
+
+    <!--CDN DATATABLE-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+
+    <!-- CDN BOTONES DATATABLE EXCEL, COPY, PDF  -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.53/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.53/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

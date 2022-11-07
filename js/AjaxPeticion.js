@@ -67,13 +67,29 @@ function displayDataCompletas() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv',
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -106,13 +122,29 @@ function displayDataDesarrollo() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv',
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -183,23 +215,28 @@ function displayDataPendientes() {
 
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
                         titleAttr: 'Exportar a PDF',
                         pageSize: 'LEGAL',
-                       
-
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
                     {
                         extend: 'excelHtml5',
-                        className: 'btn-success',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
                     {
-                        extend: 'csv',
-                        titleAttr: 'Exportar a cvs',
-
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
 
                 ]
@@ -250,15 +287,29 @@ function displayData() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv',
-
-
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
