@@ -204,7 +204,7 @@ function graficarAnualmente() {
         const myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Pepe', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                 datasets: [{
                     label: 'Recibidas',
                     data: datosAnualMix.datosRegistrados,
