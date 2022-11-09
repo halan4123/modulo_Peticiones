@@ -158,7 +158,7 @@ function displayDataDesarrollo() {
 
 }
 
-//HISTORIAL
+//MUESTRA EL HISTORIAL EN CADA PETICION
 function mostrarHistorial(id) {
 
     const displayHistorial = true;
@@ -189,6 +189,59 @@ function mostrarHistorial(id) {
 
 
 
+}
+
+//MUESTRA TABLA HISTORIAL EN ADMID GROUP
+function mostrarModificacionesHistorial() {
+
+    const displayHistorialModificacion = true;
+
+    const filtroFechaInicio = $('#filtroFechaInicioModificaciones').val();
+    const filtroFechaFinal = $('#filtroFechaFinalModificaciones').val();
+
+    $.ajax({
+        url: "app/historial.php",
+        type: "POST",
+        data: {
+            displayHistorialModificacionSend: displayHistorialModificacion,
+            filtroFechaInicioSend: filtroFechaInicio,
+            filtroFechaFinalSend: filtroFechaFinal,
+       
+        },
+        success: function (data, status) {
+            $('#displayDataTableHistorialModificaciones').html(data);
+            $('#tabla-historial-modificaciones').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                       
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                      
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        
+                    },
+
+                ]
+
+            });
+        }
+
+    });
+
+    
 }
 
 //MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PENDIENTES
@@ -1363,6 +1416,15 @@ function limpiarDesarrolladorw() {
 
 function limpiarEstatusw() {
     $('#filtroEstatus').val(null).trigger('change');
+}
+
+function limpiarFiltrosModificaciones() {
+
+    const dia_acual = moment();
+
+    $('#filtroFechaInicioModificaciones').val(dia_acual.format("yyyy-MM-DD"));
+    //document.getElementById("filtroFechaInicio").value = date.format("yyyy-MM-DD");
+    $('#filtroFechaFinalModificaciones').val(dia_acual.format("yyyy-MM-DD"));
 }
 
 function soloNumeros(e) {

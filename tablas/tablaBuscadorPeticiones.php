@@ -5,7 +5,7 @@
         <div class="panel-heading panel-heading-custom-6">
             <h4 class="panel-title">
                 <a class="not-active" data-toggle="collapse" data-parent="#accordionPendientesBuscadorData" href="#BuscadorPeticionesAccordionData">
-                    Buscador De Peticiones</a>
+                    Historial De Peticiones</a>
             </h4>
         </div>
 
@@ -172,13 +172,13 @@
 
                                 <!-- FILTRO DE FECHA INICIO -->
                                 <div>
-                                    <label for=" filterFechaInicio">De:</label>
+                                    <label for="filtroFechaInicio">De:</label>
                                     <input type="date" class="form-control" id="filtroFechaInicio" value="<?php echo date("Y-m-d", strtotime($fecha_hoy));  ?>" onchange="">
                                 </div>
 
                                 <!-- FILTRO DE FECHA FINAL -->
                                 <div>
-                                    <label for="filterFechaFinal">A:</label>
+                                    <label for="filtroFechaFinal">A:</label>
                                     <input type="date" class="form-control" id="filtroFechaFinal" value="<?php echo date("Y-m-d", strtotime($fecha_hoy_2));  ?>" onchange="">
                                 </div>
 

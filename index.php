@@ -61,7 +61,7 @@ include 'filtros.php';
     <?php include 'modales.php'; ?>
 
 
-    <nav class="navbar navbar-inverse fondoHeader" >
+    <nav class="navbar navbar-inverse fondoHeader">
         <div class="container-fluid ">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -97,7 +97,7 @@ include 'filtros.php';
 
                         <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span id="spanPeticionesSinEnviar" class="badge"></span></a></li>
 
-                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Buscador De Peticiones</a></li>
+                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Historial De Peticiones</a></li>
 
 
                         <li class="dropdown">
@@ -107,13 +107,14 @@ include 'filtros.php';
                                 <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menuGraficos">Graficas</a></li>
                                 <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menuDesarrollador">Desarrolladores</a></li>
                                 <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menuSoporte">Soporte</a></li>
+                                <li><a onfocus="mostrarModificacionesHistorial()" data-toggle="pill" href="#menuModificaciones">Modificaciones</a></li>
                             </ul>
                         </li>
 
                     </ul>
                 </div>
 
-                
+
                 <div class="col-sm-10 text-left">
 
                     <div class="tab-content">
@@ -167,12 +168,19 @@ include 'filtros.php';
 
                         </div>
 
+                        <div id="menuModificaciones" class="tab-pane fade" style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaModificaciones.php';
+                            ?>
+
+                        </div>
+
 
 
                     </div>
 
 
-                  
+
                 </div>
 
             </div>
