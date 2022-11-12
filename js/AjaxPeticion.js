@@ -3,6 +3,9 @@ $(document).ready(function () {
     //POR DEFECTO CUANDO EL DOCUMENTO CARGA LA PESTAÑA DE PENDIENTES
     displayDataPendientes();
 
+    //CARGA LOS NUMEROS EN BADGES
+    badgesAjax();
+
     //POSTERIORMENTE CARGAN TODOS LOS BUSCADORES DE SELECT2
     buscadoresSelect2();
 
@@ -14,11 +17,40 @@ $(document).ready(function () {
 
 });
 
+//MUSTRA LOS NUMEROS JUNTO AL TITULO
+function badgesAjax() {
+
+    const badgesAjax = true;
+
+    $.ajax({
+        url: "app/badges.php",
+        type: "POST",
+        data: {
+            badgesAjaxSend: badgesAjax,
+        },
+        success: function (data, status) {
+
+            const datos = JSON.parse(data);
+
+
+            $('#spanPeticionesPendientes').text(datos.pendientes);
+
+            $('#spanPeticionesDesarrollo').text(datos.desarrollo);
+
+            $('#spanPeticionesSinEnviar').text(datos.sinenviar);
+
+
+        }
+
+    });
+
+}
+
 //MUESTRA LA TABLA CON PETICIONES RECHAZADAS, COMPLETAS Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PETICIONES POR ENVIAR
 function displayDataCompletas() {
 
-    let displayData = true;
-    let displayDataCompleta = true;
+    const displayData = true;
+    const displayDataCompleta = true;
 
     $.ajax({
         url: "app/peticion.php",
@@ -35,13 +67,29 @@ function displayDataCompletas() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv', 
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -56,8 +104,8 @@ function displayDataCompletas() {
 //MUESTRA LA TABLA CON PETICIONES EN DESARROLLO Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE EN DESARROLLO
 function displayDataDesarrollo() {
 
-    let displayData = true;
-    let displayDataDesarrollo = true;
+    const displayData = true;
+    const displayDataDesarrollo = true;
 
     $.ajax({
         url: "app/peticion.php",
@@ -74,13 +122,29 @@ function displayDataDesarrollo() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv', 
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -94,7 +158,7 @@ function displayDataDesarrollo() {
 
 }
 
-//HISTORIAL
+//MUESTRA EL HISTORIAL EN CADA PETICION
 function mostrarHistorial(id) {
 
     const displayHistorial = true;
@@ -127,11 +191,64 @@ function mostrarHistorial(id) {
 
 }
 
+//MUESTRA TABLA HISTORIAL EN ADMID GROUP
+function mostrarModificacionesHistorial() {
+
+    const displayHistorialModificacion = true;
+
+    const filtroFechaInicio = $('#filtroFechaInicioModificaciones').val();
+    const filtroFechaFinal = $('#filtroFechaFinalModificaciones').val();
+
+    $.ajax({
+        url: "app/historial.php",
+        type: "POST",
+        data: {
+            displayHistorialModificacionSend: displayHistorialModificacion,
+            filtroFechaInicioSend: filtroFechaInicio,
+            filtroFechaFinalSend: filtroFechaFinal,
+       
+        },
+        success: function (data, status) {
+            $('#displayDataTableHistorialModificaciones').html(data);
+            $('#tabla-historial-modificaciones').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                       
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                      
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        
+                    },
+
+                ]
+
+            });
+        }
+
+    });
+
+    
+}
+
 //MUESTRA LA TABLA CON PETICIONES PENDIENTES Y QUE NO HAN SIDO ENVIADAS, EN LA PESTAÑA DE PENDIENTES
 function displayDataPendientes() {
 
-    let displayData = true;
-    let displayDataPendiente = true;
+    const displayData = true;
+    const displayDataPendiente = true;
 
     $.ajax({
         url: "app/peticion.php",
@@ -141,6 +258,8 @@ function displayDataPendientes() {
             displayDataPendienteSend: displayDataPendiente
         },
         success: function (data, status) {
+
+
             $('#displayDataTablePendiente').html(data);
             $('#tabla_peticiones_pendientes').DataTable({
                 "language": {
@@ -149,13 +268,29 @@ function displayDataPendientes() {
 
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv', 
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -171,16 +306,16 @@ function displayDataPendientes() {
 //MUESTRA LA TABLA DE LA PESTAÑA DE BUSCADOR DE PETICIONES
 function displayData() {
 
-    let displayData = true;
-    let displayDataFull = true;
+    const displayData = true;
+    const displayDataFull = true;
 
-    let filtroEstatus = $('#filtroEstatus').val();
-    let filtroNivel = $('#filtroNivel').val();
-    let filtroFechaInicio = $('#filtroFechaInicio').val();
-    let filtroSoporte = $('#filtroSoportePeti').val();
-    let filtroDesarrollador = $('#filtroDesarrolladorPeti').val();
-    let filtroFechaFinal = $('#filtroFechaFinal').val();
-    let filtroLaboratorio = $('#filtroLaboratorioPeti').val();
+    const filtroEstatus = $('#filtroEstatus').val();
+    const filtroNivel = $('#filtroNivel').val();
+    const filtroFechaInicio = $('#filtroFechaInicio').val();
+    const filtroSoporte = $('#filtroSoportePeti').val();
+    const filtroDesarrollador = $('#filtroDesarrolladorPeti').val();
+    const filtroFechaFinal = $('#filtroFechaFinal').val();
+    const filtroLaboratorio = $('#filtroLaboratorioPeti').val();
 
 
     $.ajax({
@@ -205,15 +340,29 @@ function displayData() {
                 },
                 dom: 'Bfrtip',
                 buttons: [
-
                     {
                         extend: 'pdfHtml5',
                         orientation: 'landscape',
-                        pageSize: 'LEGAL'
+                        titleAttr: 'Exportar a PDF',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
                     },
-                    'excel', 'csv',
-                        
-                    
+                    {
+                        extend: 'excelHtml5',
+                        titleAttr: 'Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        titleAttr: 'Exportar a csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+                        }
+                    },
 
                 ]
 
@@ -227,17 +376,17 @@ function displayData() {
 //AGREGA LA PETICIÓN
 function agregar() {
 
-    let insertData = true;
+    const insertData = true;
 
-    let asuntoAdd = $('#asuntoAdd').val();
-    let laboratorioAdd = $('#laboratorioAdd').val();
-    let soporteAdd = $('#soporteAdd').val();
-    let descripcionAdd = $('#descripcionAdd').val();
-    let fechaEntregaEstimadaAdd = $('#fechaEntregaEstimadaAdd').val();
-    let fechaCompletadoAdd = $('#fechaCompletadoAdd').val();
-    let nivelAdd = $('#nivelAdd').val();
-    let estatusAdd = $('#estatusAdd').val();
-    let desarrolladorAdd = $('#desarrolladorAdd').val();
+    const asuntoAdd = $('#asuntoAdd').val();
+    const laboratorioAdd = $('#laboratorioAdd').val();
+    const soporteAdd = $('#soporteAdd').val();
+    const descripcionAdd = $('#descripcionAdd').val();
+    const fechaEntregaEstimadaAdd = $('#fechaEntregaEstimadaAdd').val();
+    const fechaCompletadoAdd = $('#fechaCompletadoAdd').val();
+    const nivelAdd = $('#nivelAdd').val();
+    const estatusAdd = $('#estatusAdd').val();
+    const desarrolladorAdd = $('#desarrolladorAdd').val();
 
     if (
         asuntoAdd.length === 0 ||
@@ -287,8 +436,10 @@ function agregar() {
                 limpiarInputAgregar();
 
                 //SE MUESTRA NUEVAMENTE LA TABLA ACTUALIZADA
-                displayData();
                 displayDataPendientes();
+
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
 
             }
 
@@ -303,16 +454,16 @@ function agregar() {
 //OBTIENE LA INFORMACIÓN PARA COLOCARLA EN EL MODAL DE VER
 function getInfo(id) {
 
-    let getInfoData = true;
+    const getInfoData = true;
 
-    let men = 'Sin Definir';
+    const men = 'Sin Definir';
 
     $.post("app/peticion.php", {
         getInfoDataSend: getInfoData,
         idSend: id
     }, function (data, status) {
 
-        let peticion = JSON.parse(data);
+        const peticion = JSON.parse(data);
 
         $('#idSee').val(peticion.ID_PETICION);
         $('#asuntoSee').val(peticion.ASUNTO);
@@ -341,7 +492,7 @@ function getInfo(id) {
 //COLOCA LA INFORMACIÓN CORRESPONDINTE EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfo(id, display) {
 
-    let getInfoUpdatePeticion = true;
+    const getInfoUpdatePeticion = true;
 
     $('#idHidden').val(id);
     $('#caso_display').val(display);
@@ -351,7 +502,7 @@ function actualizarGetInfo(id, display) {
         idSend: id
     }, function (data, status) {
 
-        let peticion = JSON.parse(data);
+        const peticion = JSON.parse(data);
 
         //VALIDACIONES PARA EL SELECT2 PARA QUE EL INPUT OBTENGA EL VALOR AL MOMENTO DE DAR CLICK EN ACTUALIZAR
         let desarrolladorOption;
@@ -361,11 +512,11 @@ function actualizarGetInfo(id, display) {
             desarrolladorOption = "<option value='" + peticion.ID_DESARROLLADOR + "' selected='selected'>" + peticion.NOMDES + "</option>";
         }
 
-        let laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>" + peticion.NOMLAB + "</option>";
+        const laboratorioOption = "<option value='" + peticion.ID_LABORATORIO + "' selected='selected'>" + peticion.NOMLAB + "</option>";
 
-        let nivelOption = "<option value='" + peticion.ID_NIVEL + "' selected='selected'>" + peticion.NOMNIVEL + "</option>";
+        const nivelOption = "<option value='" + peticion.ID_NIVEL + "' selected='selected'>" + peticion.NOMNIVEL + "</option>";
 
-        let estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>" + peticion.NOMESTATUS + "</option>";
+        const estatusOption = "<option value='" + peticion.ID_ESTATUS + "' selected='selected'>" + peticion.NOMESTATUS + "</option>";
 
         //ASIGNACIONES POR DEFECTO O CON EL VALOR QUE TENGAN DEL SELECT2
         $('#desarrolladorUpdate').append(desarrolladorOption).trigger('change');
@@ -396,35 +547,35 @@ function actualizarGetInfo(id, display) {
 //ACTUALIZA LA PETICION
 function actualizar() {
 
-    let actualizarData = true;
+    const actualizarData = true;
 
     let enviado = true;
 
-    let caso_display = $('#caso_display').val();
+    const caso_display = $('#caso_display').val();
 
-    let idHidden = $('#idHidden').val();
-    let asuntoActualizar = $('#asuntoUpdate').val();
-    let laboratorioActualizar = $('#laboratorioUpdate').val();
-    let fechaEntregaActualizar = $('#fecha_entregaUpdate').val();
-    let desarrolladorActualizar = $('#desarrolladorUpdate').val();
-    let nivelActualizar = $('#nivelUpdate').val();
-    let estatusActualizar = $('#estatusUpdate').val();
+    const idHidden = $('#idHidden').val();
+    const asuntoActualizar = $('#asuntoUpdate').val();
+    const laboratorioActualizar = $('#laboratorioUpdate').val();
+    const fechaEntregaActualizar = $('#fecha_entregaUpdate').val();
+    const desarrolladorActualizar = $('#desarrolladorUpdate').val();
+    const nivelActualizar = $('#nivelUpdate').val();
+    const estatusActualizar = $('#estatusUpdate').val();
     // let estatusNombre = $("#estatusUpdate").text();
-    let descripcionActualizar = $('#descripcionUpdate').val();//text
+    const descripcionActualizar = $('#descripcionUpdate').val();//text
 
-    let numeroCelularSoporte = $('#numeroCelularSoporte').val();
+    const numeroCelularSoporte = $('#numeroCelularSoporte').val();
 
     let fechaLlegada = $('#fecha_llegadaUpdate').val();
     fechaLlegada = fechaLlegada.substring(0, 10);
 
-    let soporteNombre = $('#soporte_Update').val()
+    const soporteNombre = $('#soporte_Update').val()
 
     let fechaCompletado = $('#fecha_completadoUpdate').val()
     fechaCompletado = fechaCompletado.substring(0, 10);
 
-    let desarrollador_wp = $('#desarrollador_nombre').val().trim();
+    const desarrollador_wp = $('#desarrollador_nombre').val().trim();
 
-    let laboratorio_wp = $('#laboratorioUpdate').text().trim();
+    const laboratorio_wp = $('#laboratorioUpdate').text().trim();
 
     // console.log("desarrollador: " + JSON.stringify(desarrolladorActualizar));
 
@@ -482,20 +633,26 @@ function actualizar() {
                         if (caso_display == '1') {
 
                             displayData();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else if (caso_display == '2') {
 
                             displayDataPendientes();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else if (caso_display == '3') {
 
                             displayDataDesarrollo();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
 
                         } else {
 
                             displayDataCompletas();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         }
 
                     });
@@ -528,19 +685,23 @@ function actualizar() {
                         if (caso_display == '1') {
 
                             displayData();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else if (caso_display == '2') {
 
                             displayDataPendientes();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else if (caso_display == '3') {
 
                             displayDataDesarrollo();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         } else {
 
                             displayDataCompletas();
-
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
                         }
 
 
@@ -581,19 +742,23 @@ function actualizar() {
             if (caso_display == '1') {
 
                 displayData();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else if (caso_display == '2') {
 
                 displayDataPendientes();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else if (caso_display == '3') {
 
                 displayDataDesarrollo();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             } else {
 
                 displayDataCompletas();
-
+                //CARGA LOS BADGES ACTUALIZADOS
+                badgesAjax();
             }
 
 
@@ -605,9 +770,12 @@ function actualizar() {
 }
 
 //ELIMINA LA PETICIÓN
-function eliminar(id) {
+function eliminar(id, display) {
 
-    let eliminarData = true;
+    const eliminarData = true;
+
+    const caso_display = display;
+
 
     swal({
         title: "¿Estas seguro?",
@@ -634,10 +802,32 @@ function eliminar(id) {
 
                         });
 
-                        displayData();//MOSTRAMOS LA TABLA ACTUALIZADA
-                        displayDataPendientes();
-                        displayDataDesarrollo();
-                        displayDataCompletas();
+                        if (caso_display == 1) {
+
+                            displayData();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 2) {
+
+                            displayDataPendientes();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 3) {
+
+                            displayDataDesarrollo();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+
+                        } else if (caso_display == 4) {
+
+                            displayDataCompletas();
+                            //CARGA LOS BADGES ACTUALIZADOS
+                            badgesAjax();
+                        }
+
+
                     }
 
                 });
@@ -653,13 +843,13 @@ function eliminar(id) {
 //BUSCADORES DE SELECT2
 function buscadoresSelect2() {
 
-    let boleanoLaboratorio = true;
-    let boleanoSoporteNoOcultos = true;
-    let boleanoDesarrolladorNoOcultos = true;
-    let boleanoDesarrollador = true;
-    let boleanoSoporte = true;
-    let boleanoNivel = true;
-    let boleanoEstatus = true;
+    const boleanoLaboratorio = true;
+    const boleanoSoporteNoOcultos = true;
+    const boleanoDesarrolladorNoOcultos = true;
+    const boleanoDesarrollador = true;
+    const boleanoSoporte = true;
+    const boleanoNivel = true;
+    const boleanoEstatus = true;
 
 
     //===========================================================================
@@ -964,10 +1154,7 @@ function limpiarInputAgregar() {
 //ENVIA MENSAJE DE PETICION COMPLETADA
 function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
-
-    let actualizarDesdeWp = true;
-
-
+    const actualizarDesdeWp = true;
 
     swal({
         title: "¿Enviar correo electrónico y mensaje de whatsapp?",
@@ -993,19 +1180,15 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
 
                 }, function (data, status) {
 
-
-
                     swal({
                         title: "Correo enviado y ventana emergente de whatsapp abierta",
                         icon: "success",
                         button: "Cerrar",
                     });
 
-                    // displayData();
-                    // displayDataPendientes();
-                    // displayDataDesarrollo();
                     displayDataCompletas();
-
+                    //CARGA LOS BADGES ACTUALIZADOS
+                    badgesAjax();
                     window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20completada%20por%20*' + desarrollador.trim() + '*%20y%20fue%20solicitada%20el%20*' + fechaLlegada + '*%20por%20*' + soporte + '*');
 
                 });
@@ -1030,9 +1213,9 @@ function wp(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, sopor
 //ENVIA MENSAJE DE PETICION RECHAZADA
 function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlegada, soporte) {
 
-    let actualizarDesdeWp = true;
+    const actualizarDesdeWp = true;
 
-    let fechaEnviado = moment().format("DD-MM-YYYY");
+    const fechaEnviado = moment().format("DD-MM-YYYY");
 
     swal({
         title: "¿Enviar correo electrónico y mensaje de whatsapp?",
@@ -1066,6 +1249,9 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
                     });
 
                     displayDataCompletas();
+
+                    //CARGA LOS BADGES ACTUALIZADOS
+                    badgesAjax();
 
                     window.open('https://wa.me/52' + celular + '?text=La%20petición%20de%20*' + laboratorio + '*%20con%20fecha%20de%20llegada%20*' + fechaLlegada + '*%20con%20el%20asunto%20*' + asunto + '*%20ha%20sido%20rechazada%20el%20*' + fechaEnviado + '*%20por%20*' + desarrollador + '*.');
 
@@ -1094,7 +1280,7 @@ function wpRechazado(id, asunto, celular, laboratorio, desarrollador, fechaLlega
 function limpiarFiltros() {
 
 
-    let dia_acual = moment();
+    const dia_acual = moment();
 
     $('#filtroNivel').val(null).trigger('change');
     $('#filtroLaboratorioPeti').val(null).trigger('change');
@@ -1232,17 +1418,26 @@ function limpiarEstatusw() {
     $('#filtroEstatus').val(null).trigger('change');
 }
 
+function limpiarFiltrosModificaciones() {
+
+    const dia_acual = moment();
+
+    $('#filtroFechaInicioModificaciones').val(dia_acual.format("yyyy-MM-DD"));
+    //document.getElementById("filtroFechaInicio").value = date.format("yyyy-MM-DD");
+    $('#filtroFechaFinalModificaciones').val(dia_acual.format("yyyy-MM-DD"));
+}
+
 function soloNumeros(e) {
 
-    let key = e.KeyCode || e.which;
+    const key = e.KeyCode || e.which;
 
-    let teclado = String.fromCharCode(key);
+    const teclado = String.fromCharCode(key);
 
-    let numero = "0123456789";
+    const numero = "0123456789";
 
-    let especiales = "8-37-38-46";
+    const especiales = "8-37-38-46";
 
-    let teclado_especial = false;
+    const teclado_especial = false;
 
     for (const i in especiales) {
         if (key == especiales[i]) {
@@ -1258,14 +1453,9 @@ function soloNumeros(e) {
 
 }
 
-
-
-
-
 function insertarTexto(frase, textoAgregar, posicion) {
     return frase.slice(0, posicion) + textoAgregar + frase.slice(posicion);
 }
 
 
-    
-    
+

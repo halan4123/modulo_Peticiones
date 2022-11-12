@@ -30,12 +30,11 @@ $(document).ready(function () {
 //GRAFICA LA PRIMERA SECCION DE ESTADISTICAS GENERALES
 function graficarEstadisticasGenerales() {
 
-    let fechaInicio = $('#filtroFechaInicioGraficos').val();
-    let fechaFinal = $('#filtroFechaFinalGraficos').val();
+    const fechaInicio = $('#filtroFechaInicioGraficos').val();
+    const fechaFinal = $('#filtroFechaFinalGraficos').val();
 
-
-    let desarrolladorDatos = true;
-    let soporteDatos = true;
+    const desarrolladorDatos = true;
+    const soporteDatos = true;
 
     //GRAFICA DE PETICIONES POR DESARROLLADOR
     $.post("app/graficas.php", {
@@ -46,18 +45,18 @@ function graficarEstadisticasGenerales() {
 
     }, function (data, status) {
 
-        let datos = JSON.parse(data);
+        const datos = JSON.parse(data);
 
-        let coloR = [];
+        const coloR = [];
 
-        let dynamicColors = function () {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
+        const dynamicColors = function () {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
             return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
         };
 
-        for (let i in datos.datos) {
+        for (const i in datos.datos) {
 
             coloR.push(dynamicColors());
         }
@@ -113,18 +112,18 @@ function graficarEstadisticasGenerales() {
 
     }, function (data, status) {
 
-        let datosSoporte = JSON.parse(data);
+        const datosSoporte = JSON.parse(data);
 
-        let coloR = [];
+        const coloR = [];
 
-        let dynamicColors = function () {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
+        const dynamicColors = function () {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
             return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
         };
 
-        for (let i in datosSoporte.datos) {
+        for (const i in datosSoporte.datos) {
 
             coloR.push(dynamicColors());
         }
@@ -177,12 +176,12 @@ function graficarEstadisticasGenerales() {
 //GRAFICA LA SEGUNDA SECCION DE ESTADISTICAS GENERALES
 function graficarAnualmente() {
 
-    let year = $('#filtroAnualGrafica_3').val();
+    const year = $('#filtroAnualGrafica_3').val();
 
-    let anualMix = true;
-    let anualDatos = true;
-    let anualDatosCompletadas = true;
-    let anualDatosRechazadas = true;
+    const anualMix = true;
+    const anualDatos = true;
+    const anualDatosCompletadas = true;
+    const anualDatosRechazadas = true;
 
 
     //GRAFICA DE PETICIONES MIX
@@ -193,7 +192,7 @@ function graficarAnualmente() {
 
     }, function (data, status) {
 
-        let datosAnualMix = JSON.parse(data);
+        const datosAnualMix = JSON.parse(data);
 
         document.getElementById("peticionesMix").remove();
 
@@ -205,7 +204,7 @@ function graficarAnualmente() {
         const myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Pepe', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
                 datasets: [{
                     label: 'Recibidas',
                     data: datosAnualMix.datosRegistrados,
@@ -213,8 +212,8 @@ function graficarAnualmente() {
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     datalabels: {
                         color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
+                            const index = context.dataIndex;
+                            const value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'rgba(255, 255, 255, 0)';      // else
 
@@ -228,8 +227,8 @@ function graficarAnualmente() {
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     datalabels: {
                         color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
+                            const index = context.dataIndex;
+                            const value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'rgba(255, 255, 255, 0)';      // else
 
@@ -243,8 +242,8 @@ function graficarAnualmente() {
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     datalabels: {
                         color: function (context) {
-                            let index = context.dataIndex;
-                            let value = context.dataset.data[index];
+                            const index = context.dataIndex;
+                            const value = context.dataset.data[index];
                             return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                 'rgba(255, 255, 255, 0)';      // else
 
@@ -543,10 +542,10 @@ function graficarAnualmente() {
 //GRAFICA LA PRIMERA SECCION DE ESTADISTICAS DE LABORATORIO
 function graficarEstadisticasPorFechaLab() {
 
-    let laboratorioDatosFechas = true;
-    let laboratorio = $('#filtroLaboratorioGrafica_2').val();
-    let fechaInicio = $('#filtroFechaInicioGraficosLaboratorio').val();
-    let fechaFinal = $('#filtroFechaFinalGraficosLaboratorio').val();
+    const laboratorioDatosFechas = true;
+    const laboratorio = $('#filtroLaboratorioGrafica_2').val();
+    const fechaInicio = $('#filtroFechaInicioGraficosLaboratorio').val();
+    const fechaFinal = $('#filtroFechaFinalGraficosLaboratorio').val();
 
     if (laboratorio == null || fechaInicio == '' || fechaFinal == '') {
 
@@ -566,7 +565,7 @@ function graficarEstadisticasPorFechaLab() {
 
         }, function (data, status) {
 
-            let datos = JSON.parse(data);
+            const datos = JSON.parse(data);
 
             document.getElementById("peticionesLabFechas").remove();
 
@@ -606,8 +605,8 @@ function graficarEstadisticasPorFechaLab() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -644,14 +643,13 @@ function graficarEstadisticasPorFechaLab() {
 //GRAFICA LA SEGUNDA SECCION DE ESTADISTICAS DE LABORATORIO
 function graficarEstadisticasLaboratorios() {
 
-    let laboratorioDatos = true;
-    let laboratorioMix = true;
-    let laboRecibidas = true;
-    let laboratorioCompletadas = true;
-    let laboratorioRechazado = true;
-    let laboratorio = $('#filtroLaboratorioGrafica').val();
-    let year = $('#filtroAnualGraficaLab').val();
-
+    const laboratorioDatos = true;
+    const laboratorioMix = true;
+    const laboRecibidas = true;
+    const laboratorioCompletadas = true;
+    const laboratorioRechazado = true;
+    const laboratorio = $('#filtroLaboratorioGrafica').val();
+    const year = $('#filtroAnualGraficaLab').val();
 
     if (laboratorio == null || year == '') {
 
@@ -670,11 +668,9 @@ function graficarEstadisticasLaboratorios() {
             laboratorioSend: laboratorio,
             yearSend: year,
 
-
-
         }, function (data, status) {
 
-            let datosLab = JSON.parse(data);
+            const datosLab = JSON.parse(data);
 
             document.getElementById("peticionesPorLaboratorio").remove();
 
@@ -694,8 +690,8 @@ function graficarEstadisticasLaboratorios() {
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'rgba(255, 255, 255, 0)';      // else
 
@@ -709,8 +705,8 @@ function graficarEstadisticasLaboratorios() {
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'rgba(255, 255, 255, 0)';      // else
 
@@ -724,8 +720,8 @@ function graficarEstadisticasLaboratorios() {
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'rgba(255, 255, 255, 0)';      // else
 
@@ -1035,10 +1031,10 @@ function graficarEstadisticasLaboratorios() {
 //GRAFICA LA PRIMERA SECCION DE DESARROLLADORES
 function graficarComparacionDesarrolladores() {
 
-    let graficaPorYear = true;
+    const graficaPorYear = true;
 
-    let desarrollador = $('#filtroDesarrolladorGrafica_all').val();
-    let year = $('#filtroAnualGraficaDesarrollador').val();
+    const desarrollador = $('#filtroDesarrolladorGrafica_all').val();
+    const year = $('#filtroAnualGraficaDesarrollador').val();
 
     if (desarrollador == null || year == '') {
 
@@ -1058,7 +1054,7 @@ function graficarComparacionDesarrolladores() {
 
         }, function (data, status) {
 
-            let datos = JSON.parse(data);
+            const datos = JSON.parse(data);
 
             document.getElementById("desarrolladorComparacion").remove();
 
@@ -1094,8 +1090,8 @@ function graficarComparacionDesarrolladores() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'rgba(255, 255, 255, 0)';      // else
 
@@ -1130,25 +1126,11 @@ function graficarComparacionDesarrolladores() {
 //GRAFICA LA TERCERA SECCION DE DESARROLLADORES
 function graficarDesarrolladoresSeccion3() {
 
-    let desComoaracion = true;
+    const desComoaracion = true;
 
-    // let completadas = true;
-
-    // let rechazadas = true;
-
-    // let pendientes = true;
-
-    // let desarrollo = true;
-
-    // let total = true;
-
-    //let valores_array = $('#filtroDesarrolladorGrafica_4').select2("val");
-
-    let valores_array = $('#multiple-checkboxes_desarrollador').val();
-
-    let fechaInicio = $('#filtroFechaInicioMultiple').val();
-
-    let fechaFinal = $('#filtroFechaFinalMultiple').val();
+    const valores_array = $('#multiple-checkboxes_desarrollador').val();
+    const fechaInicio = $('#filtroFechaInicioMultiple').val();
+    const fechaFinal = $('#filtroFechaFinalMultiple').val();
 
     // console.log(typeof (valores_array));
 
@@ -1171,18 +1153,18 @@ function graficarDesarrolladoresSeccion3() {
 
         }, function (data, status) {
 
-            let datos = JSON.parse(data);
+            const datos = JSON.parse(data);
 
-            let coloR = [];
+            const coloR = [];
 
-            let dynamicColors = function () {
-                var r = Math.floor(Math.random() * 255);
-                var g = Math.floor(Math.random() * 255);
-                var b = Math.floor(Math.random() * 255);
+            const dynamicColors = function () {
+                const r = Math.floor(Math.random() * 255);
+                const g = Math.floor(Math.random() * 255);
+                const b = Math.floor(Math.random() * 255);
                 return "rgba(" + r + "," + g + "," + b + "," + "0.2" + ")";
             };
 
-            for (let i in datos.nombres) {
+            for (const i in datos.nombres) {
 
                 coloR.push(dynamicColors());
             }
@@ -1208,8 +1190,8 @@ function graficarDesarrolladoresSeccion3() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1249,8 +1231,8 @@ function graficarDesarrolladoresSeccion3() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1290,8 +1272,8 @@ function graficarDesarrolladoresSeccion3() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1332,8 +1314,8 @@ function graficarDesarrolladoresSeccion3() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1373,8 +1355,8 @@ function graficarDesarrolladoresSeccion3() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1407,12 +1389,12 @@ function graficarDesarrolladoresSeccion3() {
 
 function graficarDesarrolladorMes() {
 
-    let desarrolladorDiasMes = true;
+    const desarrolladorDiasMes = true;
 
-    let laboratorio = $('#filtroDesarrolladorGrafica').val();
-    let fecha = $('#filtroMes_1').val();
-    let year = fecha.slice(0, -3);
-    let mes = fecha.slice(5);
+    const laboratorio = $('#filtroDesarrolladorGrafica').val();
+    const fecha = $('#filtroMes_1').val();
+    const year = fecha.slice(0, -3);
+    const mes = fecha.slice(5);
 
     if (laboratorio == null || year == '' || mes == '') {
 
@@ -1433,18 +1415,18 @@ function graficarDesarrolladorMes() {
 
         }, function (data, status) {
 
-            let datos = JSON.parse(data);
+            const datos = JSON.parse(data);
 
-            let coloR = [];
+            const coloR = [];
 
-            let dynamicColors = function () {
-                var r = Math.floor(Math.random() * 255);
-                var g = Math.floor(Math.random() * 255);
-                var b = Math.floor(Math.random() * 255);
+            const dynamicColors = function () {
+                const r = Math.floor(Math.random() * 255);
+                const g = Math.floor(Math.random() * 255);
+                const b = Math.floor(Math.random() * 255);
                 return "rgb(" + r + "," + g + "," + b + ")";
             };
 
-            for (let i in datos.valores) {
+            for (const i in datos.valores) {
 
                 coloR.push(dynamicColors());
             }
@@ -1472,8 +1454,8 @@ function graficarDesarrolladorMes() {
 
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'rgba(255, 255, 255, 0)';      // else
 
@@ -1512,11 +1494,11 @@ function graficarDesarrolladorMes() {
 //GRAFICA LA SEGUNDA SECCION DE DESARROLLADORES
 function graficarEstadisticasDesarrolladores() {
 
-    let graficaDesarrollador = true;
+    const graficaDesarrollador = true;
 
-    let desarrollador = $('#filtroDesarrolladorGrafica_3').val();
-    let fechaInicio = $('#filtroFechaInicioGraficosDesarrolladorPersonal').val();
-    let fechaFinal = $('#filtroFechaFinalGraficosDesarrolladorPersonal').val();
+    const desarrollador = $('#filtroDesarrolladorGrafica_3').val();
+    const fechaInicio = $('#filtroFechaInicioGraficosDesarrolladorPersonal').val();
+    const fechaFinal = $('#filtroFechaFinalGraficosDesarrolladorPersonal').val();
 
     if (desarrollador == null || fechaInicio == '' || fechaFinal == '') {
 
@@ -1537,9 +1519,7 @@ function graficarEstadisticasDesarrolladores() {
 
         }, function (data, status) {
 
-
-
-            let datos = JSON.parse(data);
+            const datos = JSON.parse(data);
             document.getElementById("desarrolladorGraficaPendiente").remove();
 
             let canvas1 = document.createElement("canvas");
@@ -1571,8 +1551,8 @@ function graficarEstadisticasDesarrolladores() {
                         borderWidth: 1,
                         datalabels: {
                             color: function (context) {
-                                let index = context.dataIndex;
-                                let value = context.dataset.data[index];
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
                                 return value <= 0 ? 'rgba(255, 255, 255, 0)' :  // draw negative values in red
                                     'black';      // else
 
@@ -1597,28 +1577,16 @@ function graficarEstadisticasDesarrolladores() {
             $('#totalDatosRechazados').text(datos.datosRechazados);
             $('#totalDatosDesarrollo').text(datos.datosDesarrollo);
 
-
-
-
-
         });
 
-
-
-
     }
-
-
-
-
-
 
 }
 
 //BUSCADOR SELECT2 PARA LAS GRAFICAS
 function buscadorLabGraficas() {
 
-    let boleanoLaboratorio = true;
+    const boleanoLaboratorio = true;
 
     $("#filtroLaboratorioGrafica").select2({
         placeholder: "Selecciona Laboratorio",
@@ -1644,8 +1612,6 @@ function buscadorLabGraficas() {
         }
     });
 
-
-
     $("#filtroLaboratorioGrafica_2").select2({
         placeholder: "Selecciona Laboratorio",
         theme: "bootstrap",
@@ -1670,16 +1636,11 @@ function buscadorLabGraficas() {
         }
     });
 
-
-
-
-
 }
 
 function buscadorEstadisticasDesarrolladores() {
-    let boleanoDesarrollador = true;
 
-
+    const boleanoDesarrollador = true;
 
     $("#filtroDesarrolladorGrafica_4").select2({
         placeholder: "Desarrollador",

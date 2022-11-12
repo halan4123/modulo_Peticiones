@@ -49,6 +49,8 @@ include 'filtros.php';
     <link rel="stylesheet" href="libs/Trumbowyg/dist/ui/trumbowyg.min.css">
 
     <!--MY CSS-->
+    <link rel="stylesheet" href="css/estructura.css">
+
     <link rel="stylesheet" href="css/general.css">
 
 
@@ -58,53 +60,137 @@ include 'filtros.php';
 
     <?php include 'modales.php'; ?>
 
-    <div class="container-fluid">
 
-        <div class="container-fluid">
+    <nav class="navbar navbar-inverse fondoHeader">
+        <div class="container-fluid ">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand not-active" href="#" style="color: white;">Módulo Peticiones</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" style="color: white;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-            <h2>Módulo Peticiones</h2>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a onfocus="displayData()" data-toggle="tab" href="#home">Peticiones</a></li>
-                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente(); " data-toggle="tab" href="#menu3">Graficos</a></li>
-                <li><a onfocus="displayDataDesarrollador()" data-toggle="tab" href="#menu1">Desarrolladores</a></li>
-                <li><a onfocus="displayDataSoporte()" data-toggle="tab" href="#menu2">Soporte</a></li>
 
-            </ul>
+    <div style="background: white;">
 
-            <div class="tab-content">
+        <div class="container-fluid text-center">
+            <div class="row content">
 
-                <div id="home" class="tab-pane fade in active">
+                <div class="col-sm-2 sidenav">
+                    <ul class="nav nav-pills nav-stacked">
 
-                    <?php include 'tablas/tablaPeticiones.php'; ?>
+                        <!-- <li class="active"><a onfocus="//displayData()" data-toggle="pill" href="#home">Peticiones</a></li> -->
 
+                        <li class="active"><a onfocus="displayDataPendientes()" data-toggle="pill" href="#peticionesPendientesVista">Peticiones Pendientes <span id="spanPeticionesPendientes" class="badge"></span></a></li>
+
+                        <li><a onfocus="displayDataDesarrollo()" data-toggle="pill" href="#peticionesDesarrolloVista">Peticiones En Desarrollo <span id="spanPeticionesDesarrollo" class="badge"></span></a></li>
+
+                        <li><a onfocus="displayDataCompletas()" data-toggle="pill" href="#peticionesSinEnviarVista">Peticiones Sin Enviar <span id="spanPeticionesSinEnviar" class="badge"></span></a></li>
+
+                        <li><a onfocus="displayData()" data-toggle="pill" href="#peticionesBuscadirVista">Historial De Peticiones</a></li>
+
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a onfocus="graficarEstadisticasGenerales(); graficarAnualmente();" data-toggle="pill" href="#menuGraficos">Graficas</a></li>
+                                <li><a onfocus="displayDataDesarrollador()" data-toggle="pill" href="#menuDesarrollador">Desarrolladores</a></li>
+                                <li><a onfocus="displayDataSoporte()" data-toggle="pill" href="#menuSoporte">Soporte</a></li>
+                                <li><a onfocus="mostrarModificacionesHistorial()" data-toggle="pill" href="#menuModificaciones">Modificaciones</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
                 </div>
 
-                <div id="menu3" class="tab-pane fade ">
 
-                    <?php include 'tablas/tablaGraficos.php'; ?>
+                <div class="col-sm-10 text-left">
+
+                    <div class="tab-content">
+
+                        <div id="peticionesPendientesVista" class="tab-pane fade in active" style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaPeticionesPendientes.php'; ?>
+
+                        </div>
+
+                        <div id="peticionesDesarrolloVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaPeticionesDesarrollo.php';
+                            ?>
+
+                        </div>
+
+                        <div id="peticionesSinEnviarVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaPeticionesSinEnviar.php';
+                            ?>
+
+                        </div>
+
+                        <div id="peticionesBuscadirVista" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaBuscadorPeticiones.php';
+                            ?>
+
+                        </div>
+
+
+                        <div id="menuGraficos" class="tab-pane fade " style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaGraficos.php';
+                            ?>
+
+                        </div>
+
+                        <div id="menuDesarrollador" class="tab-pane fade" style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaDesarrolladores.php';
+                            ?>
+
+                        </div>
+
+                        <div id="menuSoporte" class="tab-pane fade" style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaSoportes.php';
+                            ?>
+
+                        </div>
+
+                        <div id="menuModificaciones" class="tab-pane fade" style="padding-top: 20px;">
+
+                            <?php include 'tablas/tablaModificaciones.php';
+                            ?>
+
+                        </div>
+
+
+
+                    </div>
+
+
 
                 </div>
-
-                <div id="menu1" class="tab-pane fade">
-
-                    <?php include 'tablas/tablaDesarrolladores.php'; ?>
-
-                </div>
-
-                <div id="menu2" class="tab-pane fade">
-
-                    <?php include 'tablas/tablaSoportes.php'; ?>
-
-                </div>
-
 
             </div>
         </div>
 
-
-
     </div>
+
+
+
+
 
 
     <!--CDN DATATABLE-->

@@ -3,6 +3,13 @@ body {
 
 }
 
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:focus,
+.dropdown-menu>.active>a:hover {
+
+    background-color: rgb(288, 61, 81);
+}
+
 /*=====================================================================================================================
 COLORES BOTONES INFO
 =====================================================================================================================*/
@@ -17,36 +24,36 @@ COLORES BOTONES INFO
     background-color: #8e44ad;
     color: white;
 
-    
+
 }
 
 .color-buscador-btn-info {
     background-color: #138D75;
     color: white;
 
-    
+
 }
 
 .color-enviar-btn-info {
     background-color: #2E4053;
     color: white;
 
-    
+
 }
 
-.color-pendiente-btn-info:hover{
+.color-pendiente-btn-info:hover {
     color: white;
 }
 
-.color-desarrollo-btn-info:hover{
+.color-desarrollo-btn-info:hover {
     color: white;
 }
 
-.color-buscador-btn-info:hover{
+.color-buscador-btn-info:hover {
     color: white;
 }
 
-.color-enviar-btn-info:hover{
+.color-enviar-btn-info:hover {
     color: white;
 }
 
@@ -160,7 +167,8 @@ table tr .color-buscador-tabla {
 #displayDataTableDesarrollador,
 #displayDataTableSoporte,
 #tabla-historial,
-#display-historial {
+#display-historial,
+#displayDataTableHistorialModificaciones {
     overflow: auto;
 }
 
@@ -406,10 +414,6 @@ ESTILOS COLLAPSE
 /*=====================================================================================================================
 MEDIA QUERY 
 =====================================================================================================================*/
-
-
-
-
 @media screen and (max-width: 1199px) {
 
     .boton {

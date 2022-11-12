@@ -5,7 +5,7 @@
 //MUESTRA LA TABLA DE LA PESTAÑA DE BUSCADOR DE DESARROLLADORES
 function displayDataDesarrollador() {
 
-    let displayDataDesarrollador = true;
+    const displayDataDesarrollador = true;
 
     $.ajax({
         url: "app/desarrollador.php",
@@ -30,10 +30,10 @@ function displayDataDesarrollador() {
 //AGREGA DESARROLLADOR
 function agregarDesarrollador() {
 
-    let insertDesarrollador = true;
+    const insertDesarrollador = true;
 
-    let nombreDesarrolladorAdd = $('#nombreDesarrolladorAdd').val();
-    let apellidoDesarrolladorAdd = $('#apellidoDesarrolladorAdd').val();
+    const nombreDesarrolladorAdd = $('#nombreDesarrolladorAdd').val();
+    const apellidoDesarrolladorAdd = $('#apellidoDesarrolladorAdd').val();
 
 
     if (
@@ -97,7 +97,7 @@ function eliminarDesarrollador(id) {
         .then((willDelete) => {
             if (willDelete) {
 
-                let eliminarDesarrollador = true;
+                const eliminarDesarrollador = true;
 
                 $.ajax({
 
@@ -132,14 +132,14 @@ function eliminarDesarrollador(id) {
 //OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE VER
 function getInfoDesarrollador(id) {
 
-    let getInfoDesarrollador = true;
+    const getInfoDesarrollador = true;
 
     $.post("app/desarrollador.php", {
         getInfoDesarrolladorSend: getInfoDesarrollador,
         idSend: id
     }, function (data, status) {
 
-        let desarrollador = JSON.parse(data);
+        const desarrollador = JSON.parse(data);
 
         $('#idDesarrolladorSee').val(desarrollador.ID_DESARROLLADOR);
         $('#nombreDesarrolladorSee').val(desarrollador.NOMBRE);
@@ -153,14 +153,14 @@ function getInfoDesarrollador(id) {
 //OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfoDesarrollador(id) {
 
-    let getInfoUpdateDesarrollador = true;
+    const getInfoUpdateDesarrollador = true;
 
     $.post("app/desarrollador.php", {
         getInfoUpdateDesarrolladorSend: getInfoUpdateDesarrollador,
         idSend: id
     }, function (data, status) {
 
-        let desarrollador = JSON.parse(data);
+        const desarrollador = JSON.parse(data);
 
         $('#idHiddenDesarrollador').val(desarrollador.ID_DESARROLLADOR);
         $('#nombreDesarrolladorUpdate').val(desarrollador.NOMBRE);
@@ -174,11 +174,11 @@ function actualizarGetInfoDesarrollador(id) {
 //ACTUALIZA DESARROLLADOR
 function actualizarDesarrollador() {
 
-    let actualizarDesarrollador = true;
+    const actualizarDesarrollador = true;
 
-    let idHidden = $('#idHiddenDesarrollador').val();
-    let nombreActualizar = $('#nombreDesarrolladorUpdate').val();
-    let apellidoActualizar = $('#apellidoDesarrolladorUpdate').val();
+    const idHidden = $('#idHiddenDesarrollador').val();
+    const nombreActualizar = $('#nombreDesarrolladorUpdate').val();
+    const apellidoActualizar = $('#apellidoDesarrolladorUpdate').val();
 
     $.post("app/desarrollador.php", {
 

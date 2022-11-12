@@ -6,7 +6,7 @@
 function displayDataSoporte() {
 
 
-    let displayDataSoporte = true;
+    const displayDataSoporte = true;
 
     $.ajax({
         url: "app/soporte.php",
@@ -32,12 +32,12 @@ function displayDataSoporte() {
 //AGREGA SOPORTE
 function agregarSoporte() {
 
-    let insertSoporte = true;
+    const insertSoporte = true;
 
-    let nombreSoporteAdd = $('#nombreSoporteAdd').val();
-    let apellidoSoporteAdd = $('#apellidoSoporteAdd').val();
-    let numeroSoperteAdd = $('#numeroSoperteAdd').val();
-    let correoSoporteAdd = $('#correoSoporteAdd').val();
+    const nombreSoporteAdd = $('#nombreSoporteAdd').val();
+    const apellidoSoporteAdd = $('#apellidoSoporteAdd').val();
+    const numeroSoperteAdd = $('#numeroSoperteAdd').val();
+    const correoSoporteAdd = $('#correoSoporteAdd').val();
 
     if (nombreSoporteAdd == '' || apellidoSoporteAdd == '' || numeroSoperteAdd == '' || correoSoporteAdd == '' || isValidEmail(correoSoporteAdd) == false) {
 
@@ -92,7 +92,7 @@ function agregarSoporte() {
 //ELIMINA SOPORTE
 function eliminarSoporte(id) {
 
-    let eliminarSoporte = true;
+    const eliminarSoporte = true;
 
     swal({
         title: "¿Estas seguro?",
@@ -140,14 +140,14 @@ function eliminarSoporte(id) {
 //OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE VER
 function getInfoSoporte(id) {
 
-    let getInfoSoporte = true;
+    const getInfoSoporte = true;
 
     $.post("app/soporte.php", {
         getInfoSoporteSend: getInfoSoporte,
         idSend: id
     }, function (data, status) {
 
-        let soporte = JSON.parse(data);
+        const soporte = JSON.parse(data);
 
         $('#idSoporteSee').val(soporte.ID_SOPORTE);
         $('#nombreSoporteSee').val(soporte.NOMBRE);
@@ -165,14 +165,14 @@ function getInfoSoporte(id) {
 //OBTIENE LA INFORMACION PARA COLOCARLO EN EL MODAL DE ACTUALIZAR
 function actualizarGetInfoSoporte(id) {
 
-    let getInfoUpdateSoporte = true;
+    const getInfoUpdateSoporte = true;
 
     $.post("app/soporte.php", {
         getInfoUpdateSoporteSend: getInfoUpdateSoporte,
         idSend: id
     }, function (data, status) {
 
-        let soporte = JSON.parse(data);
+        const soporte = JSON.parse(data);
 
         $('#idHiddenSoporte').val(soporte.ID_SOPORTE);
         $('#nombreSoporteUpdate').val(soporte.NOMBRE);
@@ -188,13 +188,13 @@ function actualizarGetInfoSoporte(id) {
 //ACTUALIZA SOPORTE
 function actualizarSoporte() {
 
-    let actualizarSoporte = true;
+    const actualizarSoporte = true;
 
-    let idHidden = $('#idHiddenSoporte').val();
-    let nombreActualizar = $('#nombreSoporteUpdate').val();
-    let apellidoActualizar = $('#apellidoSoporteUpdate').val();
-    let numeroActualizar = $('#numeroSoperteUpdaate').val();
-    let correoActualizar = $('#correoSoporteUpdate').val();
+    const idHidden = $('#idHiddenSoporte').val();
+    const nombreActualizar = $('#nombreSoporteUpdate').val();
+    const apellidoActualizar = $('#apellidoSoporteUpdate').val();
+    const numeroActualizar = $('#numeroSoperteUpdaate').val();
+    const correoActualizar = $('#correoSoporteUpdate').val();
 
     if (isValidEmail(correoActualizar) == false) {
         swal({
@@ -248,6 +248,7 @@ function limpiarSoporte() {
 
 //FUNCION PARA SABER SI ES UN CORREO VALIDO
 function isValidEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //Si falla cambiar por let
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
